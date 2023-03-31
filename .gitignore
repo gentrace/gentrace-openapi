@@ -1,0 +1,23 @@
+# Ignore build artifacts and output files
+target/
+dist/
+generated/
+
+# Ignore IDE-specific files
+*.iml
+.idea/
+.vscode/
+
+# Ignore dependencies and their build artifacts
+node_modules/
+npm-debug.log
+
+# Ignore any secrets or sensitive information
+*.pem
+*.key
+*.env
+
+# Ignore temporary files and backups
+*~
+.DS_Store
+Thumbs.db

@@ -1,0 +1,216 @@
+openapi: "3.0.0"
+info:
+  title: Gentrace Ingestion API
+  description: These API routes are designed to ingest events from clients.
+  version: "0.0.1"
+servers:
+  - url: https://gentrace.ai/api/v1
+paths:
+  /pipeline-run:
+    post:
+      summary: Create a pipeline run
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                stepRuns:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      provider:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          invocation:
+                            type: string
+                          modelParams:
+                            type: object
+                            additionalProperties:
+                              anyOf:
+                                - type: boolean
+                                - type: string
+                                - type: number
+                          inputs:
+                            type: object
+                            additionalProperties:
+                              anyOf:
+                                - type: boolean
+                                - type: string
+                                - type: number
+                          outputs:
+                            type: object
+                            # Vendor-specific
+                            additionalProperties: true
+                      elapsedTime:
+                        type: integer
+                      startTime:
+                        type: string
+                        format: date-time
+                      endTime:
+                        type: string
+                        format: date-time
+              required:
+                - name
+                - stepRuns
+      responses:
+        "200":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineRunResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      x-gentraceMeta:
+        name: Store PipelineRun event
+        group: ingestion
+        path: pipeline-run
+        examples:
+          curl: |
+            curl -X POST \
+              -H 'Authorization: Bearer gen_api_NkztHpkHvl5Z8CXIHZJq3bFPHwO4eLj2dtkh9HGt' \
+              -H 'Content-Type: application/json' \
+              -d '{
+                    "name": "write-email",
+                    "stepRuns": [
+                      {
+                        "provider": {
+                          "name": "openai",
+                          "invocation": "openai_createCompletion",
+                          "modelParams": {
+                            "promptTemplate": "What'\''s {{ interestingFact }} in {{ location }}?"
+                          },
+                          "inputs": {
+                            "prompt": {
+                              "interestingFact": "the trendiest neighborhood",
+                              "location": "New York City"
+                            }
+                          },
+                          "outputs": {
+                            "choices": [
+                              {
+                                "text": "Williamsburg is the trendiest neighborhood in New York City."
+                              }
+                            ]
+                          }
+                        },
+                        "elapsedTime": 348,
+                        "startTime": "2023-03-23T21:16:37.188Z",
+                        "endTime": "2023-03-23T21:16:37.896Z"
+                      },
+                      {
+                        "provider": {
+                          "name": "openai",
+                          "invocation": "openai_createCompletion",
+                          "modelParams": {
+                            "promptTemplate": "Expand upon the provided paragraph: \\n\\n {{ locationFact }}"
+                          },
+                          "inputs": {
+                            "prompt": {
+                              "locationFact": "The trendiest neighborhood in NYC is Williamsburg."
+                            }
+                          },
+                          "outputs": {
+                            "choices": [
+                              {
+                                "text": "Williamsburg is a neighborhood located in the Brooklyn borough of New York City, and it has become one of the trendiest neighborhoods in the city over the past decade. Known for its artsy vibe, vintage shops, street art, and creative atmosphere, Williamsburg has attracted a young, hip crowd that has helped to transform the neighborhood into a hub for music, fashion, and nightlife."
+                              }
+                            ]
+                          }
+                        },
+                        "elapsedTime": 562,
+                        "startTime": "2023-03-23T21:16:38.248Z",
+                        "endTime": "2023-03-23T21:16:38.556Z"
+                      }
+                    ]
+                  }' \
+              https://gentrace.ai/api/v1/pipeline-run
+
+          node.js: |
+            const { Configuration, Gentrace } = require("@gentrace/node");
+
+            const configuration = new Configuration({
+              apiKey: process.env.GENTRACE_API_KEY,
+            });
+
+            const gentrace = new Gentrace(configuration);
+            
+            gentrace.pipelineRun({
+              name: "write-email",
+              stepRuns: [
+                {
+                  provider: {
+                    name: "openai",
+                    invocation: "openai_createCompletion",
+                    modelParams: {
+                      promptTemplate: "What's {{ interestingFact }} in {{ location }}?"
+                    },
+                    inputs: {
+                      prompt: {
+                        interestingFact: "the trendiest neighborhood",
+                        location: "New York City"
+                      }
+                    },
+                    outputs: {
+                      choices: [
+                        {
+                          text: "Williamsburg is the trendiest neighborhood in New York City."
+                        }
+                      ]
+                    }
+                  },
+                  elapsedTime: 348,
+                  startTime: "2023-03-23T21:16:37.188Z",
+                  endTime: "2023-03-23T21:16:37.896Z"
+                },
+                {
+                  provider: {
+                    name: "openai",
+                    invocation: "openai_createCompletion",
+                    modelParams: {
+                      promptTemplate: "Expand upon the provided paragraph: \n\n {{ locationFact }}"
+                    },
+                    inputs: {
+                      prompt: {
+                        locationFact: "The trendiest neighborhood in NYC is Williamsburg."
+                      }
+                    },
+                    outputs: {
+                      choices: [
+                        {
+                          text: "Williamsburg is a neighborhood located in the Brooklyn borough of New York City, and it has become one of the trendiest neighborhoods in the city over the past decade. Known for its artsy vibe, vintage shops, street art, and creative atmosphere, Williamsburg has attracted a young, hip crowd that has helped to transform the neighborhood into a hub for music, fashion, and nightlife."
+                        }
+                      ]
+                    }
+                  },
+                  elapsedTime: 562,
+                  startTime: "2023-03-23T21:16:38.248Z",
+                  endTime: "2023-03-23T21:16:38.556Z"
+                }
+              ]
+            });
+
+        response: |
+          {
+            "pipelineRunId": "13448D47-BD5D-4664-B6C3-0CB07D8CF2D2"
+          }
+
+components:
+  schemas:
+    PipelineRunResponse:
+      type: object
+      properties:
+        pipelineRunId:
+          type: string
+      example:
+        pipelineRunId: 13448D47-BD5D-4664-B6C3-0CB07D8CF2D2
+
