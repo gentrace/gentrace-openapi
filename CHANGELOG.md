@@ -31,4 +31,4 @@
 ## [0.0.3] - 2023-04-03
 
 ### Added
-- Initial release of the SDK
+- Initial release of the OpenAPI SDK
