@@ -45,16 +45,12 @@ jobs:
         # Assumes that all generated repositories are at relative path "../<original-repo-name>" 
         yarn build
         
-    - name: Change working directory
-      run: cd $GITHUB_WORKSPACE/gentrace-node
-        
     - uses: stefanzweifel/git-auto-commit-action@v4
       name: Commit the automated changes to the SDK repository
       with:
+        repository: gentrace-node
         commit_user_name: Gentrace Bot
         commit_user_email: bot@gentrace.ai
         commit_author: Gentrace Bot<bot@gentrace.ai>
         commit_message: |
           Update Node.JS SDK from OpenAPI repository: ${{ github.sha }}
-        
-    
