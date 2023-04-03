@@ -1,7 +1,7 @@
 {
   "name": "gentrace-openapi",
   "version": "0.0.1",
-  "description": "These API routes are designed to ingest events from clients.",
+  "description": "OpenAPI specification for Gentrace",
   "main": "index.js",
   "repository": "https://github.com/gentrace/gentrace-openapi",
   "author": "Gentrace",
@@ -10,6 +10,6 @@
     "@openapitools/openapi-generator-cli": "^2.5.2"
   },
   "scripts": {
-    "generate-node-ts": "npx @openapitools/openapi-generator-cli generate -i specs/ingestion-spec.yaml -g typescript-axios -o ../gentrace-node"
+    "generate-node-ts": "npx @openapitools/openapi-generator-cli generate -i specs/ingestion-spec.yaml -g typescript-axios -o ../gentrace-node --additional-properties=supportsES6=true,withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api"
   }
 }

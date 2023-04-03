@@ -4,6 +4,10 @@ info:
   title: Gentrace Ingestion API
   description: These API routes are designed to ingest events from clients.
   version: "0.0.1"
+  
+tags:
+- name: Gentrace
+  description: The Gentrace REST API for capturing feedback
 
 servers:
   - url: https://gentrace.ai/api/v1
@@ -14,6 +18,8 @@ security:
 paths:
   /feedback:
     post:
+      tags:
+      - Gentrace
       summary: Submit feedback for a pipeline run
       requestBody:
         required: true
