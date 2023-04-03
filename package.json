@@ -7,9 +7,12 @@
   "author": "Gentrace",
   "license": "MIT",
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.5.2"
+    "@openapitools/openapi-generator-cli": "^2.5.2",
+    "npm-run-all": "^4.1.5"
   },
   "scripts": {
-    "generate-node-ts": "npx @openapitools/openapi-generator-cli generate -i specs/ingestion-spec.yaml -g typescript-axios -o ../gentrace-node --additional-properties=supportsES6=true,withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api"
+    "generate": "run-p generate:*",
+    "generate:node-ts": "npx @openapitools/openapi-generator-cli generate -i specs/node.yaml -g typescript-axios -o ../gentrace-node --additional-properties=supportsES6=true,withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api",
+    "generate:browser-ts": "npx @openapitools/openapi-generator-cli generate -i specs/browser.yaml -g typescript-fetch -o ../gentrace-browser --additional-properties=supportsES6=true,withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api"
   }
 }
