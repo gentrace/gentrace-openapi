@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   generate:
-    name: Generate Node.JS SDK
+    name: Generate SDKs
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

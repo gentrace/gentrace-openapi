@@ -15,7 +15,6 @@
     "config": "run-p config:*",
     "config:node-spec": "envsubst '${npm_package_version}' < specs/node.yaml > specs/node-resolved.yaml",
     "config:browser-spec": "envsubst '${npm_package_version}' < specs/browser.yaml > specs/browser-resolved.yaml",
-    "config:oapi-spec": "envsubst '${npm_package_version}' < openapitools.json.template > openapitools.json",
     "generate": "run-p generate:*",
     "generate:node-ts": "npx @openapitools/openapi-generator-cli generate --generator-key node",
     "generate:browser-ts": "npx @openapitools/openapi-generator-cli generate --generator-key browser"
