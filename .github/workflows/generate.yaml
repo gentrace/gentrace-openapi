@@ -17,8 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       name: Checkout OpenAPI specification repository
-      with:
-        path: gentrace-openapi
         
     - uses: actions/setup-node@v3
       with:
