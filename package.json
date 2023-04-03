@@ -1,6 +1,6 @@
 {
   "name": "gentrace-openapi",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "OpenAPI specification for Gentrace",
   "main": "index.js",
   "repository": "https://github.com/gentrace/gentrace-openapi",
@@ -11,6 +11,10 @@
     "npm-run-all": "^4.1.5"
   },
   "scripts": {
+    "create:config:node-spec": "envsubst < specs/node.yaml > specs/node-resolved.yaml",
+    "create:config:browser-spec": "envsubst < specs/browser.yaml > specs/browser-resolved.yaml",
+    "create:config:oapi-spec": "envsubst < openapitools.json.template > openapitools.json",
+    "create:config": "run-p create:config:*",
     "generate": "run-p generate:*",
     "generate:node-ts": "npx @openapitools/openapi-generator-cli generate --generator-key node",
     "generate:browser-ts": "npx @openapitools/openapi-generator-cli generate --generator-key browser"

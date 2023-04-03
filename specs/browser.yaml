@@ -3,6 +3,7 @@ openapi: "3.0.0"
 info:
   title: Gentrace Feedback API
   description: These API routes are designed to ingest events from clients.
+  version: ${npm_package_version}
   
 tags:
 - name: Gentrace
