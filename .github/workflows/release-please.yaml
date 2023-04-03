@@ -22,12 +22,14 @@ jobs:
         name: Checkout OpenAPI specification repository
         with:
           path: gentrace-openapi
+        if: ${{ steps.release.outputs.release_created }}
           
       - uses: actions/setup-node@v3
         with:
           node-version: '18.15.0'
           cache: 'yarn'
           cache-dependency-path: gentrace-openapi/yarn.lock
+        if: ${{ steps.release.outputs.release_created }}
     
       - uses: actions/checkout@v3
         name: Checkout OpenAPI-generated NodeJS repository
@@ -35,6 +37,7 @@ jobs:
           path: gentrace-node
           repository: gentrace/gentrace-node
           token: ${{ secrets.GH_REPO_PAT }}
+        if: ${{ steps.release.outputs.release_created }}
           
       - name: Yarn install
         run: |
@@ -43,10 +46,12 @@ jobs:
         
           # Assumes that all generated repositories are at relative path "../<original-repo-name>" 
           yarn build
+        if: ${{ steps.release.outputs.release_created }}
           
       - name: Get package version
         run: |
           echo "version=$(jq ".version" gentrace-openapi/package.json)" >> $GITHUB_ENV
+        if: ${{ steps.release.outputs.release_created }}
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         name: Commit the automated changes to the SDK repository
@@ -57,4 +62,5 @@ jobs:
           commit_author: Gentrace Bot<bot@gentrace.ai>
           commit_message: |
             chore: updating OpenAI generated NodeJS logic to ${{ env.version }}
+        if: ${{ steps.release.outputs.release_created }}
 
