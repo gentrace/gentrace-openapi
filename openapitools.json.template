@@ -7,7 +7,7 @@
       "node": {
         "generatorName": "typescript-axios",
         "output": "../gentrace-node",
-        "inputSpec": "./specs/node.yaml",
+        "inputSpec": "./specs/node-resolved.yaml",
         "templateDir": "./sdk-template-overrides/typescript-axios",
         "additionalProperties": {
           "npmName": "@gentrace/node",
@@ -20,7 +20,7 @@
       "browser": {
         "generatorName": "typescript-axios",
         "output": "../gentrace-browser",
-        "inputSpec": "./specs/browser.yaml",
+        "inputSpec": "./specs/browser-resolved.yaml",
         "additionalProperties": {
           "supportsES6": true,
           "withSeparateModelsAndApi": true,
