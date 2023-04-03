@@ -28,6 +28,10 @@ jobs:
         ref: main
         path: gentrace-node
         
+    - run: |
+        echo "Testing.."
+        ls "$GITHUB_WORKSPACE"
+        
     - uses: actions/setup-node@v3
       with:
         node-version: '18.15.0'
