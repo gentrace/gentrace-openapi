@@ -19,6 +19,12 @@ jobs:
       name: Checkout OpenAPI specification repository
       with:
         path: gentrace-openapi
+        
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18.15.0'
+        cache: 'yarn'
+        cache-dependency-path: yarn.lock
    
     - uses: actions/checkout@v3
       name: Checkout OpenAPI-generated NodeJS repository
@@ -31,12 +37,6 @@ jobs:
     - run: |
         echo "Testing.."
         ls "$GITHUB_WORKSPACE"
-        
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '18.15.0'
-        cache: 'yarn'
-        cache-dependency-path: ${ GITHUB_WORKSPACE }/gentrace-openapi/yarn.lock
 
     - name: Yarn install (OpenAPI)
       run: |
