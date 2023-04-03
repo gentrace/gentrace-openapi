@@ -36,7 +36,7 @@ jobs:
       with:
         node-version: '18.15.0'
         cache: 'yarn'
-        cache-dependency-path: $GITHUB_WORKSPACE/gentrace-openapi/yarn.lock
+        cache-dependency-path: ${ GITHUB_WORKSPACE }/gentrace-openapi/yarn.lock
 
     - name: Yarn install (OpenAPI)
       run: |
