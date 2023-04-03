@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.8](https://github.com/gentrace/gentrace-openapi/compare/v0.0.7...v0.0.8) (2023-04-03)
+
+
+### Miscellaneous Chores
+
+* release 0.0.8 ([f744635](https://github.com/gentrace/gentrace-openapi/commit/f744635feaa48dc78cb5b3a32073aa2b2c23fc1d))
+
 ## [0.0.7](https://github.com/gentrace/gentrace-openapi/compare/v0.0.6...v0.0.7) (2023-04-03)
 
 
