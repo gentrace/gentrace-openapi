@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   title: Gentrace Ingestion API
-  description: These API routes are designed to ingest feedback from clients.
+  description: These API routes are designed to ingest events from clients.
   version: "0.0.1"
 servers:
   - url: https://gentrace.ai/api/v1
@@ -162,33 +162,57 @@ paths:
 
 components:
   schemas:
-    FeedbackRequest:
+    PipelineRunRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        stepRuns:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  invocation:
+                    type: string
+                  modelParams:
+                    type: object
+                    additionalProperties:
+                      anyOf:
+                        - type: boolean
+                        - type: string
+                        - type: number
+                  inputs:
+                    type: object
+                    additionalProperties:
+                      anyOf:
+                        - type: boolean
+                        - type: string
+                        - type: number
+                  outputs:
+                    type: object
+                    # Vendor-specific
+                    additionalProperties: true
+              elapsedTime:
+                type: integer
+              startTime:
+                type: string
+                format: date-time
+              endTime:
+                type: string
+                format: date-time
+      required:
+        - name
+        - stepRuns
+
+    PipelineRunResponse:
       type: object
       properties:
         pipelineRunId:
           type: string
-          format: uuid
-        rating:
-          type: string
-          enum: [positive, negative, neutral]
-        recordedTime:
-          type: string
-          format: date-time
-        details:
-          type: string
-          nullable: true
-      required:
-        - pipelineRunId
-        - rating
-        - recordedTime
-      additionalProperties: false
-    FeedbackResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Success
-      required:
-        - message
-      additionalProperties: false
-
+      example:
+        pipelineRunId: 13448D47-BD5D-4664-B6C3-0CB07D8CF2D2
