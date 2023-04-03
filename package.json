@@ -4,9 +4,12 @@
   "description": "These API routes are designed to ingest events from clients.",
   "main": "index.js",
   "repository": "https://github.com/gentrace/gentrace-openapi",
-  "author": "Vivek Nair <vivek@gentrace.ai>, Doug Safreno <doug@gentrace.ai>",
+  "author": "Gentrace",
   "license": "MIT",
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.5.2"
+  },
+  "scripts": {
+    "generate-node-ts": "npx @openapitools/openapi-generator-cli generate -i specs/ingestion-spec.yaml -g typescript-axios -o ../gentrace-node"
   }
 }
