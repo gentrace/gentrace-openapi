@@ -12,7 +12,7 @@
   },
   "scripts": {
     "generate": "run-p generate:*",
-    "generate:node-ts": "npx @openapitools/openapi-generator-cli generate -i specs/node.yaml -g typescript-axios -o ../gentrace-node --additional-properties=supportsES6=true,withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api",
-    "generate:browser-ts": "npx @openapitools/openapi-generator-cli generate -i specs/browser.yaml -g typescript-fetch -o ../gentrace-browser --additional-properties=supportsES6=true,withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api"
+    "generate:node-ts": "npx @openapitools/openapi-generator-cli generate --generator-key node",
+    "generate:browser-ts": "npx @openapitools/openapi-generator-cli generate --generator-key browser"
   }
 }

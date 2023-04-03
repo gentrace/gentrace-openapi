@@ -2,6 +2,32 @@
   "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "6.4.0"
+    "version": "6.4.0",
+    "generators": {
+      "node": {
+        "generatorName": "typescript-axios",
+        "output": "../gentrace-node",
+        "inputSpec": "./specs/node.yaml",
+        "templateDir": "./sdk-template-overrides/typescript-axios",
+        "additionalProperties": {
+          "npmName": "@gentrace/node",
+          "npmVersion": "0.0.1",
+          "withSeparateModelsAndApi": true,
+          "modelPackage": "models",
+          "apiPackage": "api"
+        }
+      },
+      "browser": {
+        "generatorName": "typescript-axios",
+        "output": "../gentrace-browser",
+        "inputSpec": "./specs/browser.yaml",
+        "additionalProperties": {
+          "supportsES6": true,
+          "withSeparateModelsAndApi": true,
+          "modelPackage": "models",
+          "apiPackage": "api"
+        }
+      }
+    }
   }
 }
