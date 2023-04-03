@@ -57,4 +57,4 @@ jobs:
         commit_user_email: bot@gentrace.ai
         commit_author: Gentrace Bot<bot@gentrace.ai>
         commit_message: |
-          chore: updating OpenAI generated NodeJS logic to ${{ env.version }} (${GITHUB_SHA::7})
+          chore: updating OpenAI generated NodeJS logic to ${{ env.version }}
