@@ -1,0 +1,57 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - package.json
+      
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    name: Generate Node.JS SDK
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      name: Checkout OpenAPI specification repository
+      with:
+        path: gentrace-openapi
+   
+    - uses: actions/checkout@v3
+      name: Checkout OpenAPI-generated NodeJS repository
+      with:
+        repository: gentrace/gentrace-node
+        token: ${{ secrets.GH_REPO_PAT }}
+        ref: main
+        path: gentrace-node
+        
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18.15.0'
+        cache: 'yarn'
+        cache-dependency-path: $GITHUB_WORKSPACE/gentrace-openapi/yarn.lock
+
+    - name: Yarn install (OpenAPI)
+      run: |
+        cd $GITHUB_WORKSPACE/gentrace-openapi
+        yarn install
+       
+        # Assumes that all generated repositories are at relative path "../<original-repo-name>" 
+        yarn build
+        
+    - name: Change working directory
+      run: cd $GITHUB_WORKSPACE/gentrace-node
+        
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      name: Commit the automated changes to the SDK repository
+      with:
+        commit_user_name: Gentrace Bot
+        commit_user_email: bot@gentrace.ai
+        commit_author: Gentrace Bot<bot@gentrace.ai>
+        commit_message: |
+          Update Node.JS SDK from OpenAPI repository: ${{ github.sha }}
+        
+    
