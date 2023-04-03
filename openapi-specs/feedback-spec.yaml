@@ -1,0 +1,100 @@
+openapi: "3.0.0"
+info:
+  title: Gentrace Ingestion API
+  description: These API routes are designed to ingest events from clients.
+  version: "0.0.1"
+servers:
+  - url: https://gentrace.ai/api/v1
+paths:
+  /feedback:
+    post:
+      summary: Submit feedback for a pipeline run
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FeedbackRequest"
+      responses:
+        "200":
+          description: Feedback submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackResponse"
+        "400":
+          description: Invalid feedback payload
+        "500":
+          description: Server error
+        
+    x-gentraceMeta:
+      name: Store feedback event
+      group: ingestion
+      path: feedback
+      examples:
+        curl: |
+          curl -X POST \
+            -H 'Authorization: Bearer gen_api_NkztHpkHvl5Z8CXIHZJq3bFPHwO4eLj2dtkh9HGt' \
+            -H 'Content-Type: application/json' \
+            -d '{
+              "pipelineRunId": "cc22e63c-1c9a-4cbb-a8ee-7f764eabf97d",
+              "rating": "positive",
+              "recordedTime": "2023-03-31T15:00:00.000Z",
+              "details": "This generated output communicated my voice wonderfully!"
+            }' \
+            https://gentrace.ai/api/v1/feedback
+
+        node.js: |
+          const { Configuration, Gentrace } = require("@gentrace/node");
+
+          const configuration = new Configuration({
+            apiKey: process.env.GENTRACE_API_KEY,
+          });
+
+          const gentrace = new Gentrace(configuration);
+          
+          gentrace.feedback({
+            pipelineRunId: "cc22e63c-1c9a-4cbb-a8ee-7f764eabf97d",
+            rating: "positive",
+            recordedTime: "2023-03-31T15:00:00.000Z",
+            details: "This generated output communicated my voice wonderfully!"
+          });
+
+      response: |
+        {
+          "pipelineRunId": "13448D47-BD5D-4664-B6C3-0CB07D8CF2D2"
+        }
+
+
+components:
+  schemas:
+    FeedbackRequest:
+      type: object
+      properties:
+        pipelineRunId:
+          type: string
+          format: uuid
+        rating:
+          type: string
+          enum: [positive, negative, neutral]
+        recordedTime:
+          type: string
+          format: date-time
+        details:
+          type: string
+          nullable: true
+      required:
+        - pipelineRunId
+        - rating
+        - recordedTime
+      additionalProperties: false
+    FeedbackResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Success
+      required:
+        - message
+      additionalProperties: false
+
