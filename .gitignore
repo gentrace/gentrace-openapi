@@ -2,6 +2,7 @@
 target/
 dist/
 generated/
+output
 
 # Ignore IDE-specific files
 *.iml

@@ -1,10 +1,16 @@
 openapi: "3.0.0"
+
 info:
   title: Gentrace Ingestion API
   description: These API routes are designed to ingest events from clients.
   version: "0.0.1"
+
 servers:
   - url: https://gentrace.ai/api/v1
+
+security:
+  - bearerAuth: []
+
 paths:
   /pipeline-run:
     post:
@@ -161,6 +167,11 @@ paths:
           }
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
   schemas:
     PipelineRunRequest:
       type: object
