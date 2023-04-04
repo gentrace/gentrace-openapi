@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/gentrace/gentrace-openapi/compare/v0.1.1...v0.1.2) (2023-04-04)
+
+
+### Bug Fixes
+
+* add in configuration to allow API keys/client tokens to pass through to Gentrace servers ([3985c4c](https://github.com/gentrace/gentrace-openapi/commit/3985c4c5f0506fe229b90dfbae6c902061891465))
+
 ## [0.1.1](https://github.com/gentrace/gentrace-openapi/compare/v0.1.0...v0.1.1) (2023-04-04)
 
 
