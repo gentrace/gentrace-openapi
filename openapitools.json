@@ -8,6 +8,7 @@
         "generatorName": "typescript-axios",
         "output": "../gentrace-node",
         "inputSpec": "./specs/node-resolved.yaml",
+        "templateDir": "./templates/node",
         "additionalProperties": {
           "npmName": "@gentrace/node",
           "withSeparateModelsAndApi": true,
