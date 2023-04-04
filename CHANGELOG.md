@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.3](https://github.com/gentrace/gentrace-openapi/compare/v0.1.2...v0.1.3) (2023-04-04)
+
+
+### Bug Fixes
+
+* accidentally copied values I shouldn't have ([853d2d4](https://github.com/gentrace/gentrace-openapi/commit/853d2d453aefb2a214835856082d420c83ca421e))
+
+
+### Miscellaneous Chores
+
+* release 0.1.3 ([b7b3b29](https://github.com/gentrace/gentrace-openapi/commit/b7b3b29a3ba80e08c8feb7e400cfe3e75a7951db))
+
 ## [0.1.2](https://github.com/gentrace/gentrace-openapi/compare/v0.1.1...v0.1.2) (2023-04-04)
 
 
