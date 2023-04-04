@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/gentrace/gentrace-openapi/compare/v0.1.0...v0.1.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* move template to templates/node ([7816eb5](https://github.com/gentrace/gentrace-openapi/commit/7816eb51a025080539a73435e65675b9220cfc8a))
+
 ## [0.1.0](https://github.com/gentrace/gentrace-openapi/compare/v0.0.14...v0.1.0) (2023-04-04)
 
 
