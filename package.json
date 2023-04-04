@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "run-s config generate",
+    "bump-patch": "./scripts/bump-patch",
     "config": "run-p config:*",
     "config:node-spec": "envsubst '${npm_package_version}' < specs/node.yaml > specs/node-resolved.yaml",
     "config:browser-spec": "envsubst '${npm_package_version}' < specs/browser.yaml > specs/browser-resolved.yaml",
