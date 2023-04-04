@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/gentrace/gentrace-openapi/compare/v0.1.3...v0.1.4) (2023-04-04)
+
+
+### Bug Fixes
+
+* switch to ES6 support ([7b578cb](https://github.com/gentrace/gentrace-openapi/commit/7b578cb6f345de042cb7641a7eed802db2e28d93))
+
 ## [0.1.3](https://github.com/gentrace/gentrace-openapi/compare/v0.1.2...v0.1.3) (2023-04-04)
 
 
