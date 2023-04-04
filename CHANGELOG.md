@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0](https://github.com/gentrace/gentrace-openapi/compare/v0.0.14...v0.1.0) (2023-04-04)
+
+
+### Features
+
+* add in custom logic linking in index.mustache ([5431277](https://github.com/gentrace/gentrace-openapi/commit/5431277db05b83b046932ae0d64f3cb9fe58d9ec))
+
 ## [0.0.14](https://github.com/gentrace/gentrace-openapi/compare/v0.0.13...v0.0.14) (2023-04-04)
 
 
