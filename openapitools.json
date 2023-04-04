@@ -11,6 +11,7 @@
         "templateDir": "./templates/node",
         "additionalProperties": {
           "npmName": "@gentrace/node",
+          "supportsES6": true,
           "withSeparateModelsAndApi": true,
           "modelPackage": "models",
           "apiPackage": "api"
@@ -23,6 +24,7 @@
         "templateDir": "./templates/browser",
         "additionalProperties": {
           "npmName": "@gentrace/browser",
+          "supportsES6": true,
           "withSeparateModelsAndApi": true,
           "modelPackage": "models",
           "apiPackage": "api"
