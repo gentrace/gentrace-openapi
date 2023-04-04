@@ -33,10 +33,18 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
     
       - uses: actions/checkout@v3
-        name: Checkout OpenAPI-generated NodeJS repository
+        name: Checkout OpenAPI-generated NodeJS SDK
         with:
           path: gentrace-node
           repository: gentrace/gentrace-node
+          token: ${{ secrets.GH_REPO_PAT }}
+        if: ${{ steps.release.outputs.release_created }}
+        
+      - uses: actions/checkout@v3
+        name: Checkout OpenAPI-generated browser SDK
+        with:
+          path: gentrace-browser
+          repository: gentrace/gentrace-browser
           token: ${{ secrets.GH_REPO_PAT }}
         if: ${{ steps.release.outputs.release_created }}
           
@@ -55,7 +63,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
 
       - uses: stefanzweifel/git-auto-commit-action@v4
-        name: Commit the automated changes to the SDK repository
+        name: Commit the automated changes to the Node.JS SDK repository
         with:
           repository: gentrace-node
           commit_user_name: Gentrace Bot
@@ -65,3 +73,13 @@ jobs:
             chore: updating OpenAI generated NodeJS logic to ${{ env.version }}
         if: ${{ steps.release.outputs.release_created }}
 
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        name: Commit the automated changes to the browser SDK repository
+        with:
+          repository: gentrace-browser
+          commit_user_name: Gentrace Bot
+          commit_user_email: bot@gentrace.ai
+          commit_author: Gentrace Bot<bot@gentrace.ai>
+          commit_message: |
+            chore: updating OpenAI generated NodeJS logic to ${{ env.version }}
+        if: ${{ steps.release.outputs.release_created }}

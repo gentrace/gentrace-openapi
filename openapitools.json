@@ -20,7 +20,7 @@
         "output": "../gentrace-browser",
         "inputSpec": "./specs/browser-resolved.yaml",
         "additionalProperties": {
-          "supportsES6": true,
+          "npmName": "@gentrace/browser",
           "withSeparateModelsAndApi": true,
           "modelPackage": "models",
           "apiPackage": "api"
