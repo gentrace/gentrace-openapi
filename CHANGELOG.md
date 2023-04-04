@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.12](https://github.com/gentrace/gentrace-openapi/compare/v0.0.12...v0.0.12) (2023-04-04)
+
+
+### Miscellaneous Chores
+
+* release 0.0.12 ([0d65457](https://github.com/gentrace/gentrace-openapi/commit/0d65457cea3dd300d0898f65c5281d4d9c8c0021))
+
 ## [0.0.12](https://github.com/gentrace/gentrace-openapi/compare/v0.0.11...v0.0.12) (2023-04-04)
 
 
