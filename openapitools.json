@@ -19,6 +19,7 @@
         "generatorName": "typescript-axios",
         "output": "../gentrace-browser",
         "inputSpec": "./specs/browser-resolved.yaml",
+        "templateDir": "./templates/browser",
         "additionalProperties": {
           "npmName": "@gentrace/browser",
           "withSeparateModelsAndApi": true,
