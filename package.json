@@ -1,6 +1,6 @@
 {
   "name": "gentrace-openapi",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "OpenAPI specification for Gentrace",
   "main": "index.js",
   "repository": "https://github.com/gentrace/gentrace-openapi",
