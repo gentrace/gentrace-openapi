@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/gentrace/gentrace-openapi/compare/v0.1.4...v0.1.5) (2023-04-05)
+
+
+### Bug Fixes
+
+* add header for repository ([16636fe](https://github.com/gentrace/gentrace-openapi/commit/16636fef1b8ecde260157e9571727cc6e71c8aab))
+
 ## [0.1.4](https://github.com/gentrace/gentrace-openapi/compare/v0.1.3...v0.1.4) (2023-04-04)
 
 
