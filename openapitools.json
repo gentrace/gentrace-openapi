@@ -6,7 +6,7 @@
     "generators": {
       "node": {
         "generatorName": "typescript-axios",
-        "output": "../gentrace-node",
+        "output": "../gentrace-node/package",
         "inputSpec": "./specs/node-resolved.yaml",
         "templateDir": "./templates/node",
         "additionalProperties": {
