@@ -48,7 +48,7 @@ jobs:
           token: ${{ secrets.GH_REPO_PAT }}
         if: ${{ steps.release.outputs.release_created }}
           
-      - name: Yarn install
+      - name: Install and build
         run: |
           cd $GITHUB_WORKSPACE/gentrace-openapi
           yarn install
