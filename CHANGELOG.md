@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/gentrace/gentrace-openapi/compare/v0.1.5...v0.1.6) (2023-04-06)
+
+
+### Bug Fixes
+
+* specify the output location ([ab3cba4](https://github.com/gentrace/gentrace-openapi/commit/ab3cba4cf2e7e7be7d339c73754555fcf8564afe))
+
 ## [0.1.5](https://github.com/gentrace/gentrace-openapi/compare/v0.1.4...v0.1.5) (2023-04-05)
 
 
