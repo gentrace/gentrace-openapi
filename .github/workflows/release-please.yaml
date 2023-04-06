@@ -48,7 +48,7 @@ jobs:
           token: ${{ secrets.GH_REPO_PAT }}
         if: ${{ steps.release.outputs.release_created }}
           
-      - name: Install and build
+      - name: Install and generate (OpenAPI)
         run: |
           cd $GITHUB_WORKSPACE/gentrace-openapi
           yarn install
@@ -56,7 +56,15 @@ jobs:
           # Assumes that all generated repositories are at relative path "../<original-repo-name>" 
           yarn build
         if: ${{ steps.release.outputs.release_created }}
+
+      - name: Install (NodeJS)
+        run: |
+          cd $GITHUB_WORKSPACE/gentrace-node
           
+          # Installs the necesary Husky commit hooks
+          yarn install
+        if: ${{ steps.release.outputs.release_created }}
+
       - name: Get package version
         run: |
           echo "version=$(jq ".version" gentrace-openapi/package.json)" >> $GITHUB_ENV
