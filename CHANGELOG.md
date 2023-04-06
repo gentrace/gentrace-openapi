@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/gentrace/gentrace-openapi/compare/v0.1.9...v0.1.10) (2023-04-06)
+
+
+### Bug Fixes
+
+* hacky fix for workflow ([ff35387](https://github.com/gentrace/gentrace-openapi/commit/ff35387c0280abf5a880e72d16dbc3b3b53c6ecc))
+
 ## [0.1.9](https://github.com/gentrace/gentrace-openapi/compare/v0.1.8...v0.1.9) (2023-04-06)
 
 
