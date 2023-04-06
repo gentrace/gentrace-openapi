@@ -63,6 +63,7 @@ jobs:
           
           # Installs the necesary Husky commit hooks
           yarn install
+          npx lint-staged
         if: ${{ steps.release.outputs.release_created }}
 
       - name: Get package version
