@@ -92,3 +92,9 @@ jobs:
           commit_message: |
             chore: updating OpenAI generated NodeJS logic to ${{ env.version }}
         if: ${{ steps.release.outputs.release_created }}
+
+      - name: Run `openapi` command 🚀
+        uses: readmeio/rdme@v8
+        with:
+          rdme: openapi specs/node-resolved.yaml --key=${{ secrets.README_API_KEY }} --id=643081f907460f03415ae770
+        if: ${{ steps.release.outputs.release_created }}
