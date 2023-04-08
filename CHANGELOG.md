@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/gentrace/gentrace-openapi/compare/v0.2.1...v0.2.2) (2023-04-08)
+
+
+### Bug Fixes
+
+* fix paths to resolved spec ([6e6932e](https://github.com/gentrace/gentrace-openapi/commit/6e6932e2336e3a536e70427c6553230c0258f2a8))
+
 ## [0.2.1](https://github.com/gentrace/gentrace-openapi/compare/v0.2.0...v0.2.1) (2023-04-08)
 
 
