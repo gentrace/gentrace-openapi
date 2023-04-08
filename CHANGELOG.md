@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0](https://github.com/gentrace/gentrace-openapi/compare/v0.1.10...v0.2.0) (2023-04-08)
+
+
+### Features
+
+* reorganize the workspace to simplify ([4b3ff74](https://github.com/gentrace/gentrace-openapi/commit/4b3ff74128aca72c8a3d6361b84a30eaf53bb2f5))
+
+
+### Bug Fixes
+
+* add in auto publish for ReadMe OpenAI specs ([137f881](https://github.com/gentrace/gentrace-openapi/commit/137f881c33e89c062fa4789193398619d8a6f403))
+* modify workflow ([c0cf917](https://github.com/gentrace/gentrace-openapi/commit/c0cf917fc33d1b4527bc54bd15be47562861ee80))
+
 ## [0.1.10](https://github.com/gentrace/gentrace-openapi/compare/v0.1.9...v0.1.10) (2023-04-06)
 
 
