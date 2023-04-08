@@ -96,5 +96,5 @@ jobs:
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi dist/spec-resolved.yaml --key=${{ secrets.README_API_KEY }} --id=6431dd9f738f430042c220a4
+          rdme: openapi gentrace-openapi/dist/spec-resolved.yaml --key=${{ secrets.README_API_KEY }} --id=6431dd9f738f430042c220a4
         if: ${{ steps.release.outputs.release_created }}
