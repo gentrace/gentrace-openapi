@@ -1,6 +1,8 @@
 import fs from "fs-extra";
 import yaml from "js-yaml";
 
+const RESOLVED_SPEC_LOCATION = "dist/spec-resolved.yaml";
+
 type OpenAPISpec = {
   paths: {
     [endpoint: string]: {
@@ -12,7 +14,7 @@ type OpenAPISpec = {
 };
 
 const ingestionSpec = yaml.load(
-  fs.readFileSync("spec.yaml", "utf8")
+  fs.readFileSync(RESOLVED_SPEC_LOCATION, "utf8")
 ) as OpenAPISpec;
 
 const ingestionTag = "Ingestion";
@@ -28,7 +30,7 @@ fs.mkdirpSync("dist");
 fs.writeFileSync("dist/node.yaml", yaml.dump(ingestionSpec));
 
 const feedbackSpec = yaml.load(
-  fs.readFileSync("spec.yaml", "utf8")
+  fs.readFileSync(RESOLVED_SPEC_LOCATION, "utf8")
 ) as OpenAPISpec;
 
 const feedbackTag = "Feedback";
