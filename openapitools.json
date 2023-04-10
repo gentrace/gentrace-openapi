@@ -17,6 +17,14 @@
           "apiPackage": "api"
         }
       },
+      "python": {
+        "generatorName": "python-nextgen",
+        "output": "../gentrace-python/package",
+        "inputSpec": "./dist/node.yaml",
+        "additionalProperties": {
+          "packageName": "gentrace"
+        }
+      },
       "browser": {
         "generatorName": "typescript-axios",
         "output": "../gentrace-browser",
