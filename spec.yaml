@@ -33,6 +33,9 @@ paths:
         "200":
           description: Stored pipeline run
           content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/PipelineRunResponse'
             application/json:
               schema:
                 $ref: '#/components/schemas/PipelineRunResponse'
@@ -191,6 +194,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FeedbackResponse"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/FeedbackResponse"
         "400":
           description: Invalid feedback payload
         "500":
@@ -265,6 +271,7 @@ components:
                         - type: boolean
                         - type: string
                         - type: number
+                        - type: object
                   inputs:
                     type: object
                     additionalProperties:
@@ -272,6 +279,7 @@ components:
                         - type: boolean
                         - type: string
                         - type: number
+                        - type: object
                   outputs:
                     type: object
                     # Vendor-specific
