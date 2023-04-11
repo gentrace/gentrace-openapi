@@ -29,7 +29,7 @@
     ]
   },
   "scripts": {
-    "build": "run-s sconfig generate",
+    "build": "run-s sconfig generate ",
     "clean": "rimraf dist",
     "bump-patch": "./scripts/bump-patch",
     "sconfig": "run-s sconfig:spec-version sconfig:create-custom-specs",
