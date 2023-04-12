@@ -70,21 +70,6 @@ jobs:
         run: |
           echo "version=$(jq ".version" gentrace-openapi/package.json)" >> $GITHUB_ENV
         if: ${{ steps.release.outputs.release_created }}
-
-      # - uses: stefanzweifel/git-auto-commit-action@v4
-      #   name: Commit the automated changes to the Node.JS SDK repository
-      #   with:
-      #     repository: gentrace-node
-      #     branch: openapi-${{ env.version }}
-      #     create_branch: true
-      #     add_options: '.'
-      #     push_options: '--force'
-      #     commit_user_name: Gentrace Bot
-      #     commit_user_email: bot@gentrace.ai
-      #     commit_author: Gentrace Bot<bot@gentrace.ai>
-      #     commit_message: |
-      #       chore: updating OpenAI generated NodeJS logic to ${{ env.version }}
-      #   if: ${{ steps.release.outputs.release_created }}
         
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
@@ -98,27 +83,14 @@ jobs:
           base: main
         if: ${{ steps.release.outputs.release_created }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        name: Commit the automated changes to the browser SDK repository
-        with:
-          repository: gentrace-browser
-          branch: openapi-${{ env.version }}
-          create_branch: true
-          add_options: '.'
-          push_options: '--force'
-          commit_user_name: Gentrace Bot
-          commit_user_email: bot@gentrace.ai
-          commit_author: Gentrace Bot<bot@gentrace.ai>
-          commit_message: |
-            chore: updating OpenAI generated NodeJS logic to ${{ env.version }}
-        if: ${{ steps.release.outputs.release_created }}
-        
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           path: gentrace-browser
           token: ${{ secrets.GH_REPO_PAT }}
-          title: "chore: updating OpenAI generated NodeJS logic to ${{ env.version }}"
+          committer: Gentrace Bot<bot@gentrace.ai>
+          author: Gentrace Bot<bot@gentrace.ai>
+          title: "chore: updating OpenAI generated browser logic to ${{ env.version }}"
           branch: openapi-${{ env.version }}
           base: main
         if: ${{ steps.release.outputs.release_created }}
