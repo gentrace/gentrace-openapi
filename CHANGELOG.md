@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/gentrace/gentrace-openapi/compare/v0.3.1...v0.3.2) (2023-04-12)
+
+
+### Bug Fixes
+
+* add in token for PR creation ([#39](https://github.com/gentrace/gentrace-openapi/issues/39)) ([4cde3e0](https://github.com/gentrace/gentrace-openapi/commit/4cde3e03d5526b09166b293f064de9151fedd2d8))
+
 ## [0.3.1](https://github.com/gentrace/gentrace-openapi/compare/v0.3.0...v0.3.1) (2023-04-12)
 
 
