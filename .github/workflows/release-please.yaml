@@ -90,6 +90,7 @@ jobs:
           title: "chore: updating OpenAI generated NodeJS logic to ${{ env.version }}"
           branch: openapi-${{ env.version }}
           base: main
+        if: ${{ steps.release.outputs.release_created }}
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         name: Commit the automated changes to the browser SDK repository
@@ -110,6 +111,7 @@ jobs:
           title: "chore: updating OpenAI generated NodeJS logic to ${{ env.version }}"
           branch: openapi-${{ env.version }}
           base: main
+        if: ${{ steps.release.outputs.release_created }}
 
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
