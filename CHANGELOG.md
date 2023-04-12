@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/gentrace/gentrace-openapi/compare/v0.3.8...v0.4.0) (2023-04-12)
+
+
+### Features
+
+* add Python  ([#53](https://github.com/gentrace/gentrace-openapi/issues/53)) ([ac3f462](https://github.com/gentrace/gentrace-openapi/commit/ac3f462e64b3efac0a8eb68306161d14f4c7056f))
+
+
+### Bug Fixes
+
+* should not fire on non-release actions ([#55](https://github.com/gentrace/gentrace-openapi/issues/55)) ([8a6080e](https://github.com/gentrace/gentrace-openapi/commit/8a6080e38560f6c685086346a48675a77f297be3))
+
 ## [0.3.8](https://github.com/gentrace/gentrace-openapi/compare/v0.3.7...v0.3.8) (2023-04-12)
 
 
