@@ -75,6 +75,7 @@ jobs:
         name: Commit the automated changes to the Node.JS SDK repository
         with:
           repository: gentrace-node
+          token: ${{ secrets.GH_REPO_PAT }}
           branch: openapi-${{ env.version }}
           create_branch: true
           commit_user_name: Gentrace Bot
@@ -97,6 +98,7 @@ jobs:
         name: Commit the automated changes to the browser SDK repository
         with:
           repository: gentrace-browser
+          token: ${{ secrets.GH_REPO_PAT }}
           branch: openapi-${{ env.version }}
           create_branch: true
           commit_user_name: Gentrace Bot
