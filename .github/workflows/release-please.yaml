@@ -76,6 +76,9 @@ jobs:
         with:
           repository: gentrace-node
           branch: openapi-${{ env.version }}
+          create_branch: true
+          add_options: '.'
+          push_options: '--force'
           commit_user_name: Gentrace Bot
           commit_user_email: bot@gentrace.ai
           commit_author: Gentrace Bot<bot@gentrace.ai>
@@ -98,6 +101,9 @@ jobs:
         with:
           repository: gentrace-browser
           branch: openapi-${{ env.version }}
+          create_branch: true
+          add_options: '.'
+          push_options: '--force'
           commit_user_name: Gentrace Bot
           commit_user_email: bot@gentrace.ai
           commit_author: Gentrace Bot<bot@gentrace.ai>
