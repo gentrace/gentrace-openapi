@@ -35,7 +35,7 @@
     "sconfig": "run-s sconfig:spec-version sconfig:create-custom-specs",
     "sconfig:spec-version": "mkdir -p dist && envsubst '${npm_package_version}' < spec.yaml > dist/spec-resolved.yaml",
     "sconfig:create-custom-specs": "ts-node ./scripts/create-custom-specs.ts",
-    "generate": "run-s generate:*",
+    "generate": "npx @openapitools/openapi-generator-cli generate",
     "generate:node-ts": "npx @openapitools/openapi-generator-cli generate --generator-key node",
     "generate:python": "npx @openapitools/openapi-generator-cli generate --generator-key python",
     "generate:browser-ts": "npx @openapitools/openapi-generator-cli generate --generator-key browser"
