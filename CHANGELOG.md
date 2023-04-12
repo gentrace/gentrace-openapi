@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.8](https://github.com/gentrace/gentrace-openapi/compare/v0.3.7...v0.3.8) (2023-04-12)
+
+
+### Bug Fixes
+
+* make browser PR work ([#51](https://github.com/gentrace/gentrace-openapi/issues/51)) ([7f21319](https://github.com/gentrace/gentrace-openapi/commit/7f21319fd47540b47c789ef6ed1e9d434ed403b4))
+
 ## [0.3.7](https://github.com/gentrace/gentrace-openapi/compare/v0.3.6...v0.3.7) (2023-04-12)
 
 
