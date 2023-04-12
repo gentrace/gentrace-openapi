@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.7](https://github.com/gentrace/gentrace-openapi/compare/v0.3.6...v0.3.7) (2023-04-12)
+
+
+### Bug Fixes
+
+* try just the PR action ([#49](https://github.com/gentrace/gentrace-openapi/issues/49)) ([724ebfd](https://github.com/gentrace/gentrace-openapi/commit/724ebfd1543494c776a00908cc337d5cdd64f163))
+
 ## [0.3.6](https://github.com/gentrace/gentrace-openapi/compare/v0.3.5...v0.3.6) (2023-04-12)
 
 
