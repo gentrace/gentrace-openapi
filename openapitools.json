@@ -18,7 +18,7 @@
         }
       },
       "python": {
-        "generatorName": "python-nextgen",
+        "generatorName": "python",
         "output": "../gentrace-python/package",
         "inputSpec": "./dist/node.yaml",
         "additionalProperties": {
