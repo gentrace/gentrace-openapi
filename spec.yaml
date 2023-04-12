@@ -266,23 +266,12 @@ components:
                     type: string
                   modelParams:
                     type: object
-                    additionalProperties:
-                      anyOf:
-                        - type: boolean
-                        - type: string
-                        - type: number
-                        - type: object
+                    additionalProperties: true
                   inputs:
                     type: object
-                    additionalProperties:
-                      anyOf:
-                        - type: boolean
-                        - type: string
-                        - type: number
-                        - type: object
+                    additionalProperties: true
                   outputs:
                     type: object
-                    # Vendor-specific
                     additionalProperties: true
               elapsedTime:
                 type: integer
