@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4](https://github.com/gentrace/gentrace-openapi/compare/v0.3.3...v0.3.4) (2023-04-12)
+
+
+### Bug Fixes
+
+* remove create_branch ([#43](https://github.com/gentrace/gentrace-openapi/issues/43)) ([0867edf](https://github.com/gentrace/gentrace-openapi/commit/0867edfe73148bc3de0da95712bf5ab4581aef1c))
+
 ## [0.3.3](https://github.com/gentrace/gentrace-openapi/compare/v0.3.2...v0.3.3) (2023-04-12)
 
 
