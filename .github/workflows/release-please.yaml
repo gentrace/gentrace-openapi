@@ -87,6 +87,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
+          path: gentrace-node
           title: "chore: updating OpenAI generated NodeJS logic to ${{ env.version }}"
           branch: openapi-${{ env.version }}
           base: main
@@ -108,6 +109,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
+          path: gentrace-browser
           title: "chore: updating OpenAI generated NodeJS logic to ${{ env.version }}"
           branch: openapi-${{ env.version }}
           base: main
