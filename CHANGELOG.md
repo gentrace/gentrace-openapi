@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.6](https://github.com/gentrace/gentrace-openapi/compare/v0.3.5...v0.3.6) (2023-04-12)
+
+
+### Bug Fixes
+
+* remove PR workflow to see if it actually pushes changes ([#47](https://github.com/gentrace/gentrace-openapi/issues/47)) ([1f921fd](https://github.com/gentrace/gentrace-openapi/commit/1f921fd7974fff6627750d5f577f468bc3da0f58))
+
 ## [0.3.5](https://github.com/gentrace/gentrace-openapi/compare/v0.3.4...v0.3.5) (2023-04-12)
 
 
