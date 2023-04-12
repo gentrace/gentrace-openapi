@@ -7,7 +7,7 @@
       "node": {
         "generatorName": "typescript-axios",
         "output": "../gentrace-node/package",
-        "inputSpec": "./dist/node.yaml",
+        "inputSpec": "./dist/ingestion.yaml",
         "templateDir": "./templates/node",
         "additionalProperties": {
           "npmName": "@gentrace/node",
@@ -19,8 +19,9 @@
       },
       "python": {
         "generatorName": "python",
+        "templateDir": "./templates/python",
         "output": "../gentrace-python/package",
-        "inputSpec": "./dist/node.yaml",
+        "inputSpec": "./dist/ingestion.yaml",
         "additionalProperties": {
           "packageName": "gentrace"
         }
@@ -28,7 +29,7 @@
       "browser": {
         "generatorName": "typescript-axios",
         "output": "../gentrace-browser",
-        "inputSpec": "./dist/browser.yaml",
+        "inputSpec": "./dist/feedback.yaml",
         "templateDir": "./templates/browser",
         "additionalProperties": {
           "npmName": "@gentrace/browser",

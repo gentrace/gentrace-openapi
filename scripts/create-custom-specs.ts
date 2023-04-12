@@ -27,7 +27,7 @@ const ingestionPaths = Object.fromEntries(
 ingestionSpec.paths = ingestionPaths;
 
 fs.mkdirpSync("dist");
-fs.writeFileSync("dist/node.yaml", yaml.dump(ingestionSpec));
+fs.writeFileSync("dist/ingestion.yaml", yaml.dump(ingestionSpec));
 
 const feedbackSpec = yaml.load(
   fs.readFileSync(RESOLVED_SPEC_LOCATION, "utf8")
@@ -43,4 +43,4 @@ const feedbackPaths = Object.fromEntries(
 feedbackSpec.paths = feedbackPaths;
 
 fs.mkdirpSync("dist");
-fs.writeFileSync("dist/browser.yaml", yaml.dump(feedbackSpec));
+fs.writeFileSync("dist/feedback.yaml", yaml.dump(feedbackSpec));
