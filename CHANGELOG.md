@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.5](https://github.com/gentrace/gentrace-openapi/compare/v0.3.4...v0.3.5) (2023-04-12)
+
+
+### Bug Fixes
+
+* add in file options  ([#45](https://github.com/gentrace/gentrace-openapi/issues/45)) ([fe2c2da](https://github.com/gentrace/gentrace-openapi/commit/fe2c2da25ecddaab5da683f77a21ac68bb8e23db))
+
 ## [0.3.4](https://github.com/gentrace/gentrace-openapi/compare/v0.3.3...v0.3.4) (2023-04-12)
 
 
