@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.3.0](https://github.com/gentrace/gentrace-openapi/compare/v0.2.2...v0.3.0) (2023-04-12)
+
+
+### Features
+
+* add in starter files for Python generation ([a37fa3c](https://github.com/gentrace/gentrace-openapi/commit/a37fa3c115a2feaac282c75a5a416c417b00c0c7))
+* switch Python generator to stable version([#31](https://github.com/gentrace/gentrace-openapi/issues/31)) ([66e3301](https://github.com/gentrace/gentrace-openapi/commit/66e3301d36b709d6cca22f19b6656ad0c31b4049))
+
+
+### Bug Fixes
+
+* adjust GH workflow ([#34](https://github.com/gentrace/gentrace-openapi/issues/34)) ([f373e5a](https://github.com/gentrace/gentrace-openapi/commit/f373e5a837de93fa76074fbe4b12606faa3df779))
+* another workflow fix([#35](https://github.com/gentrace/gentrace-openapi/issues/35)) ([b5ab3ec](https://github.com/gentrace/gentrace-openapi/commit/b5ab3ec5ac9d4b5a34af71c58b9ee21f92e75720))
+* change origin spec location ([44c2e76](https://github.com/gentrace/gentrace-openapi/commit/44c2e76bde7da896842306270e8d2165a8c288f8))
+
 ## [0.2.2](https://github.com/gentrace/gentrace-openapi/compare/v0.2.1...v0.2.2) (2023-04-08)
 
 
