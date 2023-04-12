@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/gentrace/gentrace-openapi/compare/v0.3.2...v0.3.3) (2023-04-12)
+
+
+### Bug Fixes
+
+* use PAT ([#41](https://github.com/gentrace/gentrace-openapi/issues/41)) ([6ac80c3](https://github.com/gentrace/gentrace-openapi/commit/6ac80c3ee9750580cca555ba14f9af825321abb0))
+
 ## [0.3.2](https://github.com/gentrace/gentrace-openapi/compare/v0.3.1...v0.3.2) (2023-04-12)
 
 
