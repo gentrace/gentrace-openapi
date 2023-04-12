@@ -88,6 +88,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           path: gentrace-node
+          token: ${{ secrets.GH_REPO_PAT }}
           title: "chore: updating OpenAI generated NodeJS logic to ${{ env.version }}"
           branch: openapi-${{ env.version }}
           base: main
@@ -110,6 +111,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           path: gentrace-browser
+          token: ${{ secrets.GH_REPO_PAT }}
           title: "chore: updating OpenAI generated NodeJS logic to ${{ env.version }}"
           branch: openapi-${{ env.version }}
           base: main
