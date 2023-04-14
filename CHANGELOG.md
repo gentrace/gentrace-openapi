@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/gentrace/gentrace-openapi/compare/v0.4.0...v0.4.1) (2023-04-14)
+
+
+### Bug Fixes
+
+* add in custom date string ([#56](https://github.com/gentrace/gentrace-openapi/issues/56)) ([5af29fb](https://github.com/gentrace/gentrace-openapi/commit/5af29fb44625816be41a719424668e5b7190acf1))
+
 ## [0.4.0](https://github.com/gentrace/gentrace-openapi/compare/v0.3.8...v0.4.0) (2023-04-12)
 
 
