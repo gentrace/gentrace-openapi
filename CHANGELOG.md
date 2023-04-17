@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/gentrace/gentrace-openapi/compare/v0.4.1...v0.4.2) (2023-04-17)
+
+
+### Bug Fixes
+
+* adjust feedback route ([#58](https://github.com/gentrace/gentrace-openapi/issues/58)) ([63e77b5](https://github.com/gentrace/gentrace-openapi/commit/63e77b53248090313abfc40efc6822d62decdfc2))
+
 ## [0.4.1](https://github.com/gentrace/gentrace-openapi/compare/v0.4.0...v0.4.1) (2023-04-14)
 
 
