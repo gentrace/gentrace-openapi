@@ -292,16 +292,18 @@ components:
           type: string
       example:
         pipelineRunId: 13448D47-BD5D-4664-B6C3-0CB07D8CF2D2
-
+        
     FeedbackRequest:
       type: object
       properties:
         pipelineRunId:
           type: string
           format: uuid
-        rating:
-          type: string
-          enum: [positive, negative, neutral]
+        score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1.0
         recordedTime:
           type: string
           format: date-time
@@ -310,9 +312,10 @@ components:
           nullable: true
       required:
         - pipelineRunId
-        - rating
+        - score
         - recordedTime
       additionalProperties: false
+
     FeedbackResponse:
       type: object
       properties:
