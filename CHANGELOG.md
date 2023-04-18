@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4](https://github.com/gentrace/gentrace-openapi/compare/v0.4.3...v0.4.4) (2023-04-18)
+
+
+### Bug Fixes
+
+* add tsconfig.json Mustache template ([#62](https://github.com/gentrace/gentrace-openapi/issues/62)) ([0632a9f](https://github.com/gentrace/gentrace-openapi/commit/0632a9fe02aa9f043ca45bb131bc1725182df192))
+
 ## [0.4.3](https://github.com/gentrace/gentrace-openapi/compare/v0.4.2...v0.4.3) (2023-04-18)
 
 
