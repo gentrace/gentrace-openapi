@@ -250,6 +250,9 @@ components:
     PipelineRunRequest:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
         stepRuns:
@@ -292,7 +295,7 @@ components:
           type: string
       example:
         pipelineRunId: 13448D47-BD5D-4664-B6C3-0CB07D8CF2D2
-        
+
     FeedbackRequest:
       type: object
       properties:
