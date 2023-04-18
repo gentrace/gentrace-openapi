@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/gentrace/gentrace-openapi/compare/v0.4.2...v0.4.3) (2023-04-18)
+
+
+### Bug Fixes
+
+* add mandatory pipeline run ID ([#60](https://github.com/gentrace/gentrace-openapi/issues/60)) ([6f8b86d](https://github.com/gentrace/gentrace-openapi/commit/6f8b86dcedab75d8ff7a9649032e3019d37ac8a7))
+
 ## [0.4.2](https://github.com/gentrace/gentrace-openapi/compare/v0.4.1...v0.4.2) (2023-04-17)
 
 
