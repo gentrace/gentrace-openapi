@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.6](https://github.com/gentrace/gentrace-openapi/compare/v0.4.5...v0.4.6) (2023-04-19)
+
+
+### Bug Fixes
+
+* add in api_key and host params ([#67](https://github.com/gentrace/gentrace-openapi/issues/67)) ([8e95feb](https://github.com/gentrace/gentrace-openapi/commit/8e95feb26de8c5527466a0401480147b3f3639f0))
+
 ## [0.4.5](https://github.com/gentrace/gentrace-openapi/compare/v0.4.4...v0.4.5) (2023-04-19)
 
 
