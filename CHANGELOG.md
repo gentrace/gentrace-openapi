@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.5](https://github.com/gentrace/gentrace-openapi/compare/v0.4.4...v0.4.5) (2023-04-19)
+
+
+### Bug Fixes
+
+* export more from __init__ ([#66](https://github.com/gentrace/gentrace-openapi/issues/66)) ([10f091e](https://github.com/gentrace/gentrace-openapi/commit/10f091eff7d42d6754853c1dde813e690af09c14))
+* require that ID is present ([#64](https://github.com/gentrace/gentrace-openapi/issues/64)) ([b3089d0](https://github.com/gentrace/gentrace-openapi/commit/b3089d0f50d29d2bb903547f1edc736d90b3f430))
+
 ## [0.4.4](https://github.com/gentrace/gentrace-openapi/compare/v0.4.3...v0.4.4) (2023-04-18)
 
 
