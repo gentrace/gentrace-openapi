@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.7](https://github.com/gentrace/gentrace-openapi/compare/v0.4.6...v0.4.7) (2023-04-20)
+
+
+### Bug Fixes
+
+* configure OpenAI function to intercept requests ([#69](https://github.com/gentrace/gentrace-openapi/issues/69)) ([faa3027](https://github.com/gentrace/gentrace-openapi/commit/faa3027e2c02bb87508e84f32e56d5572c8ccae6))
+
 ## [0.4.6](https://github.com/gentrace/gentrace-openapi/compare/v0.4.5...v0.4.6) (2023-04-19)
 
 
