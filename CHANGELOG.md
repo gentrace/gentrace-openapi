@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.8](https://github.com/gentrace/gentrace-openapi/compare/v0.4.7...v0.4.8) (2023-04-21)
+
+
+### Bug Fixes
+
+* export all from getters.py ([#71](https://github.com/gentrace/gentrace-openapi/issues/71)) ([eb7200a](https://github.com/gentrace/gentrace-openapi/commit/eb7200aebe33db3b850a181c968b89a859d8cd91))
+
 ## [0.4.7](https://github.com/gentrace/gentrace-openapi/compare/v0.4.6...v0.4.7) (2023-04-20)
 
 
