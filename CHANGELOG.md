@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.9](https://github.com/gentrace/gentrace-openapi/compare/v0.4.8...v0.4.9) (2023-05-01)
+
+
+### Bug Fixes
+
+* add logger parameter to Configuration ([#73](https://github.com/gentrace/gentrace-openapi/issues/73)) ([3649e7a](https://github.com/gentrace/gentrace-openapi/commit/3649e7a4e61568e8e655b8c6f43b4e3cdd86354a))
+
 ## [0.4.8](https://github.com/gentrace/gentrace-openapi/compare/v0.4.7...v0.4.8) (2023-04-21)
 
 
