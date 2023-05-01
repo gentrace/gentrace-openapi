@@ -2,7 +2,7 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
-{{! Edited by Gentrace, line 6 }}
+{{! Edited by Gentrace, only next line }}
 const packageJson = require("../package.json");
 
 export interface ConfigurationParameters {
@@ -13,6 +13,12 @@ export interface ConfigurationParameters {
     basePath?: string;
     baseOptions?: any;
     formDataCtor?: new () => any;
+    {{! Edited by Gentrace, next 5 lines }}
+    logger?: {
+      log: (message: string, context?: any) => void;
+      warn: (message: string, context?: any) => void;
+      error: (message: string | Error, context?: any) => void;
+    };
 }
 
 export class Configuration {
@@ -65,6 +71,17 @@ export class Configuration {
      * @type {new () => FormData}
      */
     formDataCtor?: new () => any;
+    
+    {{! Edited by Gentrace, next 8 lines }}
+    /**
+      * Custom logger that clients can provide to capture logs/warnings/errors from the SDK.
+      */
+    logger?: {
+      log: (message: string, context?: any) => void;
+      warn: (message: string, context?: any) => void;
+      error: (message: string | Error, context?: any) => void;
+    };
+
 
     constructor(param: ConfigurationParameters = {}) {
         this.apiKey = param.apiKey;
@@ -75,7 +92,9 @@ export class Configuration {
         this.baseOptions = param.baseOptions;
         this.formDataCtor = param.formDataCtor;
 
-        {{! Edited by Gentrace, lines 79-86 }}
+        {{! Edited by Gentrace, next 9 lines }}
+        this.logger = param.logger;
+
         if (!this.baseOptions) {
             this.baseOptions = {};
         }
