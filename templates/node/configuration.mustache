@@ -13,11 +13,10 @@ export interface ConfigurationParameters {
     basePath?: string;
     baseOptions?: any;
     formDataCtor?: new () => any;
-    {{! Edited by Gentrace, next 5 lines }}
+    {{! Edited by Gentrace, next 4 lines }}
     logger?: {
       log: (message: string, context?: any) => void;
-      warn: (message: string, context?: any) => void;
-      error: (message: string | Error, context?: any) => void;
+      warn: (message: string | Error, context?: any) => void;
     };
 }
 
@@ -78,10 +77,8 @@ export class Configuration {
       */
     logger?: {
       log: (message: string, context?: any) => void;
-      warn: (message: string, context?: any) => void;
-      error: (message: string | Error, context?: any) => void;
+      warn: (message: string | Error, context?: any) => void;
     };
-
 
     constructor(param: ConfigurationParameters = {}) {
         this.apiKey = param.apiKey;
