@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.11](https://github.com/gentrace/gentrace-openapi/compare/v0.4.10...v0.4.11) (2023-05-02)
+
+
+### Bug Fixes
+
+* name change to .info ([#77](https://github.com/gentrace/gentrace-openapi/issues/77)) ([cff38fc](https://github.com/gentrace/gentrace-openapi/commit/cff38fc96a85f689026609d76389fa3b43705ea6))
+
 ## [0.4.10](https://github.com/gentrace/gentrace-openapi/compare/v0.4.9...v0.4.10) (2023-05-02)
 
 
