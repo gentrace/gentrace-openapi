@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.12](https://github.com/gentrace/gentrace-openapi/compare/v0.4.11...v0.4.12) (2023-05-02)
+
+
+### Bug Fixes
+
+* retrigger the build ([#79](https://github.com/gentrace/gentrace-openapi/issues/79)) ([9720129](https://github.com/gentrace/gentrace-openapi/commit/972012952a9d77a392b66e25290a569178ea4167))
+
 ## [0.4.11](https://github.com/gentrace/gentrace-openapi/compare/v0.4.10...v0.4.11) (2023-05-02)
 
 
