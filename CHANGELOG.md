@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.10](https://github.com/gentrace/gentrace-openapi/compare/v0.4.9...v0.4.10) (2023-05-02)
+
+
+### Bug Fixes
+
+* remove error log statement ([#75](https://github.com/gentrace/gentrace-openapi/issues/75)) ([6c1c050](https://github.com/gentrace/gentrace-openapi/commit/6c1c0500eed6da8610b7a41b919fa6786e8b0870))
+
 ## [0.4.9](https://github.com/gentrace/gentrace-openapi/compare/v0.4.8...v0.4.9) (2023-05-01)
 
 
