@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.13](https://github.com/gentrace/gentrace-openapi/compare/v0.4.12...v0.4.13) (2023-05-07)
+
+
+### Bug Fixes
+
+* remove package.json require in configuration.ts ([#81](https://github.com/gentrace/gentrace-openapi/issues/81)) ([2f0ce24](https://github.com/gentrace/gentrace-openapi/commit/2f0ce24f400c3fdefa4537cabfc1227e9fded16f))
+
 ## [0.4.12](https://github.com/gentrace/gentrace-openapi/compare/v0.4.11...v0.4.12) (2023-05-02)
 
 
