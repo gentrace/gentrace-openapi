@@ -13,21 +13,21 @@ type OpenAPISpec = {
   };
 };
 
-const ingestionSpec = yaml.load(
+const coreSpec = yaml.load(
   fs.readFileSync(RESOLVED_SPEC_LOCATION, "utf8")
 ) as OpenAPISpec;
 
-const ingestionTag = "Ingestion";
-const ingestionPaths = Object.fromEntries(
-  Object.entries(ingestionSpec.paths).filter(([, data]) =>
-    Object.values(data).some((op) => op.tags && op.tags.includes(ingestionTag))
+const coreTag = "Core";
+const corePaths = Object.fromEntries(
+  Object.entries(coreSpec.paths).filter(([, data]) =>
+    Object.values(data).some((op) => op.tags && op.tags.includes(coreTag))
   )
 );
 
-ingestionSpec.paths = ingestionPaths;
+coreSpec.paths = corePaths;
 
 fs.mkdirpSync("dist");
-fs.writeFileSync("dist/ingestion.yaml", yaml.dump(ingestionSpec));
+fs.writeFileSync("dist/core.yaml", yaml.dump(coreSpec));
 
 const feedbackSpec = yaml.load(
   fs.readFileSync(RESOLVED_SPEC_LOCATION, "utf8")
