@@ -259,14 +259,20 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/TestCase"
+                type: object
+                properties:
+                  testCases:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TestCase"
             application/json; charset=utf-8:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/TestCase"
+                type: object
+                properties:
+                  testCases:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TestCase"
         "400":
           description: Invalid test set ID
         "500":
@@ -299,18 +305,19 @@ paths:
                     properties:
                       id:
                         type: string
+                        format: uuid
                         description: The ID of the test result
                       caseId:
                         type: string
+                        format: uuid
                         description: The ID of the test case
                       inputs:
-                        type: string
+                        type: object
                         description: The input data for the test case
                       output:
                         type: string
                         description: The expected output for the test case
                     required:
-                      - id
                       - caseId
                       - inputs
                       - output
@@ -359,6 +366,18 @@ paths:
                   testRun:
                     $ref: '#/components/schemas/TestRun'
                     description: The test run object.
+                  stats:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                      pending:
+                        type: number
+                      failure:
+                        type: number
+                      done:
+                        type: number
+                        
             application/json; charset=utf-8:
               schema:
                 type: object
@@ -366,6 +385,18 @@ paths:
                   testRun:
                     $ref: '#/components/schemas/TestRun'
                     description: The test run object.
+                  stats:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                      pending:
+                        type: number
+                      failure:
+                        type: number
+                      done:
+                        type: number
+
 
 components:
   securitySchemes:
@@ -421,6 +452,7 @@ components:
       properties:
         pipelineRunId:
           type: string
+          format: uuid
       example:
         pipelineRunId: 13448D47-BD5D-4664-B6C3-0CB07D8CF2D2
 

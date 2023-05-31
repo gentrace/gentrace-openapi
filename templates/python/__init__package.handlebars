@@ -27,6 +27,7 @@ from {{packageName}}.exceptions import ApiException
 __import__('sys').setrecursionlimit({{recursionLimit}})
 {{/if}}
 
+from {{packageName}}.providers.evaluation import Evaluation
 from {{packageName}}.providers.pipeline import Pipeline
 from {{packageName}}.providers.pipeline_run import PipelineRun, flush
 from {{packageName}}.providers.step_run import StepRun
