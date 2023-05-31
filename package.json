@@ -29,7 +29,10 @@
     ]
   },
   "scripts": {
-    "build": "run-s sconfig generate ",
+    "build": "run-s sconfig generate",
+    "build-py": "run-s sconfig generate:python",
+    "build-node": "run-s sconfig generate:node-ts",
+    "build-browser": "run-s sconfig generate:browser",
     "clean": "rimraf dist",
     "bump-patch": "./scripts/bump-patch",
     "sconfig": "run-s sconfig:spec-version sconfig:create-custom-specs",

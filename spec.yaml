@@ -4,12 +4,12 @@ info:
   title: Gentrace API
   description: These API routes are designed to ingest events from clients.
   version: ${npm_package_version}
-  
+
 tags:
-- name: Ingestion
-  description: Endpoints for capturing pipeline events
-- name: Feedback
-  description: Endpoints for capturing user feedback
+  - name: Core
+    description: Endpoints for capturing and delivering pipeline runs and evaluation-relate models (e.g. test cases, test runs)
+  - name: Feedback
+    description: Endpoints for capturing user feedback
 
 servers:
   - url: https://gentrace.ai/api/v1
@@ -21,31 +21,31 @@ paths:
   /pipeline-run:
     post:
       tags:
-      - Ingestion
+        - Core
       summary: Create a pipeline run
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PipelineRunRequest'
+              $ref: "#/components/schemas/PipelineRunRequest"
       responses:
         "200":
           description: Stored pipeline run
           content:
             application/json; charset=utf-8:
               schema:
-                $ref: '#/components/schemas/PipelineRunResponse'
+                $ref: "#/components/schemas/PipelineRunResponse"
             application/json:
               schema:
-                $ref: '#/components/schemas/PipelineRunResponse'
+                $ref: "#/components/schemas/PipelineRunResponse"
         "400":
           description: Bad request
         "500":
           description: Internal server error
       x-gentraceMeta:
         name: Store PipelineRun event
-        group: ingestion
+        group: Core
         path: pipeline-run
         examples:
           curl: |
@@ -116,7 +116,7 @@ paths:
             });
 
             const gentrace = new Gentrace(configuration);
-            
+
             gentrace.pipelineRun({
               name: "write-email",
               stepRuns: [
@@ -179,7 +179,7 @@ paths:
   /feedback:
     post:
       tags:
-      - Feedback
+        - Feedback
       summary: Submit feedback for a pipeline run
       requestBody:
         required: true
@@ -201,44 +201,202 @@ paths:
           description: Invalid feedback payload
         "500":
           description: Server error
-        
-    x-gentraceMeta:
-      name: Store feedback event
-      group: ingestion
-      path: feedback
-      examples:
-        curl: |
-          curl -X POST \
-            -H 'Authorization: Bearer gen_api_NkztHpkHvl5Z8CXIHZJq3bFPHwO4eLj2dtkh9HGt' \
-            -H 'Content-Type: application/json' \
-            -d '{
-              "pipelineRunId": "cc22e63c-1c9a-4cbb-a8ee-7f764eabf97d",
-              "rating": "positive",
-              "recordedTime": "2023-03-31T15:00:00.000Z",
-              "details": "This generated output communicated my voice wonderfully!"
-            }' \
-            https://gentrace.ai/api/v1/feedback
 
-        node.js: |
-          const { Configuration, Gentrace } = require("@gentrace/node");
+      x-gentraceMeta:
+        name: Store feedback event
+        group: core
+        path: feedback
+        examples:
+          curl: |
+            curl -X POST \
+              -H 'Authorization: Bearer gen_api_NkztHpkHvl5Z8CXIHZJq3bFPHwO4eLj2dtkh9HGt' \
+              -H 'Content-Type: application/json' \
+              -d '{
+                "pipelineRunId": "cc22e63c-1c9a-4cbb-a8ee-7f764eabf97d",
+                "rating": "positive",
+                "recordedTime": "2023-03-31T15:00:00.000Z",
+                "details": "This generated output communicated my voice wonderfully!"
+              }' \
+              https://gentrace.ai/api/v1/feedback
 
-          const configuration = new Configuration({
-            apiKey: process.env.GENTRACE_API_KEY,
-          });
+          node.js: |
+            const { Configuration, Gentrace } = require("@gentrace/node");
 
-          const gentrace = new Gentrace(configuration);
-          
-          gentrace.feedback({
-            pipelineRunId: "cc22e63c-1c9a-4cbb-a8ee-7f764eabf97d",
-            rating: "positive",
-            recordedTime: "2023-03-31T15:00:00.000Z",
-            details: "This generated output communicated my voice wonderfully!"
-          });
+            const configuration = new Configuration({
+              apiKey: process.env.GENTRACE_API_KEY,
+            });
 
-      response: |
-        {
-          "pipelineRunId": "13448D47-BD5D-4664-B6C3-0CB07D8CF2D2"
-        }
+            const gentrace = new Gentrace(configuration);
+
+            gentrace.feedback({
+              pipelineRunId: "cc22e63c-1c9a-4cbb-a8ee-7f764eabf97d",
+              rating: "positive",
+              recordedTime: "2023-03-31T15:00:00.000Z",
+              details: "This generated output communicated my voice wonderfully!"
+            });
+
+        response: |
+          {
+            "pipelineRunId": "13448D47-BD5D-4664-B6C3-0CB07D8CF2D2"
+          }
+
+  /test-case:
+    get:
+      tags:
+        - Core
+      summary: Get test cases for a test set
+      parameters:
+        - in: query
+          name: setId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The ID of the test case set to retrieve
+      responses:
+        "200":
+          description: Test cases retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testCases:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TestCase"
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  testCases:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TestCase"
+        "400":
+          description: Invalid test set ID
+        "500":
+          description: Server error
+  /test-run:
+    post:
+      tags:
+        - Core
+      summary: Create a new test run from test results
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                setId:
+                  type: string
+                  format: uuid
+                  description: The ID of the test case set to run
+                source:
+                  type: string
+                  minLength: 1
+                  maxLength: 255
+                  description: The source code to test
+                testResults:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: The ID of the test result
+                      caseId:
+                        type: string
+                        format: uuid
+                        description: The ID of the test case
+                      inputs:
+                        type: object
+                        description: The input data for the test case
+                      output:
+                        type: string
+                        description: The expected output for the test case
+                    required:
+                      - caseId
+                      - inputs
+                      - output
+              required:
+                - setId
+                - source
+                - testResults
+      responses:
+        "200":
+          description: Test run created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runId:
+                    type: string
+                    format: uuid
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  runId:
+                    type: string
+                    format: uuid
+    get:
+      tags:
+        - Core
+      summary: Get test run by ID
+      parameters:
+        - in: query
+          name: runId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The ID of the test run to retrieve
+      responses:
+        "200":
+          description: Test run retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testRun:
+                    $ref: '#/components/schemas/TestRun'
+                    description: The test run object.
+                  stats:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                      pending:
+                        type: number
+                      failure:
+                        type: number
+                      done:
+                        type: number
+                        
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  testRun:
+                    $ref: '#/components/schemas/TestRun'
+                    description: The test run object.
+                  stats:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                      pending:
+                        type: number
+                      failure:
+                        type: number
+                      done:
+                        type: number
+
 
 components:
   securitySchemes:
@@ -294,6 +452,7 @@ components:
       properties:
         pipelineRunId:
           type: string
+          format: uuid
       example:
         pipelineRunId: 13448D47-BD5D-4664-B6C3-0CB07D8CF2D2
 
@@ -329,3 +488,59 @@ components:
       required:
         - message
       additionalProperties: false
+
+    TestCase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the test case
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the test case was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time when the test case was last updated
+        inputs:
+          type: object
+          description: The input data for the test case
+        name:
+          type: string
+          description: The name of the test case
+        setId:
+          type: string
+          format: uuid
+          description: The ID of the test set that the test case belongs to
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - inputs
+        - name
+        - setId
+
+    TestRun:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the test run.
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time the test run was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time the test run was last updated.
+        setId:
+          type: string
+          format: uuid
+          description: The unique identifier for the test set associated with the test run.
+        source:
+          type: string
+          description: The source of the test run.

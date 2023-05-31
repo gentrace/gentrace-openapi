@@ -7,7 +7,7 @@
       "node": {
         "generatorName": "typescript-axios",
         "output": "../gentrace-node/package",
-        "inputSpec": "./dist/ingestion.yaml",
+        "inputSpec": "./dist/core.yaml",
         "templateDir": "./templates/node",
         "additionalProperties": {
           "npmName": "@gentrace/node",
@@ -21,7 +21,7 @@
         "generatorName": "python",
         "templateDir": "./templates/python",
         "output": "../gentrace-python/package",
-        "inputSpec": "./dist/ingestion.yaml",
+        "inputSpec": "./dist/core.yaml",
         "additionalProperties": {
           "packageName": "gentrace"
         }
