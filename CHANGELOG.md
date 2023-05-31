@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/gentrace/gentrace-openapi/compare/v0.4.13...v0.5.0) (2023-05-31)
+
+
+### Features
+
+* add evaluation routes([#83](https://github.com/gentrace/gentrace-openapi/issues/83)) ([4267817](https://github.com/gentrace/gentrace-openapi/commit/42678178af1aee7c6c1c5874ff131c8988aba0fc))
+
 ## [0.4.13](https://github.com/gentrace/gentrace-openapi/compare/v0.4.12...v0.4.13) (2023-05-07)
 
 
