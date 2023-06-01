@@ -336,6 +336,8 @@ paths:
                   runId:
                     type: string
                     format: uuid
+                required:
+                - runId
             application/json; charset=utf-8:
               schema:
                 type: object
@@ -343,6 +345,8 @@ paths:
                   runId:
                     type: string
                     format: uuid
+                required:
+                - runId
     get:
       tags:
         - Core
@@ -377,6 +381,11 @@ paths:
                         type: number
                       done:
                         type: number
+                    required:
+                      - total
+                      - pending
+                      - failure
+                      - done
                         
             application/json; charset=utf-8:
               schema:
@@ -396,7 +405,11 @@ paths:
                         type: number
                       done:
                         type: number
-
+                    required:
+                      - total
+                      - pending
+                      - failure
+                      - done
 
 components:
   securitySchemes:
@@ -500,10 +513,17 @@ components:
           type: string
           format: date-time
           description: The date and time when the test case was created
+        archivedAt:
+          type: string
+          format: date-time
+          description: The date and time when the test case was archived
         updatedAt:
           type: string
           format: date-time
           description: The date and time when the test case was last updated
+        expected:
+          type: string
+          description: The expected output for the test case
         inputs:
           type: object
           description: The input data for the test case
