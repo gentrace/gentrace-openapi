@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/gentrace/gentrace-openapi/compare/v0.5.0...v0.6.0) (2023-06-01)
+
+
+### Features
+
+* add expected and archived for TestCase ([#85](https://github.com/gentrace/gentrace-openapi/issues/85)) ([c9a6a49](https://github.com/gentrace/gentrace-openapi/commit/c9a6a497c0b69392344949da2caaa73f382963ed))
+
 ## [0.5.0](https://github.com/gentrace/gentrace-openapi/compare/v0.4.13...v0.5.0) (2023-05-31)
 
 
