@@ -293,11 +293,12 @@ paths:
                   type: string
                   format: uuid
                   description: The ID of the test case set to run
-                source:
+                branch:
                   type: string
-                  minLength: 1
-                  maxLength: 255
-                  description: The source code to test
+                  description: The branch that the test run was created from
+                commit:
+                  type: string
+                  description: The commit that the test run was created from
                 testResults:
                   type: array
                   items:
@@ -561,6 +562,9 @@ components:
           type: string
           format: uuid
           description: The unique identifier for the test set associated with the test run.
-        source:
+        branch:
           type: string
-          description: The source of the test run.
+          description: The branch that the test run was created from
+        commit:
+          type: string
+          description: The commit that the test run was created from
