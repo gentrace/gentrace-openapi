@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/gentrace/gentrace-openapi/compare/v0.6.0...v0.6.1) (2023-06-02)
+
+
+### Bug Fixes
+
+* add branch and commit types on TestRun and TestSet ([#87](https://github.com/gentrace/gentrace-openapi/issues/87)) ([eec32fe](https://github.com/gentrace/gentrace-openapi/commit/eec32fe388f7a43c22d50ebf2aa3cd896ee5f76b))
+
 ## [0.6.0](https://github.com/gentrace/gentrace-openapi/compare/v0.5.0...v0.6.0) (2023-06-01)
 
 
