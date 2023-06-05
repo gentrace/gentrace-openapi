@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.5](https://github.com/gentrace/gentrace-openapi/compare/v0.6.4...v0.6.5) (2023-06-05)
+
+
+### Bug Fixes
+
+* make inputs a string type and nullable fields for archivedAt([#95](https://github.com/gentrace/gentrace-openapi/issues/95)) ([900aad2](https://github.com/gentrace/gentrace-openapi/commit/900aad27ef3948c19021d842f3fbf2d2399ef4d0))
+
 ## [0.6.4](https://github.com/gentrace/gentrace-openapi/compare/v0.6.3...v0.6.4) (2023-06-05)
 
 
