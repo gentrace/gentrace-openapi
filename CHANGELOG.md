@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.3](https://github.com/gentrace/gentrace-openapi/compare/v0.6.2...v0.6.3) (2023-06-05)
+
+
+### Bug Fixes
+
+* add deinit/init and evaluation routes ([#91](https://github.com/gentrace/gentrace-openapi/issues/91)) ([031f9b8](https://github.com/gentrace/gentrace-openapi/commit/031f9b806725f30d7cbeda5894496d1845fc60c1))
+
 ## [0.6.2](https://github.com/gentrace/gentrace-openapi/compare/v0.6.1...v0.6.2) (2023-06-05)
 
 
