@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/gentrace/gentrace-openapi/compare/v0.6.1...v0.6.2) (2023-06-05)
+
+
+### Bug Fixes
+
+* remove source required param ([#89](https://github.com/gentrace/gentrace-openapi/issues/89)) ([d03ff7a](https://github.com/gentrace/gentrace-openapi/commit/d03ff7af31ffd58564ea6da50ac0f13ed0b002c4))
+
 ## [0.6.1](https://github.com/gentrace/gentrace-openapi/compare/v0.6.0...v0.6.1) (2023-06-02)
 
 
