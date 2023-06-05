@@ -515,18 +515,20 @@ components:
           description: The date and time when the test case was created
         archivedAt:
           type: string
+          nullable: true
           format: date-time
-          description: The date and time when the test case was archived
+          description: The date and time when the test case was archived, can be null if the test case has not been archived
         updatedAt:
           type: string
           format: date-time
           description: The date and time when the test case was last updated
         expected:
           type: string
+          nullable: true
           description: The expected output for the test case
         inputs:
-          type: object
-          description: The input data for the test case
+          type: string
+          description: The input data for the test case as a JSON string
         name:
           type: string
           description: The name of the test case
