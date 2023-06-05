@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.4](https://github.com/gentrace/gentrace-openapi/compare/v0.6.3...v0.6.4) (2023-06-05)
+
+
+### Bug Fixes
+
+* add the log level back in ([#93](https://github.com/gentrace/gentrace-openapi/issues/93)) ([ccc9832](https://github.com/gentrace/gentrace-openapi/commit/ccc9832c0159b6193107ea63518968617bfc5968))
+
 ## [0.6.3](https://github.com/gentrace/gentrace-openapi/compare/v0.6.2...v0.6.3) (2023-06-05)
 
 
