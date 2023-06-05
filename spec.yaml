@@ -324,7 +324,6 @@ paths:
                       - output
               required:
                 - setId
-                - source
                 - testResults
       responses:
         "200":
