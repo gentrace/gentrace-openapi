@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/gentrace/gentrace-openapi/compare/v0.6.5...v0.7.0) (2023-06-17)
+
+
+### Features
+
+* add TestRun name ([#97](https://github.com/gentrace/gentrace-openapi/issues/97)) ([548eec1](https://github.com/gentrace/gentrace-openapi/commit/548eec1a28ee00c65c3ab1a40557c46a848fbc76))
+
 ## [0.6.5](https://github.com/gentrace/gentrace-openapi/compare/v0.6.4...v0.6.5) (2023-06-05)
 
 
