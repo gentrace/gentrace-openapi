@@ -299,6 +299,9 @@ paths:
                 commit:
                   type: string
                   description: The commit that the test run was created from
+                name:
+                  type: string
+                  description: The name of the test run
                 testResults:
                   type: array
                   items:
@@ -569,3 +572,6 @@ components:
         commit:
           type: string
           description: The commit that the test run was created from
+        name:
+          type: string
+          description: The name of the test run
