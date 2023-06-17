@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/gentrace/gentrace-openapi/compare/v0.7.0...v0.7.1) (2023-06-17)
+
+
+### Bug Fixes
+
+* Change to inputs as object ([#99](https://github.com/gentrace/gentrace-openapi/issues/99)) ([b266094](https://github.com/gentrace/gentrace-openapi/commit/b2660940e4613606e8a604a563cba3e82b05a506))
+
 ## [0.7.0](https://github.com/gentrace/gentrace-openapi/compare/v0.6.5...v0.7.0) (2023-06-17)
 
 
