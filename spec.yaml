@@ -530,8 +530,8 @@ components:
           nullable: true
           description: The expected output for the test case
         inputs:
-          type: string
-          description: The input data for the test case as a JSON string
+          type: object
+          description: The input data for the test case as a JSON object
         name:
           type: string
           description: The name of the test case
