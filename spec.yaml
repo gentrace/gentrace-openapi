@@ -296,12 +296,15 @@ paths:
                 branch:
                   type: string
                   description: The branch that the test run was created from
+                  nullable: true
                 commit:
                   type: string
                   description: The commit that the test run was created from
+                  nullable: true
                 name:
                   type: string
                   description: The name of the test run
+                  nullable: true
                 testResults:
                   type: array
                   items:
@@ -311,16 +314,43 @@ paths:
                         type: string
                         format: uuid
                         description: The ID of the test result
+                        nullable: true
                       caseId:
                         type: string
                         format: uuid
                         description: The ID of the test case
                       inputs:
                         type: object
+                        additionalProperties: 
+                          type: string
                         description: The input data for the test case
                       output:
                         type: string
                         description: The expected output for the test case
+                      steps:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              description: The key of the step
+                              minLength: 1
+                              maxLength: 100
+                            output:
+                              type: string
+                              description: The output of the step
+                            inputs:
+                              type: object
+                              additionalProperties: 
+                                type: string
+                              nullable: true
+                              description: The inputs of the step
+                          required:
+                            - key
+                            - output
+                        minItems: 1
+                        nullable: true
                     required:
                       - caseId
                       - inputs
@@ -529,6 +559,30 @@ components:
           type: string
           nullable: true
           description: The expected output for the test case
+        expectedSteps:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: The key of the step
+                minLength: 1
+                maxLength: 100
+              output:
+                type: string
+                description: The output of the step
+              inputs:
+                type: object
+                additionalProperties: 
+                  type: string
+                nullable: true
+                description: The inputs of the step
+            required:
+              - key
+              - output
+          minItems: 1
+          nullable: true
         inputs:
           type: object
           description: The input data for the test case as a JSON object
