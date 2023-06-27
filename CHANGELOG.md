@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/gentrace/gentrace-openapi/compare/v0.7.1...v0.8.0) (2023-06-27)
+
+
+### Features
+
+* Add `steps` retrieval from a TestCase ([#101](https://github.com/gentrace/gentrace-openapi/issues/101)) ([573b6fb](https://github.com/gentrace/gentrace-openapi/commit/573b6fb5c822824d92c4a09326feb0d78b13924c))
+
 ## [0.7.1](https://github.com/gentrace/gentrace-openapi/compare/v0.7.0...v0.7.1) (2023-06-17)
 
 
