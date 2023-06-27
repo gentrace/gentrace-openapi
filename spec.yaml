@@ -559,6 +559,30 @@ components:
           type: string
           nullable: true
           description: The expected output for the test case
+        expectedSteps:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: The key of the step
+                minLength: 1
+                maxLength: 100
+              output:
+                type: string
+                description: The output of the step
+              inputs:
+                type: object
+                additionalProperties: 
+                  type: string
+                nullable: true
+                description: The inputs of the step
+            required:
+              - key
+              - output
+          minItems: 1
+          nullable: true
         inputs:
           type: object
           description: The input data for the test case as a JSON object
