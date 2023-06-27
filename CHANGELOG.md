@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/gentrace/gentrace-openapi/compare/v0.8.0...v0.8.1) (2023-06-27)
+
+
+### Bug Fixes
+
+* adjust spec from steps -&gt; outputSteps ([#103](https://github.com/gentrace/gentrace-openapi/issues/103)) ([f4e806a](https://github.com/gentrace/gentrace-openapi/commit/f4e806ae2b2653297cb859aa00c056fd31ac49e4))
+
 ## [0.8.0](https://github.com/gentrace/gentrace-openapi/compare/v0.7.1...v0.8.0) (2023-06-27)
 
 
