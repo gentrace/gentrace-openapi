@@ -327,7 +327,7 @@ paths:
                       output:
                         type: string
                         description: The expected output for the test case
-                      steps:
+                      outputSteps:
                         type: array
                         items:
                           type: object
