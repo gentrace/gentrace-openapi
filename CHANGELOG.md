@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/gentrace/gentrace-openapi/compare/v0.8.1...v0.9.0) (2023-07-18)
+
+
+### Features
+
+* Add TestSet API routes to the OpenAPI spec ([#105](https://github.com/gentrace/gentrace-openapi/issues/105)) ([4da56d8](https://github.com/gentrace/gentrace-openapi/commit/4da56d8b0c7e2a533c84d77232ed60ad2364d154))
+
 ## [0.8.1](https://github.com/gentrace/gentrace-openapi/compare/v0.8.0...v0.8.1) (2023-06-27)
 
 
