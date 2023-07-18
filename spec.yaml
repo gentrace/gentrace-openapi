@@ -444,6 +444,46 @@ paths:
                       - failure
                       - done
 
+  /test-sets:
+    get:
+      tags:
+        - Core
+      summary: Get test sets, optionally filtered by label
+      parameters:
+        - in: query
+          name: label
+          schema:
+            type: string
+          description: The label to filter test sets by
+      responses:
+        "200":
+          description: Test sets retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testSets:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TestSet"
+                required:
+                  - testSets
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  testSets:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TestSet"
+                required:
+                  - testSets
+        "400":
+          description: Invalid test set ID
+        "500":
+          description: Server error
+
 components:
   securitySchemes:
     bearerAuth:
@@ -600,6 +640,56 @@ components:
         - inputs
         - name
         - setId
+
+    TestSet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the test set
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the test set was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time when the test set was last updated
+        archivedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date and time when the test set was archived, can be null if the test set has not been archived
+        cases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestCase'
+          description: The array of test cases that belong to the test set
+        labels:
+          type: array
+          items:
+            type: string
+          description: The labels attached to the test set
+        name:
+          type: string
+          description: The name of the test set
+        organizationId:
+          type: string
+          description: The ID of the organization that owns the test set
+        branch:
+          type: string
+          nullable: true
+          description: The branch that the test set is associated with
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - cases
+        - labels
+        - name
+        - organizationId
+      
 
     TestRun:
       type: object
