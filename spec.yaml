@@ -7,9 +7,9 @@ info:
 
 tags:
   - name: Core
-    description: Endpoints for capturing and delivering pipeline runs and evaluation-relate models (e.g. test cases, test runs)
+    description: Endpoints for core API functionality
   - name: Feedback
-    description: Endpoints for capturing user feedback
+    description: Endpoints for capturing user feedback for runs
 
 servers:
   - url: https://gentrace.ai/api/v1
@@ -18,35 +18,35 @@ security:
   - bearerAuth: []
 
 paths:
-  /pipeline-run:
+  /run:
     post:
       tags:
         - Core
-      summary: Create a pipeline run
+      summary: Create a run
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PipelineRunRequest"
+              $ref: "#/components/schemas/RunRequest"
       responses:
         "200":
-          description: Stored pipeline run
+          description: Stored run
           content:
             application/json; charset=utf-8:
               schema:
-                $ref: "#/components/schemas/PipelineRunResponse"
+                $ref: "#/components/schemas/RunResponse"
             application/json:
               schema:
-                $ref: "#/components/schemas/PipelineRunResponse"
+                $ref: "#/components/schemas/RunResponse"
         "400":
           description: Bad request
         "500":
           description: Internal server error
       x-gentraceMeta:
-        name: Store PipelineRun event
+        name: Store Run event
         group: Core
-        path: pipeline-run
+        path: run
         examples:
           curl: |
             curl -X POST \
@@ -106,7 +106,7 @@ paths:
                       }
                     ]
                   }' \
-              https://gentrace.ai/api/v1/pipeline-run
+              https://gentrace.ai/api/v1/run
 
           node.js: |
             const { Configuration, Gentrace } = require("@gentrace/node");
@@ -117,7 +117,7 @@ paths:
 
             const gentrace = new Gentrace(configuration);
 
-            gentrace.pipelineRun({
+            gentrace.run({
               name: "write-email",
               stepRuns: [
                 {
@@ -180,7 +180,7 @@ paths:
     post:
       tags:
         - Feedback
-      summary: Submit feedback for a pipeline run
+      summary: Submit feedback for a run
       requestBody:
         required: true
         content:
@@ -244,10 +244,10 @@ paths:
     get:
       tags:
         - Core
-      summary: Get test cases for a test set
+      summary: Get test cases for a pipeline
       parameters:
         - in: query
-          name: setId
+          name: pipelineId
           schema:
             type: string
             format: uuid
@@ -274,14 +274,14 @@ paths:
                     items:
                       $ref: "#/components/schemas/TestCase"
         "400":
-          description: Invalid test set ID
+          description: Invalid pipeline ID
         "500":
           description: Server error
-  /test-run:
+  /test-result:
     post:
       tags:
         - Core
-      summary: Create a new test run from test results
+      summary: Create a new test result from runs
       requestBody:
         required: true
         content:
@@ -289,23 +289,23 @@ paths:
             schema:
               type: object
               properties:
-                setId:
+                pipelineId:
                   type: string
                   format: uuid
-                  description: The ID of the test case set to run
+                  description: The pipeline ID to create the test result for
                 branch:
                   type: string
-                  description: The branch that the test run was created from
+                  description: The branch that the test result was created from
                   nullable: true
                 commit:
                   type: string
-                  description: The commit that the test run was created from
+                  description: The commit that the test result was created from
                   nullable: true
                 name:
                   type: string
-                  description: The name of the test run
+                  description: The name of the test result
                   nullable: true
-                testResults:
+                testRuns:
                   type: array
                   items:
                     type: object
@@ -313,101 +313,68 @@ paths:
                       id:
                         type: string
                         format: uuid
-                        description: The ID of the test result
+                        description: The ID of the test run
                         nullable: true
                       caseId:
                         type: string
                         format: uuid
                         description: The ID of the test case
-                      inputs:
-                        type: object
-                        additionalProperties: true
-                        description: The input data for the test case
-                      outputs:
-                        type: object
-                        additionalProperties: true
-                        description: The returned outputs for the test case
-                      output:
-                        type: string
-                        description: Use outputs object instead.
-                        deprecated: true
-                      outputSteps:
+                      stepRuns:
                         type: array
                         description: Use outputs.steps insteads.
                         items:
-                          type: object
-                          properties:
-                            key:
-                              type: string
-                              description: The key of the step
-                              minLength: 1
-                              maxLength: 100
-                            output:
-                              type: string
-                              description: The output of the step
-                            inputs:
-                              type: object
-                              additionalProperties: 
-                                type: string
-                              nullable: true
-                              description: The inputs of the step
-                          required:
-                            - key
-                            - output
-                        minItems: 1
-                        nullable: true
-                        deprecated: true
+                          $ref: '#/components/schemas/StepRun'
                     required:
                       - caseId
-                      - inputs
+                      - stepRuns
               required:
-                - setId
-                - testResults
+                - pipelineId
+                - testRuns
       responses:
         "200":
-          description: Test run created successfully
+          description: Test result created successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  runId:
+                  resultId:
                     type: string
                     format: uuid
                 required:
-                - runId
+                - resultId
             application/json; charset=utf-8:
               schema:
                 type: object
                 properties:
-                  runId:
+                  resultId:
                     type: string
                     format: uuid
                 required:
-                - runId
+                - resultId
     get:
       tags:
         - Core
-      summary: Get test run by ID
+      summary: Get test result by ID
       parameters:
         - in: query
-          name: runId
+          name: resultId
           schema:
             type: string
             format: uuid
           required: true
-          description: The ID of the test run to retrieve
+          description: The ID of the test result to retrieve
       responses:
         "200":
-          description: Test run retrieved successfully
+          description: Test result retrieved successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  testRun:
-                    $ref: '#/components/schemas/TestRun'
-                    description: The test run object.
+                  testResult:
+                    $ref: '#/components/schemas/TestResult'
+                    description: The test result object.
                   stats:
                     type: object
                     properties:
@@ -430,8 +397,8 @@ paths:
                 type: object
                 properties:
                   testRun:
-                    $ref: '#/components/schemas/TestRun'
-                    description: The test run object.
+                    $ref: '#/components/schemas/TestResult'
+                    description: The test result object.
                   stats:
                     type: object
                     properties:
@@ -449,43 +416,43 @@ paths:
                       - failure
                       - done
 
-  /test-sets:
+  /pipelines:
     get:
       tags:
         - Core
-      summary: Get test sets, optionally filtered by label
+      summary: Get pipelines, optionally filtered by label
       parameters:
         - in: query
           name: label
           schema:
             type: string
-          description: The label to filter test sets by
+          description: The label to filter pipelines by
       responses:
         "200":
-          description: Test sets retrieved successfully
+          description: Pipelines retrieved successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  testSets:
+                  pipelines:
                     type: array
                     items:
-                      $ref: "#/components/schemas/TestSet"
+                      $ref: "#/components/schemas/Pipeline"
                 required:
-                  - testSets
+                  - pipelines
             application/json; charset=utf-8:
               schema:
                 type: object
                 properties:
-                  testSets:
+                  pipelines:
                     type: array
                     items:
-                      $ref: "#/components/schemas/TestSet"
+                      $ref: "#/components/schemas/Pipeline"
                 required:
-                  - testSets
+                  - pipelines
         "400":
-          description: Invalid test set ID
+          description: Invalid pipeline ID
         "500":
           description: Server error
 
@@ -496,49 +463,54 @@ components:
       scheme: bearer
 
   schemas:
-    PipelineRunRequest:
+    RunRequest:
       type: object
       properties:
         id:
           type: string
           format: uuid
+        slug:
+          type: string
         name:
           type: string
+          deprecated: true
         stepRuns:
           type: array
           items:
-            type: object
-            properties:
-              provider:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  invocation:
-                    type: string
-                  modelParams:
-                    type: object
-                    additionalProperties: true
-                  inputs:
-                    type: object
-                    additionalProperties: true
-                  outputs:
-                    type: object
-                    additionalProperties: true
-              elapsedTime:
-                type: integer
-              startTime:
-                type: string
-                format: date-time
-              endTime:
-                type: string
-                format: date-time
+            $ref: '#/components/schemas/StepRun'
       required:
-        - name
         - stepRuns
         - id
 
-    PipelineRunResponse:
+    StepRun:
+      type: object
+      properties:
+        provider:
+          type: object
+          properties:
+            name:
+              type: string
+            invocation:
+              type: string
+            modelParams:
+              type: object
+              additionalProperties: true
+            inputs:
+              type: object
+              additionalProperties: true
+            outputs:
+              type: object
+              additionalProperties: true
+        elapsedTime:
+          type: integer
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+
+    RunResponse:
       type: object
       properties:
         pipelineRunId:
@@ -611,93 +583,97 @@ components:
         name:
           type: string
           description: The name of the test case
-        setId:
+        pipelineId:
           type: string
           format: uuid
-          description: The ID of the test set that the test case belongs to
+          description: The ID of the pipeline that the test case belongs to
       required:
         - id
         - createdAt
         - updatedAt
         - inputs
         - name
-        - setId
+        - pipelineId
 
-    TestSet:
+    Pipeline:
       type: object
       properties:
         id:
           type: string
           format: uuid
-          description: The ID of the test set
+          description: The ID of the pipeline
         createdAt:
           type: string
           format: date-time
-          description: The date and time when the test set was created
+          description: The date and time when the pipeline was created
         updatedAt:
           type: string
           format: date-time
-          description: The date and time when the test set was last updated
+          description: The date and time when the pipeline was last updated
         archivedAt:
           type: string
           format: date-time
           nullable: true
-          description: The date and time when the test set was archived, can be null if the test set has not been archived
+          description: The date and time when the pipeline was archived, can be null if the pipeline has not been archived
         cases:
           type: array
           items:
             $ref: '#/components/schemas/TestCase'
-          description: The array of test cases that belong to the test set
+          description: The array of test cases that belong to the pipeline
         labels:
           type: array
           items:
             type: string
-          description: The labels attached to the test set
-        name:
+          description: The labels attached to the pipeline
+        displayName:
           type: string
-          description: The name of the test set
+          description: The name of the pipeline
+          nullable: true
+        slug:
+          type: string
+          description: The slug of the pipeline
         organizationId:
           type: string
-          description: The ID of the organization that owns the test set
+          description: The ID of the organization that owns the pipeline
         branch:
           type: string
           nullable: true
-          description: The branch that the test set is associated with
+          description: The branch that the pipeline is associated with
       required:
         - id
         - createdAt
         - updatedAt
         - cases
         - labels
-        - name
+        - slug
         - organizationId
       
 
-    TestRun:
+    TestResult:
       type: object
       properties:
         id:
           type: string
           format: uuid
-          description: The unique identifier for the test run.
+          description: The unique identifier for the test result.
         createdAt:
           type: string
           format: date-time
-          description: The date and time the test run was created.
+          description: The date and time the test result was created.
         updatedAt:
           type: string
           format: date-time
-          description: The date and time the test run was last updated.
-        setId:
+          description: The date and time the test result was last updated.
+        pipelineId:
           type: string
           format: uuid
-          description: The unique identifier for the test set associated with the test run.
+          description: The unique identifier for the pipeline associated with the test result.
         branch:
           type: string
-          description: The branch that the test run was created from
+          description: The branch that the test result was created from
         commit:
           type: string
-          description: The commit that the test run was created from
+          description: The commit that the test result was created from
         name:
           type: string
-          description: The name of the test run
+          description: The name of the test result
