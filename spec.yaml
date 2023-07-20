@@ -321,14 +321,19 @@ paths:
                         description: The ID of the test case
                       inputs:
                         type: object
-                        additionalProperties: 
-                          type: string
+                        additionalProperties: true
                         description: The input data for the test case
+                      outputs:
+                        type: object
+                        additionalProperties: true
+                        description: The returned outputs for the test case
                       output:
                         type: string
-                        description: The expected output for the test case
+                        description: Use outputs object instead.
+                        deprecated: true
                       outputSteps:
                         type: array
+                        description: Use outputs.steps insteads.
                         items:
                           type: object
                           properties:
@@ -351,10 +356,10 @@ paths:
                             - output
                         minItems: 1
                         nullable: true
+                        deprecated: true
                     required:
                       - caseId
                       - inputs
-                      - output
               required:
                 - setId
                 - testResults
@@ -595,36 +600,13 @@ components:
           type: string
           format: date-time
           description: The date and time when the test case was last updated
-        expected:
-          type: string
+        expectedOutputs:
+          type: object
           nullable: true
-          description: The expected output for the test case
-        expectedSteps:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-                description: The key of the step
-                minLength: 1
-                maxLength: 100
-              output:
-                type: string
-                description: The output of the step
-              inputs:
-                type: object
-                additionalProperties: 
-                  type: string
-                nullable: true
-                description: The inputs of the step
-            required:
-              - key
-              - output
-          minItems: 1
-          nullable: true
+          description: The expected outputs for the test case
         inputs:
           type: object
+          additionalProperties: true
           description: The input data for the test case as a JSON object
         name:
           type: string
