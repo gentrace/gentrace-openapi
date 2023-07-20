@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/gentrace/gentrace-openapi/compare/v0.9.0...v0.10.0) (2023-07-20)
+
+
+### Features
+
+* when ingesting test runs, support outputs (a JSON blob) and deprecate output / outputSteps ([#108](https://github.com/gentrace/gentrace-openapi/issues/108)) ([ba86e93](https://github.com/gentrace/gentrace-openapi/commit/ba86e93b50f714b8b0fd311eab4d9c8d7da79f82))
+
 ## [0.9.0](https://github.com/gentrace/gentrace-openapi/compare/v0.8.1...v0.9.0) (2023-07-18)
 
 
