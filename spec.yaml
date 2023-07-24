@@ -251,8 +251,12 @@ paths:
           schema:
             type: string
             format: uuid
-          required: true
-          description: The ID of the test case set to retrieve
+          description: The ID of the Pipeline to retrieve test cases for
+        - in: query
+          name: pipelineSlug
+          schema:
+            type: string
+          description: The slug of the Pipeline to retrieve test cases for
       responses:
         "200":
           description: Test cases retrieved successfully
@@ -289,10 +293,12 @@ paths:
             schema:
               type: object
               properties:
+                pipelineSlug:
+                  type: string
+                  description: The pipeline slug to create the test result for. Only one of pipelineSlug or pipelineId is required.
                 pipelineId:
                   type: string
-                  format: uuid
-                  description: The pipeline ID to create the test result for
+                  description: The pipeline ID to create the test result for. Only one of pipelineSlug or pipelineId is required.
                 branch:
                   type: string
                   description: The branch that the test result was created from
@@ -328,7 +334,6 @@ paths:
                       - caseId
                       - stepRuns
               required:
-                - pipelineId
                 - testRuns
       responses:
         "200":
@@ -416,6 +421,180 @@ paths:
                       - failure
                       - done
 
+  /test-run:
+    post:
+      deprecated: true
+      tags:
+        - Core
+      summary: Create a new test run from test results
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                setId:
+                  type: string
+                  format: uuid
+                  description: The ID of the test case set to run
+                branch:
+                  type: string
+                  description: The branch that the test run was created from
+                  nullable: true
+                commit:
+                  type: string
+                  description: The commit that the test run was created from
+                  nullable: true
+                name:
+                  type: string
+                  description: The name of the test run
+                  nullable: true
+                testResults:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: The ID of the test result
+                        nullable: true
+                      caseId:
+                        type: string
+                        format: uuid
+                        description: The ID of the test case
+                      inputs:
+                        type: object
+                        additionalProperties: true
+                        description: The input data for the test case
+                      outputs:
+                        type: object
+                        additionalProperties: true
+                        description: The returned outputs for the test case
+                      output:
+                        type: string
+                        description: Use outputs object instead.
+                        deprecated: true
+                      outputSteps:
+                        type: array
+                        description: Use outputs.steps insteads.
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              description: The key of the step
+                              minLength: 1
+                              maxLength: 100
+                            output:
+                              type: string
+                              description: The output of the step
+                            inputs:
+                              type: object
+                              additionalProperties: 
+                                type: string
+                              nullable: true
+                              description: The inputs of the step
+                          required:
+                            - key
+                            - output
+                        minItems: 1
+                        nullable: true
+                        deprecated: true
+                    required:
+                      - caseId
+                      - inputs
+              required:
+                - setId
+                - testResults
+      responses:
+        "200":
+          description: Test run created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runId:
+                    type: string
+                    format: uuid
+                required:
+                - runId
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  runId:
+                    type: string
+                    format: uuid
+                required:
+                - runId
+    get:
+      deprecated: true
+      tags:
+        - Core
+      summary: Get test run by ID
+      parameters:
+        - in: query
+          name: runId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The ID of the test run to retrieve
+      responses:
+        "200":
+          description: Test run retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testRun:
+                    $ref: '#/components/schemas/TestRun'
+                    description: The test run object.
+                  stats:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                      pending:
+                        type: number
+                      failure:
+                        type: number
+                      done:
+                        type: number
+                    required:
+                      - total
+                      - pending
+                      - failure
+                      - done
+                        
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  testRun:
+                    $ref: '#/components/schemas/TestRun'
+                    description: The test run object.
+                  stats:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                      pending:
+                        type: number
+                      failure:
+                        type: number
+                      done:
+                        type: number
+                    required:
+                      - total
+                      - pending
+                      - failure
+                      - done
+
   /pipelines:
     get:
       tags:
@@ -427,6 +606,11 @@ paths:
           schema:
             type: string
           description: The label to filter pipelines by
+        - in: query
+          name: slug
+          schema:
+            type: string
+          description: The slug to filter pipelines by
       responses:
         "200":
           description: Pipelines retrieved successfully
@@ -677,3 +861,32 @@ components:
         name:
           type: string
           description: The name of the test result
+
+    TestRun:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the test run.
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time the test run was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time the test run was last updated.
+        setId:
+          type: string
+          format: uuid
+          description: The unique identifier for the test set associated with the test run.
+        branch:
+          type: string
+          description: The branch that the test run was created from
+        commit:
+          type: string
+          description: The commit that the test run was created from
+        name:
+          type: string
+          description: The name of the test run
