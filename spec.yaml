@@ -771,6 +771,11 @@ components:
           type: string
           format: uuid
           description: The ID of the pipeline that the test case belongs to
+        setId:
+          deprecated: true
+          type: string
+          format: uuid
+          description: The ID of the set (pipeline) that the test case belongs to
       required:
         - id
         - createdAt
