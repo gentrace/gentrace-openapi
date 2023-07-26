@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/gentrace/gentrace-openapi/compare/v0.10.0...v0.11.0) (2023-07-26)
+
+
+### Features
+
+* Merge evaluate and observe ([#107](https://github.com/gentrace/gentrace-openapi/issues/107)) ([89156c5](https://github.com/gentrace/gentrace-openapi/commit/89156c5afb9b2a475dfb2b4b1c4e269a6ae8ad65))
+
 ## [0.10.0](https://github.com/gentrace/gentrace-openapi/compare/v0.9.0...v0.10.0) (2023-07-20)
 
 
