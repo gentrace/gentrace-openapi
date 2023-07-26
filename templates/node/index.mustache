@@ -4,6 +4,25 @@
 
 export * from "./api";
 export * from "./configuration";
-{{#withSeparateModelsAndApi}}export * from "./{{tsModelPackage}}";{{/withSeparateModelsAndApi}}
+{{#withSeparateModelsAndApi}}
+export {
+  FeedbackRequest,
+  FeedbackResponse,
+  PipelinesGet200Response,
+  RunRequest,
+  RunResponse,
+  StepRun,
+  StepRunProvider,
+  TestCase,
+  TestCaseGet200Response,
+  TestResult,
+  TestResultGet200Response,
+  TestResultGet200Response1,
+  TestResultGet200ResponseStats,
+  TestResultPost200Response,
+  TestResultPostRequest,
+    TestResultPostRequestTestRunsInner,
+} from "./{{tsModelPackage}}";
+{{/withSeparateModelsAndApi}}
 
 export * from "./providers/index"
