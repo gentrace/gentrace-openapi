@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.2](https://github.com/gentrace/gentrace-openapi/compare/v0.11.1...v0.11.2) (2023-07-31)
+
+
+### Bug Fixes
+
+* Fix OpenAPI ReadMe update ID for 0.15.0 ([#113](https://github.com/gentrace/gentrace-openapi/issues/113)) ([682ccdc](https://github.com/gentrace/gentrace-openapi/commit/682ccdc5fb7d1d3b36ffce67ae59c9047f431637))
+
 ## [0.11.1](https://github.com/gentrace/gentrace-openapi/compare/v0.11.0...v0.11.1) (2023-07-31)
 
 
