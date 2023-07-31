@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/gentrace/gentrace-openapi/compare/v0.11.0...v0.11.1) (2023-07-31)
+
+
+### Bug Fixes
+
+* Add collection method ([#111](https://github.com/gentrace/gentrace-openapi/issues/111)) ([bfd3aff](https://github.com/gentrace/gentrace-openapi/commit/bfd3aff97bcc61aaab6c7b6daa901b328837fe8f))
+
 ## [0.11.0](https://github.com/gentrace/gentrace-openapi/compare/v0.10.0...v0.11.0) (2023-07-26)
 
 
