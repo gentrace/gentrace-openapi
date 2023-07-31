@@ -299,6 +299,12 @@ paths:
                 pipelineId:
                   type: string
                   description: The pipeline ID to create the test result for. Only one of pipelineSlug or pipelineId is required.
+                collectionMethod:
+                  type: string
+                  description: The method used to collect the test runs
+                  enum:
+                    - manual
+                    - runner
                 branch:
                   type: string
                   description: The branch that the test result was created from
@@ -653,6 +659,12 @@ components:
         id:
           type: string
           format: uuid
+        collectionMethod:
+          type: string
+          description: The method used to collect the run
+          enum:
+            - manual
+            - runner
         slug:
           type: string
         name:
