@@ -31,6 +31,12 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: gentrace-openapi/yarn.lock
         if: ${{ steps.release.outputs.release_created }}
+
+      - name: ⎔ Setup pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 8.7.0
+        if: ${{ steps.release.outputs.release_created }}
     
       - uses: actions/checkout@v3
         name: Checkout OpenAPI-generated NodeJS SDK
@@ -68,10 +74,7 @@ jobs:
       - name: Install (NodeJS)
         run: |
           cd $GITHUB_WORKSPACE/gentrace-node
-          
-          # Installs the necesary Husky commit hooks
-          yarn install
-          npx lint-staged
+          pnpm install
         if: ${{ steps.release.outputs.release_created }}
 
       - name: Get package version
@@ -141,5 +144,5 @@ jobs:
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi gentrace-openapi/dist/spec-resolved.yaml --key=${{ secrets.README_API_KEY }} --id=64c14d9d6603d21491756fe1
+          rdme: openapi gentrace-openapi/dist/spec-resolved.yaml --key=${{ secrets.README_API_KEY }} --id=64f88f2f5a9aba001951f637
         if: ${{ steps.release.outputs.release_created }}
