@@ -763,22 +763,19 @@ components:
     StepRun:
       type: object
       properties:
-        provider:
+        providerName:
+          type: string
+        invocation:
+          type: string
+        modelParams:
           type: object
-          properties:
-            name:
-              type: string
-            invocation:
-              type: string
-            modelParams:
-              type: object
-              additionalProperties: true
-            inputs:
-              type: object
-              additionalProperties: true
-            outputs:
-              type: object
-              additionalProperties: true
+          additionalProperties: true
+        inputs:
+          type: object
+          additionalProperties: true
+        outputs:
+          type: object
+          additionalProperties: true
         context: 
           type: object
           properties:
@@ -792,6 +789,15 @@ components:
         endTime:
           type: string
           format: date-time
+      required:
+        - providerName
+        - invocation
+        - modelParams
+        - inputs
+        - outputs
+        - elapsedTime
+        - startTime
+        - endTime
 
     RunResponse:
       type: object
