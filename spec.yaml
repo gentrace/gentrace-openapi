@@ -311,6 +311,19 @@ paths:
                       creationCount:
                         type: integer
                         description: Number of created test cases
+            application/json; charset=utf-8:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      caseId:
+                        type: string
+                        description: ID of the created test case
+                  - type: object
+                    properties:
+                      creationCount:
+                        type: integer
+                        description: Number of created test cases
         "400":
           description: Bad request
         "500":
@@ -337,6 +350,14 @@ paths:
                   caseId:
                     type: string
                     description: ID of the updated test case
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  caseId:
+                    type: string
+                    description: ID of the updated test case
+
         "400":
           description: Bad request
         "500":
