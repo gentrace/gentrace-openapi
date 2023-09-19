@@ -281,6 +281,67 @@ paths:
           description: Invalid pipeline ID
         "500":
           description: Server error
+          
+    post:
+      tags:
+        - Core
+      summary: Create a new test case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "#/components/schemas/CreateSingleTestCase"
+                - $ref: "#/components/schemas/CreateMultipleTestCases"
+      responses:
+        "200":
+          description: Test case(s) created successfully
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      caseId:
+                        type: string
+                        description: ID of the created test case
+                  - type: object
+                    properties:
+                      creationCount:
+                        type: integer
+                        description: Number of created test cases
+        "400":
+          description: Bad request
+        "500":
+          description: Server error
+
+    patch:
+      tags:
+        - Core
+      summary: Update an existing test case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTestCase"
+      responses:
+        "200":
+          description: Test case updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  caseId:
+                    type: string
+                    description: ID of the updated test case
+        "400":
+          description: Bad request
+        "500":
+          description: Server error
+
   /test-result:
     post:
       tags:
@@ -697,6 +758,11 @@ components:
             outputs:
               type: object
               additionalProperties: true
+        context: 
+          type: object
+          properties:
+            userId:
+              type: string
         elapsedTime:
           type: integer
         startTime:
@@ -795,6 +861,77 @@ components:
         - inputs
         - name
         - pipelineId
+
+    CreateSingleTestCase:
+      type: object
+      properties:
+        pipelineSlug:
+          type: string
+          description: Slug for the pipeline
+        name:
+          type: string
+          description: The name of the test case
+        inputs:
+          type: object
+          additionalProperties: true
+          description: The input data for the test case as a JSON object
+        expectedOutputs:
+          type: object
+          nullable: true
+          description: The expected outputs for the test case as a JSON object
+
+    CreateMultipleTestCases:
+      type: object
+      properties:
+        pipelineSlug:
+          type: string
+          description: Slug for the pipeline
+        testCases:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                description: Name of the test case.
+              inputs:
+                type: object
+                description: Input for the test case. Must be a valid JSON object and not an array.
+                additionalProperties: true
+              expectedOutputs:
+                type: object
+                description: Expected outputs for the test case
+            required:
+            - name
+            - inputs
+            - expectedOutputs
+
+    UpdateTestCase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the test case to update
+        name:
+          type: string
+          nullable: true
+          description: Name of the test case
+        inputs:
+          type: object
+          nullable: true
+          description: Inputs for the test case
+        expectedOutputs:
+          type: object
+          nullable: true
+          description: Expected outputs for the test case
+        archived:
+          type: boolean
+          nullable: true
+          description: Archive status for the test case
+      required:
+        - id
 
     Pipeline:
       type: object
