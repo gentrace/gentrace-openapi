@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.3](https://github.com/gentrace/gentrace-openapi/compare/v0.11.2...v0.11.3) (2023-09-19)
+
+
+### Bug Fixes
+
+* Add test case endpoints ([#115](https://github.com/gentrace/gentrace-openapi/issues/115)) ([7585878](https://github.com/gentrace/gentrace-openapi/commit/75858787246fb6b18e465067a311b857141849f7))
+
 ## [0.11.2](https://github.com/gentrace/gentrace-openapi/compare/v0.11.1...v0.11.2) (2023-07-31)
 
 
