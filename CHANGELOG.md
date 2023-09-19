@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.4](https://github.com/gentrace/gentrace-openapi/compare/v0.11.3...v0.11.4) (2023-09-19)
+
+
+### Bug Fixes
+
+* Update GH actions ([#117](https://github.com/gentrace/gentrace-openapi/issues/117)) ([594ea62](https://github.com/gentrace/gentrace-openapi/commit/594ea628413c28d559911e369369200fe9853a21))
+
 ## [0.11.3](https://github.com/gentrace/gentrace-openapi/compare/v0.11.2...v0.11.3) (2023-09-19)
 
 
