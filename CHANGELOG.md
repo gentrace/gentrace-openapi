@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.11.5](https://github.com/gentrace/gentrace-openapi/compare/v0.11.4...v0.11.5) (2023-09-20)
+
+
+### Bug Fixes
+
+* Fix PR workflow ([#123](https://github.com/gentrace/gentrace-openapi/issues/123)) ([cb3268d](https://github.com/gentrace/gentrace-openapi/commit/cb3268d955a0dbc03e1466f2b1af7d408eb7c0d9))
+* Remove steprun and provider ([#122](https://github.com/gentrace/gentrace-openapi/issues/122)) ([36b0328](https://github.com/gentrace/gentrace-openapi/commit/36b032824b9522df54e98c1ff99b53b9da61eb4f))
+* simplify Step Run ([#121](https://github.com/gentrace/gentrace-openapi/issues/121)) ([f2c70c7](https://github.com/gentrace/gentrace-openapi/commit/f2c70c7a9a22815e85296a90f903d48079efba3e))
+* Specify alternative JSON headers ([#119](https://github.com/gentrace/gentrace-openapi/issues/119)) ([874c8d0](https://github.com/gentrace/gentrace-openapi/commit/874c8d0744f3811843a8e2fe554ae370451f69a9))
+
 ## [0.11.4](https://github.com/gentrace/gentrace-openapi/compare/v0.11.3...v0.11.4) (2023-09-19)
 
 
