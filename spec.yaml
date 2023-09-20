@@ -509,12 +509,11 @@ paths:
                       - failure
                       - done
 
-  /test-run:
+  /test-result-simple:
     post:
-      deprecated: true
       tags:
         - Core
-      summary: Create a new test run from test results
+      summary: Create a new test result from test runs
       requestBody:
         required: true
         content:
@@ -522,23 +521,23 @@ paths:
             schema:
               type: object
               properties:
-                setId:
+                pipelineSlug:
                   type: string
                   format: uuid
-                  description: The ID of the test case set to run
+                  description: The pipeline ID
                 branch:
                   type: string
-                  description: The branch that the test run was created from
+                  description: The branch that the test result was created from
                   nullable: true
                 commit:
                   type: string
-                  description: The commit that the test run was created from
+                  description: The commit that the test result was created from
                   nullable: true
                 name:
                   type: string
-                  description: The name of the test run
+                  description: The name of the test result
                   nullable: true
-                testResults:
+                testRuns:
                   type: array
                   items:
                     type: object
@@ -546,7 +545,7 @@ paths:
                       id:
                         type: string
                         format: uuid
-                        description: The ID of the test result
+                        description: The ID of the test run
                         nullable: true
                       caseId:
                         type: string
@@ -560,88 +559,58 @@ paths:
                         type: object
                         additionalProperties: true
                         description: The returned outputs for the test case
-                      output:
-                        type: string
-                        description: Use outputs object instead.
-                        deprecated: true
-                      outputSteps:
-                        type: array
-                        description: Use outputs.steps insteads.
-                        items:
-                          type: object
-                          properties:
-                            key:
-                              type: string
-                              description: The key of the step
-                              minLength: 1
-                              maxLength: 100
-                            output:
-                              type: string
-                              description: The output of the step
-                            inputs:
-                              type: object
-                              additionalProperties: 
-                                type: string
-                              nullable: true
-                              description: The inputs of the step
-                          required:
-                            - key
-                            - output
-                        minItems: 1
-                        nullable: true
-                        deprecated: true
                     required:
                       - caseId
                       - inputs
               required:
-                - setId
-                - testResults
+                - pipelineId
+                - testRuns
       responses:
         "200":
-          description: Test run created successfully
+          description: Test result created successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  runId:
+                  resultId:
                     type: string
                     format: uuid
                 required:
-                - runId
+                - resultId
             application/json; charset=utf-8:
               schema:
                 type: object
                 properties:
-                  runId:
+                  resultId:
                     type: string
                     format: uuid
                 required:
-                - runId
+                - resultId
     get:
       deprecated: true
       tags:
         - Core
-      summary: Get test run by ID
+      summary: Get test result by ID
       parameters:
         - in: query
-          name: runId
+          name: resultId
           schema:
             type: string
             format: uuid
           required: true
-          description: The ID of the test run to retrieve
+          description: The ID of the test result to retrieve
       responses:
         "200":
-          description: Test run retrieved successfully
+          description: Test result retrieved successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  testRun:
-                    $ref: '#/components/schemas/TestRun'
-                    description: The test run object.
+                  testResult:
+                    $ref: '#/components/schemas/TestResult'
+                    description: The test result object.
                   stats:
                     type: object
                     properties:
@@ -664,8 +633,8 @@ paths:
                 type: object
                 properties:
                   testRun:
-                    $ref: '#/components/schemas/TestRun'
-                    description: The test run object.
+                    $ref: '#/components/schemas/TestResult'
+                    description: The test result object.
                   stats:
                     type: object
                     properties:
