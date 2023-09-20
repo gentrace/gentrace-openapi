@@ -38,30 +38,6 @@ jobs:
           version: 8.7.0
         if: ${{ steps.release.outputs.release_created }}
     
-      - uses: actions/checkout@v3
-        name: Checkout OpenAPI-generated NodeJS SDK
-        with:
-          path: gentrace-node
-          repository: gentrace/gentrace-node
-          token: ${{ secrets.GH_REPO_PAT }}
-        if: ${{ steps.release.outputs.release_created }}
-        
-      - uses: actions/checkout@v3
-        name: Checkout OpenAPI-generated browser SDK
-        with:
-          path: gentrace-browser
-          repository: gentrace/gentrace-browser
-          token: ${{ secrets.GH_REPO_PAT }}
-        if: ${{ steps.release.outputs.release_created }}
-        
-      - uses: actions/checkout@v3
-        name: Checkout OpenAPI-generated Python SDK
-        with:
-          path: gentrace-python
-          repository: gentrace/gentrace-python
-          token: ${{ secrets.GH_REPO_PAT }}
-        if: ${{ steps.release.outputs.release_created }}
-              
       - name: Install and generate (OpenAPI)
         run: |
           cd $GITHUB_WORKSPACE/gentrace-openapi
@@ -69,76 +45,6 @@ jobs:
         
           # Assumes that all generated repositories are at relative path "../<original-repo-name>" 
           yarn build
-        if: ${{ steps.release.outputs.release_created }}
-
-      - name: Install (NodeJS)
-        run: |
-          cd $GITHUB_WORKSPACE/gentrace-node
-          pnpm install
-        if: ${{ steps.release.outputs.release_created }}
-
-      - name: Get package version
-        run: |
-          echo "version=$(jq ".version" gentrace-openapi/package.json)" >> $GITHUB_ENV
-        if: ${{ steps.release.outputs.release_created }}
-        
-      - name: Create Pull Request (NodeJS)
-        uses: peter-evans/create-pull-request@v5
-        with:
-          path: gentrace-node
-          token: ${{ secrets.GH_REPO_PAT }}
-          committer: Gentrace Bot<bot@gentrace.ai>
-          author: Gentrace Bot<bot@gentrace.ai>
-          title: "chore: updating OpenAI generated NodeJS logic to ${{ env.version }}"
-          branch: openapi-${{ env.version }}
-          base: main
-        if: ${{ steps.release.outputs.release_created }}
-        
-      - name: Set up python
-        id: setup-python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-        if: ${{ steps.release.outputs.release_created }}
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
-        if: ${{ steps.release.outputs.release_created }}
-      
-      - name: Poetry install, run formatters 
-        run: |
-          cd gentrace-python/package
-          poetry install --no-interaction
-          source .venv/bin/activate
-          make format
-        if: ${{ steps.release.outputs.release_created }}
-          
-      - name: Create Pull Request (Python)
-        uses: peter-evans/create-pull-request@v5
-        with:
-          path: gentrace-python
-          token: ${{ secrets.GH_REPO_PAT }}
-          committer: Gentrace Bot<bot@gentrace.ai>
-          author: Gentrace Bot<bot@gentrace.ai>
-          title: "chore: updating OpenAI generated Python logic to ${{ env.version }}"
-          branch: openapi-${{ env.version }}
-          base: main
-        if: ${{ steps.release.outputs.release_created }}
-
-      - name: Create Pull Request (Browser)
-        uses: peter-evans/create-pull-request@v5
-        with:
-          path: gentrace-browser
-          token: ${{ secrets.GH_REPO_PAT }}
-          committer: Gentrace Bot<bot@gentrace.ai>
-          author: Gentrace Bot<bot@gentrace.ai>
-          title: "chore: updating OpenAI generated browser logic to ${{ env.version }}"
-          branch: openapi-${{ env.version }}
-          base: main
         if: ${{ steps.release.outputs.release_created }}
 
       - name: Run `openapi` command 🚀
