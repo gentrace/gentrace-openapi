@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/gentrace/gentrace-openapi/compare/v0.11.5...v0.12.0) (2023-09-20)
+
+
+### Features
+
+* Include test result simple path, remove deprecated test run ([#124](https://github.com/gentrace/gentrace-openapi/issues/124)) ([f988769](https://github.com/gentrace/gentrace-openapi/commit/f988769ff5f4be7b8286a2de48cb9c85f8da7bcd))
+
 ## [0.11.5](https://github.com/gentrace/gentrace-openapi/compare/v0.11.4...v0.11.5) (2023-09-20)
 
 
