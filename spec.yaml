@@ -523,8 +523,7 @@ paths:
               properties:
                 pipelineSlug:
                   type: string
-                  format: uuid
-                  description: The pipeline ID
+                  description: Slug for the pipeline
                 branch:
                   type: string
                   description: The branch that the test result was created from
@@ -563,7 +562,7 @@ paths:
                       - caseId
                       - inputs
               required:
-                - pipelineId
+                - pipelineSlug
                 - testRuns
       responses:
         "200":
@@ -1021,31 +1020,3 @@ components:
           type: string
           description: The name of the test result
 
-    TestRun:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier for the test run.
-        createdAt:
-          type: string
-          format: date-time
-          description: The date and time the test run was created.
-        updatedAt:
-          type: string
-          format: date-time
-          description: The date and time the test run was last updated.
-        setId:
-          type: string
-          format: uuid
-          description: The unique identifier for the test set associated with the test run.
-        branch:
-          type: string
-          description: The branch that the test run was created from
-        commit:
-          type: string
-          description: The commit that the test run was created from
-        name:
-          type: string
-          description: The name of the test run
