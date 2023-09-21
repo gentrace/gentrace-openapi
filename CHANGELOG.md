@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/gentrace/gentrace-openapi/compare/v0.12.0...v0.13.0) (2023-09-21)
+
+
+### Features
+
+* add rendering customization option (HTML) ([#127](https://github.com/gentrace/gentrace-openapi/issues/127)) ([e3f888c](https://github.com/gentrace/gentrace-openapi/commit/e3f888cf24b83d9ec84d80898bcc8bcce9c6046d))
+
 ## [0.12.0](https://github.com/gentrace/gentrace-openapi/compare/v0.11.5...v0.12.0) (2023-09-20)
 
 
