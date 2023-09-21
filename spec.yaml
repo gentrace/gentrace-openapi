@@ -750,6 +750,15 @@ components:
           properties:
             userId:
               type: string
+            render:
+              type: object
+              properties:
+                type:
+                  type: string
+                key:
+                  type: string
+              required:
+                - type
         elapsedTime:
           type: integer
         startTime:
