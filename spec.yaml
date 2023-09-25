@@ -445,69 +445,87 @@ paths:
                     format: uuid
                 required:
                 - resultId
+
+  /test-result/{id}:
+    get:
+      summary: Fetch test result by ID
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the test result
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Test result retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AugmentedTestResult'
+        400:
+          description: Bad request.
+        404:
+          description: Test result not found.
+        500:
+          description: Internal server error.
+
+
+  /test-result/status:
     get:
       tags:
         - Core
-      summary: Get test result by ID
+      summary: Get status of the test result
       parameters:
         - in: query
-          name: resultId
+          name: id
           schema:
             type: string
             format: uuid
           required: true
-          description: The ID of the test result to retrieve
+          description: The ID of the test result
       responses:
         "200":
-          description: Test result retrieved successfully
+          description: Test result status retrieved successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  testResult:
-                    $ref: '#/components/schemas/TestResult'
-                    description: The test result object.
-                  stats:
-                    type: object
-                    properties:
-                      total:
-                        type: number
-                      pending:
-                        type: number
-                      failure:
-                        type: number
-                      done:
-                        type: number
-                    required:
-                      - total
-                      - pending
-                      - failure
-                      - done
+                  total:
+                    type: number
+                  pending:
+                    type: number
+                  failure:
+                    type: number
+                  done:
+                    type: number
+                required:
+                  - total
+                  - pending
+                  - failure
+                  - done
                         
             application/json; charset=utf-8:
               schema:
                 type: object
                 properties:
-                  testRun:
-                    $ref: '#/components/schemas/TestResult'
-                    description: The test result object.
-                  stats:
-                    type: object
-                    properties:
-                      total:
-                        type: number
-                      pending:
-                        type: number
-                      failure:
-                        type: number
-                      done:
-                        type: number
-                    required:
-                      - total
-                      - pending
-                      - failure
-                      - done
+                  total:
+                    type: number
+                  pending:
+                    type: number
+                  failure:
+                    type: number
+                  done:
+                    type: number
+                required:
+                  - total
+                  - pending
+                  - failure
+                  - done
 
   /test-result-simple:
     post:
@@ -703,6 +721,181 @@ components:
       scheme: bearer
 
   schemas:
+    AugmentedTestResult:
+      allOf:
+        - $ref: '#/components/schemas/TestResult'
+      type: object
+      properties:
+        pipeline:
+          $ref: '#/components/schemas/AugmentedPipeline'
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AugmentedTestRun'
+
+    AugmentedTestRun:
+      allOf:
+        - $ref: '#/components/schemas/TestRun'
+      type: object
+      properties:
+        full:
+          $ref: '#/components/schemas/FullRunQuery'
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResolvedStepRun'
+        case:
+          $ref: '#/components/schemas/TestCase'
+        evaluations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestEvaluation'
+
+    FullRunQuery:
+      type: object
+      required:
+        - pipelineRunId
+        - pipelineId
+        - organizationId
+        - startTime
+        - endTime
+      properties:
+        pipelineRunId:
+          type: string
+          format: uuid
+        pipelineId:
+          type: string
+          format: uuid
+        organizationId:
+          type: string
+          format: uuid
+        startTime:
+          type: string
+          format: datetime
+        endTime:
+          type: string
+          format: datetime
+        cost:
+          type: number
+          minimum: 0
+          nullable: true
+        elapsed:
+          type: number
+          minimum: 0
+          nullable: true
+        feedback:
+          type: number
+          minimum: 0
+          maximum: 1
+          nullable: true
+        lastInvocation:
+          type: string
+          nullable: true
+        inputs:
+          type: object
+          additionalProperties: true
+          nullable: true
+        outputs:
+          type: object
+          additionalProperties: true          
+          nullable: true
+        renderHTMLKey:
+          type: string
+          nullable: true
+
+    TestRun:
+      type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - caseId
+        - resultId
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: datetime
+        updatedAt:
+          type: string
+          format: datetime
+        caseId:
+          type: string
+          format: uuid
+        resultId:
+          type: string
+          format: uuid
+
+    AugmentedPipeline:
+      allOf:
+        - $ref: '#/components/schemas/Pipeline'
+      type: object
+      properties:
+        evaluators:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestEvaluator'
+
+    TestEvaluator:
+      type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - name
+        - options
+        - pipelineId
+        - who
+        - valueType
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: datetime
+        updatedAt:
+          type: string
+          format: datetime
+        archivedAt:
+          type: string
+          format: datetime
+          nullable: true
+        icon:
+          type: string
+          nullable: true
+        name:
+          type: string
+        options:
+          type: object
+          nullable: true
+        aiModel:
+          type: string
+          enum: [OPENAI_3_5, OPENAI_4]
+          nullable: true
+        pipelineId:
+          type: string
+        processorId:
+          type: string
+          nullable: true
+        heuristicFn:
+          type: string
+          nullable: true
+        aiPromptFormat:
+          type: string
+          nullable: true
+        humanPrompt:
+          type: string
+          nullable: true
+        who:
+          type: string
+          enum: [AI, HEURISTIC, HUMAN]
+        valueType:
+          type: string
+          enum: [ENUM, PERCENTAGE]
+
     RunRequest:
       type: object
       properties:
@@ -775,6 +968,38 @@ components:
         - elapsedTime
         - startTime
         - endTime
+
+    ResolvedStepRun:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        organizationId:
+          type: string
+          format: uuid
+        providerName:
+          type: string
+        invocation:
+          type: string
+        modelParams:
+          type: object
+          additionalProperties: true
+        inputs:
+          type: object
+          additionalProperties: true
+        outputs:
+          type: object
+          additionalProperties: true
+        startTime:
+          type: string
+          format: datetime
+        endTime:
+          type: string
+          format: datetime
+        pipelineRunId:
+          type: string
+          format: uuid
 
     RunResponse:
       type: object
@@ -1020,3 +1245,54 @@ components:
           type: string
           description: The name of the test result
 
+    TestEvaluation:
+      type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - isPending
+        - evaluatorId
+        - runId
+        - billingGpt4InputTokens
+        - billingGpt4OutputTokens
+        - billingGpt35InputTokens
+        - billingGpt35OutputTokens
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: datetime
+        updatedAt:
+          type: string
+          format: datetime
+        isPending:
+          type: boolean
+        debug:
+          type: object
+          nullable: true
+        evaluatorId:
+          type: string
+          format: uuid
+        runId:
+          type: string
+          format: uuid
+        evalLabel:
+          type: string
+          nullable: true
+        evalValue:
+          type: number
+          nullable: true
+        manualCreatedByEmail:
+          type: string
+          nullable: true
+        billingGpt4InputTokens:
+          type: integer
+        billingGpt4OutputTokens:
+          type: integer
+        billingGpt35InputTokens:
+          type: integer
+        billingGpt35OutputTokens:
+          type: integer
