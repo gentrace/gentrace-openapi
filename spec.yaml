@@ -364,6 +364,43 @@ paths:
           description: Server error
 
   /test-result:
+    get:
+      tags:
+        - Core
+      summary: Get test results for a pipeline
+      parameters:
+        - name: pipelineSlug
+          in: query
+          required: true
+          description: The slug of the pipeline
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testResults:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TestResult'
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  testResults:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TestResult'
+
+        '400':
+          description: Invalid request parameters
+        '404':
+          description: Results not found
+
     post:
       tags:
         - Core
@@ -448,6 +485,8 @@ paths:
 
   /test-result/{id}:
     get:
+      tags:
+        - Core
       summary: Fetch test result by ID
       parameters:
         - name: id
@@ -463,9 +502,10 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AugmentedTestResult'
+                $ref: '#/components/schemas/ExpandedTestResult'
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ExpandedTestResult'
         400:
           description: Bad request.
         404:
@@ -604,70 +644,6 @@ paths:
                     format: uuid
                 required:
                 - resultId
-    get:
-      deprecated: true
-      tags:
-        - Core
-      summary: Get test result by ID
-      parameters:
-        - in: query
-          name: resultId
-          schema:
-            type: string
-            format: uuid
-          required: true
-          description: The ID of the test result to retrieve
-      responses:
-        "200":
-          description: Test result retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  testResult:
-                    $ref: '#/components/schemas/TestResult'
-                    description: The test result object.
-                  stats:
-                    type: object
-                    properties:
-                      total:
-                        type: number
-                      pending:
-                        type: number
-                      failure:
-                        type: number
-                      done:
-                        type: number
-                    required:
-                      - total
-                      - pending
-                      - failure
-                      - done
-                        
-            application/json; charset=utf-8:
-              schema:
-                type: object
-                properties:
-                  testRun:
-                    $ref: '#/components/schemas/TestResult'
-                    description: The test result object.
-                  stats:
-                    type: object
-                    properties:
-                      total:
-                        type: number
-                      pending:
-                        type: number
-                      failure:
-                        type: number
-                      done:
-                        type: number
-                    required:
-                      - total
-                      - pending
-                      - failure
-                      - done
 
   /pipelines:
     get:
@@ -721,37 +697,37 @@ components:
       scheme: bearer
 
   schemas:
-    AugmentedTestResult:
+    ExpandedTestResult:
       allOf:
         - $ref: '#/components/schemas/TestResult'
-      type: object
-      properties:
-        pipeline:
-          $ref: '#/components/schemas/AugmentedPipeline'
-        runs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AugmentedTestRun'
+        - type: object
+          properties:
+            pipeline:
+              $ref: '#/components/schemas/ExpandedPipeline'
+            runs:
+              type: array
+              items:
+                $ref: '#/components/schemas/ExpandedTestRun'
 
-    AugmentedTestRun:
+    ExpandedTestRun:
       allOf:
         - $ref: '#/components/schemas/TestRun'
-      type: object
-      properties:
-        full:
-          $ref: '#/components/schemas/FullRunQuery'
-        steps:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResolvedStepRun'
-        case:
-          $ref: '#/components/schemas/TestCase'
-        evaluations:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestEvaluation'
+        - type: object
+          properties:
+            full:
+              $ref: '#/components/schemas/FullRun'
+            steps:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResolvedStepRun'
+            case:
+              $ref: '#/components/schemas/TestCase'
+            evaluations:
+              type: array
+              items:
+                $ref: '#/components/schemas/TestEvaluation'
 
-    FullRunQuery:
+    FullRun:
       type: object
       required:
         - pipelineRunId
@@ -828,15 +804,15 @@ components:
           type: string
           format: uuid
 
-    AugmentedPipeline:
+    ExpandedPipeline:
       allOf:
         - $ref: '#/components/schemas/Pipeline'
-      type: object
-      properties:
-        evaluators:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestEvaluator'
+        - type: object
+          properties:
+            evaluators:
+              type: array
+              items:
+                $ref: '#/components/schemas/TestEvaluator'
 
     TestEvaluator:
       type: object
@@ -982,9 +958,12 @@ components:
           type: string
         invocation:
           type: string
+        # TODO: Fix this on the backend. Should only be an object.
         modelParams:
-          type: object
-          additionalProperties: true
+          oneOf:
+            - type: object
+              additionalProperties: true
+            - type: string
         inputs:
           type: object
           additionalProperties: true
@@ -1214,10 +1193,14 @@ components:
         - labels
         - slug
         - organizationId
-      
 
     TestResult:
       type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - pipelineId
       properties:
         id:
           type: string
@@ -1238,12 +1221,15 @@ components:
         branch:
           type: string
           description: The branch that the test result was created from
+          nullable: true
         commit:
           type: string
           description: The commit that the test result was created from
+          nullable: true
         name:
           type: string
           description: The name of the test result
+          nullable: true
 
     TestEvaluation:
       type: object
