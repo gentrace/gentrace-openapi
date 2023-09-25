@@ -672,7 +672,14 @@ paths:
                   pipelines:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Pipeline"
+                      allOf:
+                      - $ref: "#/components/schemas/Pipeline"
+                      - type: object
+                        properties:
+                          cases:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/TestCase"
                 required:
                   - pipelines
             application/json; charset=utf-8:
@@ -682,7 +689,14 @@ paths:
                   pipelines:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Pipeline"
+                      allOf:
+                      - $ref: "#/components/schemas/Pipeline"
+                      - type: object
+                        properties:
+                          cases:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/TestCase"
                 required:
                   - pipelines
         "400":
@@ -845,11 +859,13 @@ components:
         name:
           type: string
         options:
-          type: object
+          type: array
+          items: {} 
           nullable: true
+        # TODO: Enum values were causing runtime check issues with the Python
+        # SDK. Figure out what is causing the issue at a later point.
         aiModel:
           type: string
-          enum: [OPENAI_3_5, OPENAI_4]
           nullable: true
         pipelineId:
           type: string
@@ -867,10 +883,8 @@ components:
           nullable: true
         who:
           type: string
-          enum: [AI, HEURISTIC, HUMAN]
         valueType:
           type: string
-          enum: [ENUM, PERCENTAGE]
 
     RunRequest:
       type: object
@@ -1161,11 +1175,6 @@ components:
           format: date-time
           nullable: true
           description: The date and time when the pipeline was archived, can be null if the pipeline has not been archived
-        cases:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestCase'
-          description: The array of test cases that belong to the pipeline
         labels:
           type: array
           items:
@@ -1189,7 +1198,6 @@ components:
         - id
         - createdAt
         - updatedAt
-        - cases
         - labels
         - slug
         - organizationId
