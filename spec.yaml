@@ -972,12 +972,9 @@ components:
           type: string
         invocation:
           type: string
-        # TODO: Fix this on the backend. Should only be an object.
         modelParams:
-          oneOf:
-            - type: object
-              additionalProperties: true
-            - type: string
+          type: object
+          additionalProperties: true
         inputs:
           type: object
           additionalProperties: true
