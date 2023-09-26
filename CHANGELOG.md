@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.14.0](https://github.com/gentrace/gentrace-openapi/compare/v0.13.0...v0.14.0) (2023-09-26)
+
+
+### Features
+
+* Add API endpoints for TestResult ([#130](https://github.com/gentrace/gentrace-openapi/issues/130)) ([11109ae](https://github.com/gentrace/gentrace-openapi/commit/11109aed708cbff4c8fde6347cd52497eca1fd64))
+
+
+### Bug Fixes
+
+* Add schema fixes ([#126](https://github.com/gentrace/gentrace-openapi/issues/126)) ([cec5a0d](https://github.com/gentrace/gentrace-openapi/commit/cec5a0db1ec43aef9203b97fd441d1e680a4ea69))
+
 ## [0.13.0](https://github.com/gentrace/gentrace-openapi/compare/v0.12.0...v0.13.0) (2023-09-21)
 
 
