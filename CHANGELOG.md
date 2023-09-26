@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.0](https://github.com/gentrace/gentrace-openapi/compare/v0.14.0...v0.15.0) (2023-09-26)
+
+
+### Features
+
+* Add run metadata ([#131](https://github.com/gentrace/gentrace-openapi/issues/131)) ([c7f0f53](https://github.com/gentrace/gentrace-openapi/commit/c7f0f5332c4b5757da13cd194ee1d72b5477a1ca))
+
 ## [0.14.0](https://github.com/gentrace/gentrace-openapi/compare/v0.13.0...v0.14.0) (2023-09-26)
 
 
