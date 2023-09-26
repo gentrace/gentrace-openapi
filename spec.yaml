@@ -711,6 +711,16 @@ components:
       scheme: bearer
 
   schemas:
+  
+    MetadataValueObject:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+      additionalProperties: true
+
     ExpandedTestResult:
       allOf:
         - $ref: '#/components/schemas/TestResult'
@@ -791,6 +801,11 @@ components:
           nullable: true
         renderHTMLKey:
           type: string
+          nullable: true
+        metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MetadataValueObject'
           nullable: true
 
     TestRun:
@@ -941,6 +956,11 @@ components:
                   type: string
               required:
                 - type
+            metadata:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/MetadataValueObject'
+              nullable: true
         elapsedTime:
           type: integer
         startTime:
