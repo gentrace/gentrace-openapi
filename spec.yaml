@@ -450,6 +450,11 @@ paths:
                         type: string
                         format: uuid
                         description: The ID of the test case
+                      metadata:
+                        type: object
+                        additionalProperties:
+                          $ref: '#/components/schemas/MetadataValueObject'
+                        nullable: true
                       stepRuns:
                         type: array
                         description: Use outputs.steps insteads.
@@ -918,6 +923,11 @@ components:
         name:
           type: string
           deprecated: true
+        metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MetadataValueObject'
+          nullable: true
         stepRuns:
           type: array
           items:
