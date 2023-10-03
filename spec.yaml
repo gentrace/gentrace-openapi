@@ -436,6 +436,11 @@ paths:
                   type: string
                   description: The name of the test result
                   nullable: true
+                metadata:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/MetadataValueObject'
+                  nullable: true
                 testRuns:
                   type: array
                   items:
@@ -1264,6 +1269,11 @@ components:
         commit:
           type: string
           description: The commit that the test result was created from
+          nullable: true
+        metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MetadataValueObject'
           nullable: true
         name:
           type: string
