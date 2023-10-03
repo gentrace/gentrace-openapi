@@ -923,6 +923,10 @@ components:
         name:
           type: string
           deprecated: true
+        previousRunId:
+          type: string
+          format: uuid
+          nullable: true
         metadata:
           type: object
           additionalProperties:
