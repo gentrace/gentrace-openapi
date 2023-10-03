@@ -604,6 +604,11 @@ paths:
                   type: string
                   description: The name of the test result
                   nullable: true
+                metadata:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/MetadataValueObject'
+                  nullable: true
                 testRuns:
                   type: array
                   items:
