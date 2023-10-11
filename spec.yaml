@@ -727,8 +727,7 @@ paths:
       parameters:
         - in: query
           name: org
-          required: true
-          description: ID of the organization
+          description: (If not using an organization API Key) the ID of the organization
           schema:
             type: string
         - in: query
@@ -740,10 +739,6 @@ paths:
       requestBody:
         required: true
         content:
-          image/*:
-            schema:
-              type: string
-              format: binary
           application/octet-stream:
             schema:
               type: string
@@ -759,10 +754,23 @@ paths:
                   url:
                     type: string
                     description: URL of the uploaded image
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: URL of the uploaded image
         '400':
           description: Bad request. Reasons can be missing org ID, missing file name or file too large.
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+            application/json; charset=utf-8:
               schema:
                 type: object
                 properties:
@@ -777,10 +785,22 @@ paths:
                 properties:
                   message:
                     type: string
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
         '500':
           description: Unexpected server error
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+            application/json; charset=utf-8:
               schema:
                 type: object
                 properties:
