@@ -730,19 +730,17 @@ paths:
           description: (If not using an organization API Key) the ID of the organization
           schema:
             type: string
-        - in: query
-          name: name
-          required: true
-          description: Name of the file being uploaded
-          schema:
-            type: string
       requestBody:
         required: true
         content:
-          application/octet-stream:
+          multipart/form-data:
             schema:
-              type: string
-              format: binary
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: "The file to upload."
       responses:
         '201':
           description: Image uploaded successfully
