@@ -719,6 +719,74 @@ paths:
         "500":
           description: Server error
 
+  /files/upload:
+   post:
+      tags:
+        - Core
+      summary: Upload an image file
+      parameters:
+        - in: query
+          name: org
+          required: true
+          description: ID of the organization
+          schema:
+            type: string
+        - in: query
+          name: name
+          required: true
+          description: Name of the file being uploaded
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          image/*:
+            schema:
+              type: string
+              format: binary
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '201':
+          description: Image uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: URL of the uploaded image
+        '400':
+          description: Bad request. Reasons can be missing org ID, missing file name or file too large.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized. Invalid API key or token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
 components:
   securitySchemes:
     bearerAuth:
