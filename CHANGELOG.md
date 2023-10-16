@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.0](https://github.com/gentrace/gentrace-openapi/compare/v0.17.0...v0.18.0) (2023-10-16)
+
+
+### Features
+
+* add file upload ([#139](https://github.com/gentrace/gentrace-openapi/issues/139)) ([36bd395](https://github.com/gentrace/gentrace-openapi/commit/36bd3952bed06639cfc84bdb82a562be97ea2d01))
+
 ## [0.17.0](https://github.com/gentrace/gentrace-openapi/compare/v0.16.0...v0.17.0) (2023-10-03)
 
 
