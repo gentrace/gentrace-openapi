@@ -6,8 +6,10 @@ info:
   version: ${npm_package_version}
 
 tags:
-  - name: Core
-    description: Endpoints for core API functionality
+  - name: v1
+    description: Endpoints for core API functionality (version 1)
+  - name: v2
+    description: Endpoints for core API functionality (version 2)
   - name: Feedback
     description: Endpoints for capturing user feedback for runs
 
