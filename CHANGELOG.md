@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/gentrace/gentrace-openapi/compare/v0.19.0...v0.20.0) (2023-10-20)
+
+
+### Features
+
+* Organize v1 and v2 routes into separate tags ([#143](https://github.com/gentrace/gentrace-openapi/issues/143)) ([7051ce8](https://github.com/gentrace/gentrace-openapi/commit/7051ce8990c57a8961b4934733ec6c879adb9959))
+
 ## [0.19.0](https://github.com/gentrace/gentrace-openapi/compare/v0.18.0...v0.19.0) (2023-10-20)
 
 
