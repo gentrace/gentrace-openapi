@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.19.0](https://github.com/gentrace/gentrace-openapi/compare/v0.18.0...v0.19.0) (2023-10-20)
+
+
+### Features
+
+* v2 API routes for listing pipelines, test cases, and test results ([#141](https://github.com/gentrace/gentrace-openapi/issues/141)) ([772f8e8](https://github.com/gentrace/gentrace-openapi/commit/772f8e8c94c6103ba00c9a3c6ccfe0c739dbf4e8))
+
 ## [0.18.0](https://github.com/gentrace/gentrace-openapi/compare/v0.17.0...v0.18.0) (2023-10-16)
 
 
