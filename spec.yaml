@@ -6,8 +6,10 @@ info:
   version: ${npm_package_version}
 
 tags:
-  - name: Core
-    description: Endpoints for core API functionality
+  - name: v1
+    description: Endpoints for core API functionality (version 1)
+  - name: v2
+    description: Endpoints for core API functionality (version 2)
   - name: Feedback
     description: Endpoints for capturing user feedback for runs
 
@@ -21,7 +23,7 @@ paths:
   /v1/run:
     post:
       tags:
-        - Core
+        - v1
       summary: Create a run
       requestBody:
         required: true
@@ -243,7 +245,7 @@ paths:
   /v1/test-case:
     get:
       tags:
-        - Core
+        - v1
       summary: Get test cases for a pipeline
       parameters:
         - in: query
@@ -284,7 +286,7 @@ paths:
 
     post:
       tags:
-        - Core
+        - v1
       summary: Create a new test case
       requestBody:
         required: true
@@ -331,7 +333,7 @@ paths:
 
     patch:
       tags:
-        - Core
+        - v1
       summary: Update an existing test case
       requestBody:
         required: true
@@ -366,7 +368,7 @@ paths:
   /v1/test-result:
     get:
       tags:
-        - Core
+        - v1
       summary: Get test results for a pipeline
       parameters:
         - name: pipelineSlug
@@ -403,7 +405,7 @@ paths:
 
     post:
       tags:
-        - Core
+        - v1
       summary: Create a new test result from runs
       requestBody:
         required: true
@@ -496,7 +498,7 @@ paths:
   /v1/test-result/{id}:
     get:
       tags:
-        - Core
+        - v1
       summary: Fetch test result by ID
       parameters:
         - name: id
@@ -527,7 +529,7 @@ paths:
   /v1/test-result/status:
     get:
       tags:
-        - Core
+        - v1
       summary: Get status of the test result
       parameters:
         - in: query
@@ -580,7 +582,7 @@ paths:
   /v1/test-result-simple:
     post:
       tags:
-        - Core
+        - v1
       summary: Create a new test result from test runs
       requestBody:
         required: true
@@ -663,7 +665,7 @@ paths:
   /v1/pipelines:
     get:
       tags:
-        - Core
+        - v1
       summary: Get pipelines, optionally filtered by label
       parameters:
         - in: query
@@ -722,7 +724,7 @@ paths:
   /v1/files/upload:
    post:
       tags:
-        - Core
+        - v1
       summary: Upload an image file
       parameters:
         - in: query
@@ -808,7 +810,7 @@ paths:
   /v2/test-results:
     get:
       tags:
-        - Core
+        - v2
       summary: Get test results for a pipeline
       parameters:
         - name: pipelineId
@@ -860,7 +862,7 @@ paths:
   /v2/test-cases:
     get:
       tags:
-        - Core
+        - v2
       summary: Get test cases for a pipeline
       parameters:
         - in: query
@@ -902,7 +904,7 @@ paths:
   /v2/pipelines:
     get:
       tags:
-        - Core
+        - v2
       summary: Get pipelines, optionally filtered by label
       parameters:
         - in: query
