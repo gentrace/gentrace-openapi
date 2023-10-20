@@ -12,13 +12,13 @@ tags:
     description: Endpoints for capturing user feedback for runs
 
 servers:
-  - url: https://gentrace.ai/api/v1
+  - url: https://gentrace.ai/api
 
 security:
   - bearerAuth: []
 
 paths:
-  /run:
+  /v1/run:
     post:
       tags:
         - Core
@@ -176,7 +176,7 @@ paths:
           {
             "pipelineRunId": "13448D47-BD5D-4664-B6C3-0CB07D8CF2D2"
           }
-  /feedback:
+  /v1/feedback:
     post:
       tags:
         - Feedback
@@ -240,7 +240,7 @@ paths:
             "pipelineRunId": "13448D47-BD5D-4664-B6C3-0CB07D8CF2D2"
           }
 
-  /test-case:
+  /v1/test-case:
     get:
       tags:
         - Core
@@ -281,7 +281,7 @@ paths:
           description: Invalid pipeline ID
         "500":
           description: Server error
-          
+
     post:
       tags:
         - Core
@@ -363,7 +363,7 @@ paths:
         "500":
           description: Server error
 
-  /test-result:
+  /v1/test-result:
     get:
       tags:
         - Core
@@ -493,7 +493,7 @@ paths:
                 required:
                 - resultId
 
-  /test-result/{id}:
+  /v1/test-result/{id}:
     get:
       tags:
         - Core
@@ -524,7 +524,7 @@ paths:
           description: Internal server error.
 
 
-  /test-result/status:
+  /v1/test-result/status:
     get:
       tags:
         - Core
@@ -577,7 +577,7 @@ paths:
                   - failure
                   - done
 
-  /test-result-simple:
+  /v1/test-result-simple:
     post:
       tags:
         - Core
@@ -660,7 +660,7 @@ paths:
                 required:
                 - resultId
 
-  /pipelines:
+  /v1/pipelines:
     get:
       tags:
         - Core
@@ -719,7 +719,7 @@ paths:
         "500":
           description: Server error
 
-  /files/upload:
+  /v1/files/upload:
    post:
       tags:
         - Core
@@ -805,6 +805,141 @@ paths:
                   message:
                     type: string
 
+  /v2/test-results:
+    get:
+      tags:
+        - Core
+      summary: Get test results for a pipeline
+      parameters:
+        - name: pipelineId
+          in: query
+          description: The ID of the pipeline
+          schema:
+            type: string
+        - name: pipelineSlug
+          in: query
+          description: The slug of the pipeline
+          schema:
+            type: string
+        - name: createdAt
+          in: query
+          schema:
+            $ref: '#/components/schemas/SearchableUnixSecondsInput'
+          description: Criteria to search by creation date
+        - name: metadata
+          in: query
+          schema:
+            $ref: '#/components/schemas/FilterableMetadataInput'
+          description: Criteria to search by metadata
+
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TestResultV2'
+                required:
+                  - data
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TestResultV2'
+                required:
+                  - data
+    
+  /v2/test-cases:
+    get:
+      tags:
+        - Core
+      summary: Get test cases for a pipeline
+      parameters:
+        - in: query
+          name: pipelineId
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the Pipeline to retrieve test cases for
+        - in: query
+          name: pipelineSlug
+          schema:
+            type: string
+          description: The slug of the Pipeline to retrieve test cases for
+      responses:
+        "200":
+          description: Test cases retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TestCaseV2"
+                required:
+                  - data
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TestCaseV2"
+                required:
+                  - data
+
+  /v2/pipelines:
+    get:
+      tags:
+        - Core
+      summary: Get pipelines, optionally filtered by label
+      parameters:
+        - in: query
+          name: label
+          schema:
+            type: string
+          description: The label to filter pipelines by
+        - in: query
+          name: slug
+          schema:
+            type: string
+          description: The slug to filter pipelines by
+      responses:
+        "200":
+          description: Pipelines retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PipelineV2"
+                required:
+                  - data
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  pipelines:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PipelineV2"
+                required:
+                  - data
+    
 components:
   securitySchemes:
     bearerAuth:
@@ -812,7 +947,95 @@ components:
       scheme: bearer
 
   schemas:
+    UnixSeconds:
+      type: integer
+      format: int64
+      description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
   
+    SearchableUnixSecondsInput:
+      anyOf:
+        - $ref: '#/components/schemas/UnixSeconds'
+        - type: object
+          properties:
+            gt:
+              $ref: '#/components/schemas/UnixSeconds'
+              description: Date should be greater than this value.
+            gte:
+              $ref: '#/components/schemas/UnixSeconds'
+              description: Date should be greater than or equal to this value.
+            lt:
+              $ref: '#/components/schemas/UnixSeconds'
+              description: Date should be less than this value.
+            lte:
+              $ref: '#/components/schemas/UnixSeconds'
+              description: Date should be less than or equal to this value.
+
+    SearchableStringInput:
+      anyOf:
+        - type: string
+        - type: object
+          properties:
+            contains: 
+              type: string
+            search:
+              type: string
+              description: For Postgres full text search
+            startsWith:
+              type: string
+            endsWith:
+              type: string
+            in:
+              type: array
+              items:
+                type: string
+            notIn:
+              type: array
+              items:
+                type: string
+            mode:
+              type: string
+              enum:
+                - insensitive
+                - default
+
+    FilterableMetadataInput:
+      type: object
+      description: 'Metadata filters look like { prompt: { contains: "My prompt" } }'
+      additionalProperties:
+        type: object
+        properties:
+          exists:
+            type: boolean
+            description: Specifies if the metadata key exists.
+          contains:
+            type: string
+            description: The metadata value contains this string.
+          equals:
+            oneOf:
+              - type: string
+              - type: number
+            description: The metadata value is equal to this value.
+          gt:
+            oneOf:
+              - type: string
+              - type: number
+            description: The metadata value is greater than this value.
+          gte:
+            oneOf:
+              - type: string
+              - type: number
+            description: The metadata value is greater than or equal to this value.
+          lt:
+            oneOf:
+              - type: string
+              - type: number
+            description: The metadata value is less than this value.
+          lte:
+            oneOf:
+              - type: string
+              - type: number
+            description: The metadata value is less than or equal to this value.
+
     MetadataValueObject:
       type: object
       required:
@@ -1422,3 +1645,124 @@ components:
           type: integer
         billingGpt35OutputTokens:
           type: integer
+
+    PipelineV2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the pipeline
+        createdAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        updatedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        archivedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        labels:
+          type: array
+          items:
+            type: string
+          description: The labels attached to the pipeline
+        displayName:
+          type: string
+          description: The name of the pipeline
+          nullable: true
+        slug:
+          type: string
+          description: The slug of the pipeline
+        organizationId:
+          type: string
+          description: The ID of the organization that owns the pipeline
+        branch:
+          type: string
+          nullable: true
+          description: The branch that the pipeline is associated with
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - labels
+        - slug
+        - organizationId
+
+    TestResultV2:
+      type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - pipelineId
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the test result.
+        createdAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        updatedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        archivedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        pipelineId:
+          type: string
+          format: uuid
+          description: The unique identifier for the pipeline associated with the test result.
+        branch:
+          type: string
+          description: The branch that the test result was created from
+          nullable: true
+        commit:
+          type: string
+          description: The commit that the test result was created from
+          nullable: true
+        metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MetadataValueObject'
+          nullable: true
+        name:
+          type: string
+          description: The name of the test result
+          nullable: true
+
+    TestCaseV2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the test case
+        createdAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        updatedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        archivedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        expectedOutputs:
+          type: object
+          nullable: true
+          description: The expected outputs for the test case
+        inputs:
+          type: object
+          additionalProperties: true
+          description: The input data for the test case as a JSON object
+        name:
+          type: string
+          description: The name of the test case
+        pipelineId:
+          type: string
+          format: uuid
+          description: The ID of the pipeline that the test case belongs to
+        setId:
+          deprecated: true
+          type: string
+          format: uuid
+          description: The ID of the set (now pipeline) that the test case belongs to
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - inputs
+        - name
+        - pipelineId
