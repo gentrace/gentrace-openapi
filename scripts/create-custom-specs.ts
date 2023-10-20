@@ -17,10 +17,14 @@ const coreSpec = yaml.load(
   fs.readFileSync(RESOLVED_SPEC_LOCATION, "utf8")
 ) as OpenAPISpec;
 
-const coreTag = "Core";
+const v1Tag = "v1";
+const v2Tag = "v2";
+
+const coreTags = [v1Tag, v2Tag];
+
 const corePaths = Object.fromEntries(
   Object.entries(coreSpec.paths).filter(([, data]) =>
-    Object.values(data).some((op) => op.tags && op.tags.includes(coreTag))
+    Object.values(data).some((op) => op.tags && coreTags.some(tag => op.tags.includes(tag)))
   )
 );
 
