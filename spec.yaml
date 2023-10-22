@@ -914,8 +914,7 @@ paths:
           description: The label to filter pipelines by
         - in: query
           name: slug
-          schema:
-            type: string
+          $ref: "#/components/schemas/SearchableStringInput"
           description: The slug to filter pipelines by
       responses:
         "200":
