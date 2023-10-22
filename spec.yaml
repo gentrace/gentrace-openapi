@@ -1660,6 +1660,7 @@ components:
         updatedAt:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
+          nullable: true
           $ref: '#/components/schemas/UnixSeconds'
         labels:
           type: array
@@ -1680,18 +1681,31 @@ components:
           type: string
           nullable: true
           description: The branch that the pipeline is associated with
+        privateMemberId:
+          type: string
+          nullable: true
+          description: If null, this is a team pipeline. If not null, this is a private pipeline for the specified member ID.
+        privateUserEmail:
+          type: string
+          nullable: true
+          description: If null, this is a team pipeline. If not null, this is a private pipeline for the specified email.
       required:
         - id
         - createdAt
         - updatedAt
+        - archivedAt
         - labels
         - slug
+        - branch
         - organizationId
+        - privateMemberId
+        - privateUserEmail
 
     TestResultV2:
       type: object
       required:
         - id
+        - archivedAt
         - createdAt
         - updatedAt
         - pipelineId
@@ -1705,6 +1719,7 @@ components:
         updatedAt:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
+          nullable: true
           $ref: '#/components/schemas/UnixSeconds'
         pipelineId:
           type: string
@@ -1740,6 +1755,7 @@ components:
         updatedAt:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
+          nullable: true
           $ref: '#/components/schemas/UnixSeconds'
         expectedOutputs:
           type: object
@@ -1765,6 +1781,7 @@ components:
         - id
         - createdAt
         - updatedAt
+        - archivedAt
         - inputs
         - name
         - pipelineId
