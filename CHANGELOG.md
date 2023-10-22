@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.0](https://github.com/gentrace/gentrace-openapi/compare/v0.20.0...v0.21.0) (2023-10-22)
+
+
+### Features
+
+* v2 pipeline list returns the private user email if present ([#145](https://github.com/gentrace/gentrace-openapi/issues/145)) ([083e595](https://github.com/gentrace/gentrace-openapi/commit/083e5954c492b74f017d4a9ec2021ae6c713825d))
+
 ## [0.20.0](https://github.com/gentrace/gentrace-openapi/compare/v0.19.0...v0.20.0) (2023-10-20)
 
 
