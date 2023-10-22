@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.0](https://github.com/gentrace/gentrace-openapi/compare/v0.21.0...v0.22.0) (2023-10-22)
+
+
+### Features
+
+* search pipeline v2 by slug in more ways ([#147](https://github.com/gentrace/gentrace-openapi/issues/147)) ([8c7d0fb](https://github.com/gentrace/gentrace-openapi/commit/8c7d0fb0389684e5d70031bd676b8f9b970ad6ee))
+
 ## [0.21.0](https://github.com/gentrace/gentrace-openapi/compare/v0.20.0...v0.21.0) (2023-10-22)
 
 
