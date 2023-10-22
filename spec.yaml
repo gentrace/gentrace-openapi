@@ -825,11 +825,15 @@ paths:
             type: string
         - name: createdAt
           in: query
+          style: deepObject
+          explode: true
           schema:
             $ref: '#/components/schemas/SearchableUnixSecondsInput'
           description: Criteria to search by creation date
         - name: metadata
           in: query
+          style: deepObject
+          explode: true
           schema:
             $ref: '#/components/schemas/FilterableMetadataInput'
           description: Criteria to search by metadata
@@ -914,8 +918,11 @@ paths:
           description: The label to filter pipelines by
         - in: query
           name: slug
-          $ref: "#/components/schemas/SearchableStringInput"
+          style: deepObject
+          explode: true
           description: The slug to filter pipelines by
+          schema:
+            $ref: "#/components/schemas/SearchableStringInput"
       responses:
         "200":
           description: Pipelines retrieved successfully
@@ -954,7 +961,7 @@ components:
       description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
   
     SearchableUnixSecondsInput:
-      anyOf:
+      oneOf:
         - $ref: '#/components/schemas/UnixSeconds'
         - type: object
           properties:
@@ -972,7 +979,7 @@ components:
               description: Date should be less than or equal to this value.
 
     SearchableStringInput:
-      anyOf:
+      oneOf:
         - type: string
         - type: object
           properties:
