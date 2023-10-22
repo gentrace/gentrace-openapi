@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.1](https://github.com/gentrace/gentrace-openapi/compare/v0.22.0...v0.22.1) (2023-10-22)
+
+
+### Bug Fixes
+
+* spec for v2 GETs uses exploded deep objects in query params ([#149](https://github.com/gentrace/gentrace-openapi/issues/149)) ([50c2952](https://github.com/gentrace/gentrace-openapi/commit/50c2952a4b310a399e68dea1f9dd3863e880b8fe))
+
 ## [0.22.0](https://github.com/gentrace/gentrace-openapi/compare/v0.21.0...v0.22.0) (2023-10-22)
 
 
