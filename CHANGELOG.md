@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.22.2](https://github.com/gentrace/gentrace-openapi/compare/v0.22.1...v0.22.2) (2023-10-25)
+
+
+### Bug Fixes
+
+* Fix Node.JS and Python templates for exports ([#151](https://github.com/gentrace/gentrace-openapi/issues/151)) ([8a463ba](https://github.com/gentrace/gentrace-openapi/commit/8a463ba438f320b6524ee7e3c2ed6b54ac88149a))
+* Fix template issues ([#153](https://github.com/gentrace/gentrace-openapi/issues/153)) ([2f67902](https://github.com/gentrace/gentrace-openapi/commit/2f67902fe86516a17204aeea6f01f01c0f126acb))
+
 ## [0.22.1](https://github.com/gentrace/gentrace-openapi/compare/v0.22.0...v0.22.1) (2023-10-22)
 
 
