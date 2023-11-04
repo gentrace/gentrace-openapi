@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.0](https://github.com/gentrace/gentrace-openapi/compare/v0.22.2...v0.23.0) (2023-11-04)
+
+
+### Features
+
+* add folders ([#154](https://github.com/gentrace/gentrace-openapi/issues/154)) ([ef01608](https://github.com/gentrace/gentrace-openapi/commit/ef0160800785a9c0d7cb161169592c6f3f16b938))
+
 ## [0.22.2](https://github.com/gentrace/gentrace-openapi/compare/v0.22.1...v0.22.2) (2023-10-25)
 
 
