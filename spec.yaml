@@ -909,7 +909,7 @@ paths:
     get:
       tags:
         - v2
-      summary: Get pipelines, optionally filtered by label
+      summary: Get pipelines, optionally filtered by label or folder
       parameters:
         - in: query
           name: label
@@ -923,6 +923,12 @@ paths:
           description: The slug to filter pipelines by
           schema:
             $ref: "#/components/schemas/SearchableStringInput"
+        - in: query
+          name: folderId
+          schema:
+            type: string
+            nullable: true
+          description: The folder ID to filter pipelines by. Null filters to root folder. Absent will return all folders.
       responses:
         "200":
           description: Pipelines retrieved successfully
@@ -947,6 +953,69 @@ paths:
                       $ref: "#/components/schemas/PipelineV2"
                 required:
                   - data
+
+  /v2/folders:
+    get:
+      tags:
+        - v2
+      summary: Get folders, optionally filtered by parent folder
+      parameters:
+        - in: query
+          name: parentFolderId
+          schema:
+            type: string
+            nullable: true
+          description: The parent folder ID to filter folders by. Null filters to root folder. Absent will return all folders.
+      responses:
+        "200":
+          description: Folders retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FolderV2"
+                required:
+                  - data
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FolderV2"
+                required:
+                  - data
+
+  /v2/folders/{id}:
+    get:
+      tags:
+        - v2
+      summary: Get a folder by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the folder to retrieve
+      responses:
+        "200":
+          description: Folder retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FolderV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/FolderV2"
+        "404":
+          description: Folder not found
     
 components:
   securitySchemes:
@@ -1791,3 +1860,34 @@ components:
         - inputs
         - name
         - pipelineId
+    
+    FolderV2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the folder
+        createdAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        updatedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        name:
+          type: string
+          description: The name of the folder
+        organizationId:
+          type: string
+          format: uuid
+          description: The ID of the organization that owns the folder
+        parentFolderId:
+          type: string
+          format: uuid
+          nullable: true
+          description: The ID of the parent folder
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - name
+        - organizationId
+        - parentFolderId
