@@ -49,7 +49,7 @@ paths:
   /v1/feedback:
     post:
       tags:
-        - Feedback
+        - v1
       summary: Submit feedback
       requestBody:
         required: true
@@ -640,7 +640,7 @@ paths:
   /v2/feedback:
     post:
       tags:
-        - Feedback
+        - v2
       summary: Create feedback
       requestBody:
         required: true
@@ -666,7 +666,7 @@ paths:
   /v2/feedback/{id}:
     get:
       tags:
-        - Feedback
+        - v2
       summary: Get feedback
       parameters:
         - in: path
@@ -691,7 +691,7 @@ paths:
 
     patch:
       tags:
-        - Feedback
+        - v2
       summary: Update feedback
       requestBody:
         required: true
