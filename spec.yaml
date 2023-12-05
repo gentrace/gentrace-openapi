@@ -45,139 +45,7 @@ paths:
           description: Bad request
         "500":
           description: Internal server error
-      x-gentraceMeta:
-        name: Store Run event
-        group: Core
-        path: run
-        examples:
-          curl: |
-            curl -X POST \
-              -H 'Authorization: Bearer gen_api_NkztHpkHvl5Z8CXIHZJq3bFPHwO4eLj2dtkh9HGt' \
-              -H 'Content-Type: application/json' \
-              -d '{
-                    "name": "write-email",
-                    "stepRuns": [
-                      {
-                        "provider": {
-                          "name": "openai",
-                          "invocation": "openai_createCompletion",
-                          "modelParams": {
-                            "promptTemplate": "What'\''s {{ interestingFact }} in {{ location }}?"
-                          },
-                          "inputs": {
-                            "prompt": {
-                              "interestingFact": "the trendiest neighborhood",
-                              "location": "New York City"
-                            }
-                          },
-                          "outputs": {
-                            "choices": [
-                              {
-                                "text": "Williamsburg is the trendiest neighborhood in New York City."
-                              }
-                            ]
-                          }
-                        },
-                        "elapsedTime": 348,
-                        "startTime": "2023-03-23T21:16:37.188Z",
-                        "endTime": "2023-03-23T21:16:37.896Z"
-                      },
-                      {
-                        "provider": {
-                          "name": "openai",
-                          "invocation": "openai_createCompletion",
-                          "modelParams": {
-                            "promptTemplate": "Expand upon the provided paragraph: \\n\\n {{ locationFact }}"
-                          },
-                          "inputs": {
-                            "prompt": {
-                              "locationFact": "The trendiest neighborhood in NYC is Williamsburg."
-                            }
-                          },
-                          "outputs": {
-                            "choices": [
-                              {
-                                "text": "Williamsburg is a neighborhood located in the Brooklyn borough of New York City, and it has become one of the trendiest neighborhoods in the city over the past decade. Known for its artsy vibe, vintage shops, street art, and creative atmosphere, Williamsburg has attracted a young, hip crowd that has helped to transform the neighborhood into a hub for music, fashion, and nightlife."
-                              }
-                            ]
-                          }
-                        },
-                        "elapsedTime": 562,
-                        "startTime": "2023-03-23T21:16:38.248Z",
-                        "endTime": "2023-03-23T21:16:38.556Z"
-                      }
-                    ]
-                  }' \
-              https://gentrace.ai/api/v1/run
 
-          node.js: |
-            const { Configuration, Gentrace } = require("@gentrace/node");
-
-            const configuration = new Configuration({
-              apiKey: process.env.GENTRACE_API_KEY,
-            });
-
-            const gentrace = new Gentrace(configuration);
-
-            gentrace.run({
-              name: "write-email",
-              stepRuns: [
-                {
-                  provider: {
-                    name: "openai",
-                    invocation: "openai_createCompletion",
-                    modelParams: {
-                      promptTemplate: "What's {{ interestingFact }} in {{ location }}?"
-                    },
-                    inputs: {
-                      prompt: {
-                        interestingFact: "the trendiest neighborhood",
-                        location: "New York City"
-                      }
-                    },
-                    outputs: {
-                      choices: [
-                        {
-                          text: "Williamsburg is the trendiest neighborhood in New York City."
-                        }
-                      ]
-                    }
-                  },
-                  elapsedTime: 348,
-                  startTime: "2023-03-23T21:16:37.188Z",
-                  endTime: "2023-03-23T21:16:37.896Z"
-                },
-                {
-                  provider: {
-                    name: "openai",
-                    invocation: "openai_createCompletion",
-                    modelParams: {
-                      promptTemplate: "Expand upon the provided paragraph: \n\n {{ locationFact }}"
-                    },
-                    inputs: {
-                      prompt: {
-                        locationFact: "The trendiest neighborhood in NYC is Williamsburg."
-                      }
-                    },
-                    outputs: {
-                      choices: [
-                        {
-                          text: "Williamsburg is a neighborhood located in the Brooklyn borough of New York City, and it has become one of the trendiest neighborhoods in the city over the past decade. Known for its artsy vibe, vintage shops, street art, and creative atmosphere, Williamsburg has attracted a young, hip crowd that has helped to transform the neighborhood into a hub for music, fashion, and nightlife."
-                        }
-                      ]
-                    }
-                  },
-                  elapsedTime: 562,
-                  startTime: "2023-03-23T21:16:38.248Z",
-                  endTime: "2023-03-23T21:16:38.556Z"
-                }
-              ]
-            });
-
-        response: |
-          {
-            "pipelineRunId": "13448D47-BD5D-4664-B6C3-0CB07D8CF2D2"
-          }
   /v1/feedback:
     post:
       tags:
@@ -203,44 +71,6 @@ paths:
           description: Invalid feedback payload
         "500":
           description: Server error
-
-      x-gentraceMeta:
-        name: Store feedback event
-        group: core
-        path: feedback
-        examples:
-          curl: |
-            curl -X POST \
-              -H 'Authorization: Bearer gen_api_NkztHpkHvl5Z8CXIHZJq3bFPHwO4eLj2dtkh9HGt' \
-              -H 'Content-Type: application/json' \
-              -d '{
-                "pipelineRunId": "cc22e63c-1c9a-4cbb-a8ee-7f764eabf97d",
-                "rating": "positive",
-                "recordedTime": "2023-03-31T15:00:00.000Z",
-                "details": "This generated output communicated my voice wonderfully!"
-              }' \
-              https://gentrace.ai/api/v1/feedback
-
-          node.js: |
-            const { Configuration, Gentrace } = require("@gentrace/node");
-
-            const configuration = new Configuration({
-              apiKey: process.env.GENTRACE_API_KEY,
-            });
-
-            const gentrace = new Gentrace(configuration);
-
-            gentrace.feedback({
-              pipelineRunId: "cc22e63c-1c9a-4cbb-a8ee-7f764eabf97d",
-              rating: "positive",
-              recordedTime: "2023-03-31T15:00:00.000Z",
-              details: "This generated output communicated my voice wonderfully!"
-            });
-
-        response: |
-          {
-            "pipelineRunId": "13448D47-BD5D-4664-B6C3-0CB07D8CF2D2"
-          }
 
   /v1/test-case:
     get:
@@ -807,6 +637,83 @@ paths:
                   message:
                     type: string
 
+  /v2/feedback:
+    post:
+      tags:
+        - Feedback
+      summary: Create feedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFeedbackV2"
+      responses:
+        "200":
+          description: Feedback created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/FeedbackV2"
+        "400":
+          description: Bad request
+        "500":
+          description: Server error
+
+  /v2/feedback/{id}:
+    get:
+      tags:
+        - Feedback
+      summary: Get feedback
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Feedback ID
+      responses:
+        "200":
+          description: Feedback retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/FeedbackV2"
+        "404":
+          description: Feedback not found
+
+    patch:
+      tags:
+        - Feedback
+      summary: Update feedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateFeedbackV2"
+      responses:
+        "200":
+          description: Feedback updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/FeedbackV2"
+        "400":
+          description: Bad request
+        "500":
+          description: Server error
+
   /v2/test-results:
     get:
       tags:
@@ -1147,6 +1054,74 @@ components:
         type:
           type: string
       additionalProperties: true
+
+
+    CreateFeedbackV2:
+      type: object
+      properties:
+        pipelineRunId:
+          type: string
+          format: uuid
+          description: The unique identifier for the pipeline run
+        recordedTime:
+          $ref: '#/components/schemas/UnixSeconds'
+        score:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: The score of the feedback, ranging from 0 to 1
+        details:
+          type: string
+          nullable: true
+          description: Optional details about the feedback
+      required:
+        - pipelineRunId
+        - recordedTime
+        - score
+
+    UpdateFeedbackV2:
+      type: object
+      properties:
+        score:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: The score of the feedback, ranging from 0 to 1
+        details:
+          type: string
+          nullable: true
+          description: Optional details about the feedback
+
+    FeedbackV2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the feedback
+        pipelineRunId:
+          type: string
+          format: uuid
+          description: The unique identifier for the pipeline run
+        score:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: The score of the feedback, ranging from 0 to 1
+        details:
+          type: string
+          nullable: true
+          description: Optional details about the feedback
+        recordedTime:
+          $ref: '#/components/schemas/UnixSeconds'
+      required:
+        - id
+        - pipelineRunId
+        - score
+        - recordedTime
 
     ExpandedTestResult:
       allOf:
