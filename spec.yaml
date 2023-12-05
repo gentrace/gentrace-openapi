@@ -182,7 +182,7 @@ paths:
     post:
       tags:
         - Feedback
-      summary: Submit feedback for a run
+      summary: Submit feedback
       requestBody:
         required: true
         content:
@@ -811,7 +811,7 @@ paths:
     get:
       tags:
         - v2
-      summary: Get test results for a pipeline
+      summary: Get test results
       parameters:
         - name: pipelineId
           in: query
@@ -867,7 +867,7 @@ paths:
     get:
       tags:
         - v2
-      summary: Get test cases for a pipeline
+      summary: Get test cases
       parameters:
         - in: query
           name: pipelineId
@@ -905,11 +905,37 @@ paths:
                 required:
                   - data
 
+  /v2/test-cases/{id}:
+    get:
+      tags:
+        - v2
+      summary: Get a test case
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the test case to retrieve
+      responses:
+        "200":
+          description: Test case retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestCaseV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/TestCaseV2"
+        "404":
+          description: Test case not found
+
   /v2/pipelines:
     get:
       tags:
         - v2
-      summary: Get pipelines, optionally filtered by label or folder
+      summary: Get pipelines
       parameters:
         - in: query
           name: label
@@ -958,7 +984,7 @@ paths:
     get:
       tags:
         - v2
-      summary: Get folders, optionally filtered by parent folder
+      summary: Get folders
       parameters:
         - in: query
           name: parentFolderId
@@ -995,7 +1021,7 @@ paths:
     get:
       tags:
         - v2
-      summary: Get a folder by ID
+      summary: Get a folder
       parameters:
         - in: path
           name: id
@@ -1025,8 +1051,8 @@ components:
 
   schemas:
     UnixSeconds:
-      type: integer
-      format: int64
+      type: number
+      format: float
       description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
   
     SearchableUnixSecondsInput:
@@ -1316,9 +1342,6 @@ components:
             - runner
         slug:
           type: string
-        name:
-          type: string
-          deprecated: true
         previousRunId:
           type: string
           format: uuid
@@ -1498,11 +1521,6 @@ components:
           type: string
           format: uuid
           description: The ID of the pipeline that the test case belongs to
-        setId:
-          deprecated: true
-          type: string
-          format: uuid
-          description: The ID of the set (now pipeline) that the test case belongs to
       required:
         - id
         - createdAt
@@ -1736,7 +1754,11 @@ components:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
           nullable: true
-          $ref: '#/components/schemas/UnixSeconds'
+          # TODO: This should be a UnixSeconds object, but the OpenAPI generator doesn't correctly create Python SDK
+          # schemas to reflect nullability. Leads to a runtime exception when archivedAt is null.
+          type: number
+          format: float
+          description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
         labels:
           type: array
           items:
@@ -1795,7 +1817,11 @@ components:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
           nullable: true
-          $ref: '#/components/schemas/UnixSeconds'
+          # TODO: This should be a UnixSeconds object, but the OpenAPI generator doesn't correctly create Python SDK
+          # schemas to reflect nullability. Leads to a runtime exception when archivedAt is null.
+          type: number
+          format: float
+          description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
         pipelineId:
           type: string
           format: uuid
@@ -1831,7 +1857,11 @@ components:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
           nullable: true
-          $ref: '#/components/schemas/UnixSeconds'
+          # TODO: This should be a UnixSeconds object, but the OpenAPI generator doesn't correctly create Python SDK
+          # schemas to reflect nullability. Leads to a runtime exception when archivedAt is null.
+          type: number
+          format: float
+          description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
         expectedOutputs:
           type: object
           nullable: true
@@ -1847,11 +1877,6 @@ components:
           type: string
           format: uuid
           description: The ID of the pipeline that the test case belongs to
-        setId:
-          deprecated: true
-          type: string
-          format: uuid
-          description: The ID of the set (now pipeline) that the test case belongs to
       required:
         - id
         - createdAt
