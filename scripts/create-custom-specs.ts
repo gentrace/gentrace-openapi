@@ -37,10 +37,9 @@ const feedbackSpec = yaml.load(
   fs.readFileSync(RESOLVED_SPEC_LOCATION, "utf8")
 ) as OpenAPISpec;
 
-const feedbackTag = "Feedback";
 const feedbackPaths = Object.fromEntries(
-  Object.entries(feedbackSpec.paths).filter(([, data]) =>
-    Object.values(data).some((op) => op.tags && op.tags.includes(feedbackTag))
+  Object.entries(feedbackSpec.paths).filter(([endpoint, data]) =>
+    endpoint.includes("/feedback")
   )
 );
 
