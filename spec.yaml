@@ -693,6 +693,14 @@ paths:
       tags:
         - v2
       summary: Update feedback
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Feedback ID
       requestBody:
         required: true
         content:

@@ -39,7 +39,7 @@ const feedbackSpec = yaml.load(
 
 const feedbackPaths = Object.fromEntries(
   Object.entries(feedbackSpec.paths).filter(([endpoint, data]) =>
-    endpoint.endsWith("/feedback")
+    endpoint.includes("/feedback")
   )
 );
 
