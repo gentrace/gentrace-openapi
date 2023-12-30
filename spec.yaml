@@ -957,6 +957,44 @@ paths:
                 $ref: "#/components/schemas/FolderV2"
         "404":
           description: Folder not found
+
+  /v2/evaluations/bulk:
+    post:
+      tags:
+        - v2
+      summary: Bulk create evaluations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/CreateEvaluationV2"
+      responses:
+        "200":
+          description: Evaluations created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: number
+                required:
+                  - count
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: number
+                required:
+                  - count
+        "400":
+          description: Bad request
+        "500":
+          description: Server error
     
 components:
   securitySchemes:
@@ -1063,6 +1101,29 @@ components:
           type: string
       additionalProperties: true
 
+    CreateEvaluationV2:
+      type: object
+      properties:
+        note: 
+          type: string
+          description: Optionally add a note to the evaluation
+        evaluatorId:
+          type: string
+          format: uuid
+          description: The ID of the evaluator. The evaluator and run must be in the same pipeline.
+        runId:
+          type: string
+          format: uuid
+          description: The ID of the run. The evaluator and run must be in the same pipeline.
+        evalLabel:
+          type: string
+          description: If the evaluator output type is an enum, the label of the enum value.
+        evalValue:
+          type: number
+          description: If the evaluator output type is a percentage, a number between 0 and 1 representing the percentage.
+      required:
+        - evaluatorId
+        - runId
 
     CreateFeedbackV2:
       type: object
