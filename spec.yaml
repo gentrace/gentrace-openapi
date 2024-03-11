@@ -968,9 +968,14 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/CreateEvaluationV2"
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/CreateEvaluationV2"
+              required:
+                - data
       responses:
         "200":
           description: Evaluations created successfully
@@ -1099,7 +1104,44 @@ components:
       properties:
         type:
           type: string
-      additionalProperties: true
+      oneOf:
+        - $ref: '#/components/schemas/UrlType'
+        - $ref: '#/components/schemas/StringType'
+      discriminator:
+        propertyName: type
+        mapping:
+          url: '#/components/schemas/UrlType'
+          string: '#/components/schemas/StringType'
+
+    UrlType:
+      type: object
+      required:
+        - type
+        - url
+        - text
+      properties:
+        type:
+          type: string
+          enum:
+            - url
+        url:
+          type: string
+          format: uri
+        text:
+          type: string
+
+    StringType:
+      type: object
+      required:
+        - type
+        - value
+      properties:
+        type:
+          type: string
+          enum:
+            - string
+        value:
+          type: string
 
     CreateEvaluationV2:
       type: object
