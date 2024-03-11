@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.24.0](https://github.com/gentrace/gentrace-openapi/compare/v0.23.0...v0.24.0) (2024-03-11)
+
+
+### Features
+
+* add bulk create evaluations ([#159](https://github.com/gentrace/gentrace-openapi/issues/159)) ([2dd90d1](https://github.com/gentrace/gentrace-openapi/commit/2dd90d1dc21564a293da408a0a39115263d8e86e))
+* Update feedback to v2 ([#157](https://github.com/gentrace/gentrace-openapi/issues/157)) ([a8a617a](https://github.com/gentrace/gentrace-openapi/commit/a8a617a70f54f98c9a03ea77181432866cf12678))
+
+
+### Bug Fixes
+
+* Add bulk create data param, add metadata types ([#160](https://github.com/gentrace/gentrace-openapi/issues/160)) ([c88557e](https://github.com/gentrace/gentrace-openapi/commit/c88557ea529cd82c6275c0fb71e31b4d7ffcd536))
+* Fix bugs with unix seconds ([#156](https://github.com/gentrace/gentrace-openapi/issues/156)) ([2b33887](https://github.com/gentrace/gentrace-openapi/commit/2b33887373b52dec56e3027dbedd36494efd0371))
+
 ## [0.23.0](https://github.com/gentrace/gentrace-openapi/compare/v0.22.2...v0.23.0) (2023-11-04)
 
 
