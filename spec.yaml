@@ -1650,6 +1650,11 @@ components:
               cost:
                 type: number
                 description: The cost of the run in USD
+              metadata:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MetadataValueObject'
+                nullable: true
             required:
               - stepRunId
               - stepId
