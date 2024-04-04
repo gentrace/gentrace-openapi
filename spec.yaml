@@ -1640,13 +1640,9 @@ components:
                 type: integer
                 description: The milliseconds to complete the run
               startTime:
-                type: string
-                format: date-time
-                description: The date and time when the run started
+                $ref: '#/components/schemas/UnixSeconds'
               endTime:
-                type: string
-                format: date-time
-                description: The date and time when the run ended
+                $ref: '#/components/schemas/UnixSeconds'
               cost:
                 type: number
                 description: The cost of the run in USD
