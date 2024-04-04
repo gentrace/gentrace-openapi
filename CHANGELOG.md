@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.24.1](https://github.com/gentrace/gentrace-openapi/compare/v0.24.0...v0.24.1) (2024-04-04)
+
+
+### Bug Fixes
+
+* API schema update for /v2/runs/{id} ([#161](https://github.com/gentrace/gentrace-openapi/issues/161)) ([e1bc0a4](https://github.com/gentrace/gentrace-openapi/commit/e1bc0a4922893341ab47845ecad275bd27ac9e45))
+
 ## [0.24.0](https://github.com/gentrace/gentrace-openapi/compare/v0.23.0...v0.24.0) (2024-03-11)
 
 
