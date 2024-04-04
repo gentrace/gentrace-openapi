@@ -722,6 +722,32 @@ paths:
         "500":
           description: Server error
 
+  /v2/runs/{id}:
+    get:
+      tags:
+        - v2
+      summary: Get a run
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the run to retrieve
+      responses:
+        "200":
+          description: Run retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/RunV2"
+        "404":
+          description: Run not found
+
   /v2/test-results:
     get:
       tags:
@@ -1571,6 +1597,76 @@ components:
       required:
         - message
       additionalProperties: false
+
+    RunV2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the run
+        stepRuns:
+          type: array
+          items:
+            type: object
+            properties:
+              stepRunId:
+                type: string
+                format: uuid
+                description: The ID of the step run
+              stepId:
+                type: string
+                format: uuid
+                description: The ID of the step
+              providerName:
+                type: string
+                description: The name of the provider
+              invocation:
+                type: string
+                description: The name of the method being invoked
+              order:
+                type: integer
+                description: The order of the step run. The last step has the highest "order" number. 
+              modelParams:
+                type: object
+                description: The parameters used by the model
+              inputs:
+                type: object
+                description: The inputs of the run
+              outputs:
+                type: object
+                description: The outputs of the run
+              elapsedTime:
+                type: integer
+                description: The milliseconds to complete the run
+              startTime:
+                $ref: '#/components/schemas/UnixSeconds'
+              endTime:
+                $ref: '#/components/schemas/UnixSeconds'
+              cost:
+                type: number
+                description: The cost of the run in USD
+              metadata:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/MetadataValueObject'
+                nullable: true
+            required:
+              - stepRunId
+              - stepId
+              - providerName
+              - invocation
+              - order
+              - modelParams
+              - inputs
+              - outputs
+              - elapsedTime
+              - startTime
+              - endTime
+              - cost
+      required:
+        - id
+        - stepRuns
 
     TestCase:
       type: object
