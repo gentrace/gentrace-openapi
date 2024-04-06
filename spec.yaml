@@ -1133,11 +1133,13 @@ components:
       oneOf:
         - $ref: '#/components/schemas/UrlType'
         - $ref: '#/components/schemas/StringType'
+        - $ref: '#/components/schemas/BooleanType'
       discriminator:
         propertyName: type
         mapping:
           url: '#/components/schemas/UrlType'
           string: '#/components/schemas/StringType'
+          boolean: '#/components/schemas/BooleanType'
 
     UrlType:
       type: object
@@ -1168,6 +1170,19 @@ components:
             - string
         value:
           type: string
+
+    BooleanType:
+      type: object
+      required:
+        - type
+        - value
+      properties:
+        type:
+          type: string
+          enum:
+            - boolean
+        value:
+          type: boolean
 
     CreateEvaluationV2:
       type: object
