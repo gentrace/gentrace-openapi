@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.24.3](https://github.com/gentrace/gentrace-openapi/compare/v0.24.2...v0.24.3) (2024-04-06)
+
+
+### Bug Fixes
+
+* Add boolean metadata type ([#165](https://github.com/gentrace/gentrace-openapi/issues/165)) ([120a11a](https://github.com/gentrace/gentrace-openapi/commit/120a11a401dd1ca04f065cec5411e2ee6ab477a8))
+
 ## [0.24.2](https://github.com/gentrace/gentrace-openapi/compare/v0.24.1...v0.24.2) (2024-04-04)
 
 
