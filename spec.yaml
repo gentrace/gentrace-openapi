@@ -1026,6 +1026,48 @@ paths:
           description: Bad request
         "500":
           description: Server error
+
+  /v2/evaluators:
+    post:
+      tags:
+        - v2
+      summary: Get evaluators from a pipeline
+      parameters:
+        - in: query
+          name: pipelineId
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the Pipeline to retrieve test cases for, OR
+        - in: query
+          name: pipelineSlug
+          schema:
+            type: string
+          description: The slug of the Pipeline to retrieve test cases for
+      responses:
+        "200":
+          description: Evaluators retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EvaluatorV2"
+                required:
+                  - data
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EvaluatorV2"
+                required:
+                  - data
     
 components:
   securitySchemes:
@@ -2113,3 +2155,37 @@ components:
         - name
         - organizationId
         - parentFolderId
+
+    EvaluatorV2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the evaluator
+        name:
+          type: string
+          description: The name of the evaluator
+        options:
+          type: object
+          description: For evaluators with options scoring, the available options to choose from
+          nullable: true
+        heuristicFn:
+          type: string
+          description: For heuristic evaluators, the heuristic function to use
+          nullable: true
+        aiModel:
+          type: string
+          description: For AI evaluators, the AI model to use
+          nullable: true
+        aiPromptFormat:
+          type: string
+          description: For AI evaluators, the prompt template that should be sent to the AI model
+          nullable: true
+        humanPrompt:
+          type: string
+          description: For human evaluators, the instructions for the human to follow
+          nullable: true
+      required:
+        - id
+        - name
