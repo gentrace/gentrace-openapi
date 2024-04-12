@@ -1028,7 +1028,7 @@ paths:
           description: Server error
 
   /v2/evaluators:
-    post:
+    get:
       tags:
         - v2
       summary: Get evaluators from a pipeline
@@ -1037,12 +1037,14 @@ paths:
           name: pipelineId
           schema:
             type: string
+            nullable: true
             format: uuid
           description: The ID of the Pipeline to retrieve test cases for, OR
         - in: query
           name: pipelineSlug
           schema:
             type: string
+            nullable: true
           description: The slug of the Pipeline to retrieve test cases for
       responses:
         "200":
