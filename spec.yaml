@@ -984,6 +984,53 @@ paths:
         "404":
           description: Folder not found
 
+  /v2/evaluators:
+    get:
+      tags:
+        - v2
+      summary: Get evaluators
+      description: Get evaluators for a given pipeline
+      parameters:
+        - in: query
+          name: pipelineId
+          schema:
+            type: string
+            nullable: true
+            format: uuid
+          description: The ID of the Pipeline to retrieve evaluators for. Use "null" to retrieve the organization's evaluator templates.
+        - in: query
+          name: pipelineSlug
+          schema:
+            type: string
+            nullable: true
+          description: Or, the slug of the Pipeline to retrieve evaluators for
+      responses:
+        "200":
+          description: Evaluators retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EvaluatorV2"
+                required:
+                  - data
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EvaluatorV2"
+                required:
+                  - data
+        "404":
+          description: Pipeline not found
+
   /v2/evaluations/bulk:
     post:
       tags:
@@ -1026,50 +1073,6 @@ paths:
           description: Bad request
         "500":
           description: Server error
-
-  /v2/evaluators:
-    get:
-      tags:
-        - v2
-      summary: Get evaluators from a pipeline
-      parameters:
-        - in: query
-          name: pipelineId
-          schema:
-            type: string
-            nullable: true
-            format: uuid
-          description: The ID of the Pipeline to retrieve test cases for, OR
-        - in: query
-          name: pipelineSlug
-          schema:
-            type: string
-            nullable: true
-          description: The slug of the Pipeline to retrieve test cases for
-      responses:
-        "200":
-          description: Evaluators retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/EvaluatorV2"
-                required:
-                  - data
-            application/json; charset=utf-8:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/EvaluatorV2"
-                required:
-                  - data
     
 components:
   securitySchemes:
@@ -2164,7 +2167,17 @@ components:
         id:
           type: string
           format: uuid
-          description: The ID of the evaluator
+          description: The ID of the evaluator        
+        createdAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        updatedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+        archivedAt:
+          $ref: '#/components/schemas/UnixSeconds'
+          nullable: true
+        icon: 
+          type: string
+          nullable: true
         name:
           type: string
           description: The name of the evaluator
@@ -2172,22 +2185,78 @@ components:
           type: object
           description: For evaluators with options scoring, the available options to choose from
           nullable: true
-        heuristicFn:
-          type: string
-          description: For heuristic evaluators, the heuristic function to use
-          nullable: true
         aiModel:
           type: string
           description: For AI evaluators, the AI model to use
+        pipelineId:
+          type: string
+          format: uuid
+          description: The ID of the pipeline that the evaluator belongs to
+          nullable: true
+        processorId:
+          type: string
+          format: uuid
+          description: The ID of the processor associated with the evaluator
+          nullable: true
+        organizationId:
+          type: string
+          format: uuid
+          description: The ID of the organization that the evaluator belongs to
+        templateDescription:
+          type: string
+          description: For evaluator templates, the description of the template
+        heuristicFn:
+          type: string
+          description: For heuristic evaluators, the heuristic function to use
           nullable: true
         aiPromptFormat:
           type: string
           description: For AI evaluators, the prompt template that should be sent to the AI model
           nullable: true
+        aiImageUrls:
+          type: array
+          items:
+            type: string
+          description: For AI image evaluators, the paths to the image URLs
         humanPrompt:
           type: string
           description: For human evaluators, the instructions for the human to follow
           nullable: true
+        classifierValuePath:
+          type: string
+          description: For classification evaluators, the path to the predicted classification
+          nullable: true
+        classifierExpectedValuePath:
+          type: string
+          description: For classification evaluators, the path to the expected classification
+          nullable: true
+        multiClassOptions:
+          type: array
+          items:
+            type: string
+          description: For classification evaluators using multi-class evaluation, the available options to match with
+        who:
+          type: string
+          description: The type of evaluator (such as "AI", "HEURISTIC", "HUMAN", "CLASSIFIER")
+        valueType:
+          type: string
+          description: The scoring method used by the evaluator (such as "ENUM", "PERCENTAGE")
+        runCondition:
+          type: string
+          description: The run condition of the evaluator (such as "TEST_PROD", "TEST", "PROD", "COMPARISON_2")
+        prodEvalActive:
+          deprecated: true
+          type: boolean
+          description: Use "samplingProbability" instead
+        samplingProbability:
+          type: number
+          description: When optionally running on production data, the associated sampling probability of this evaluator (from 0 to 100)
+          nullable: true
       required:
         - id
         - name
+        - createdAt
+        - updatedAt
+        - who
+        - valueType
+        - runCondition
