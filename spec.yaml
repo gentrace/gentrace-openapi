@@ -1085,6 +1085,12 @@ components:
       type: number
       format: float
       description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
+
+    UnixSecondsNullable:
+      type: number
+      format: float
+      nullable: true
+      description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
   
     SearchableUnixSecondsInput:
       oneOf:
@@ -2173,8 +2179,7 @@ components:
         updatedAt:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
-          $ref: '#/components/schemas/UnixSeconds'
-          nullable: true
+          $ref: '#/components/schemas/UnixSecondsNullable'
         icon: 
           type: string
           nullable: true
@@ -2182,7 +2187,8 @@ components:
           type: string
           description: The name of the evaluator
         options:
-          type: object
+          type: array
+          items: {}
           description: For evaluators with options scoring, the available options to choose from
           nullable: true
         aiModel:
