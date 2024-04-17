@@ -2003,12 +2003,7 @@ components:
         updatedAt:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
-          nullable: true
-          # TODO: This should be a UnixSeconds object, but the OpenAPI generator doesn't correctly create Python SDK
-          # schemas to reflect nullability. Leads to a runtime exception when archivedAt is null.
-          type: number
-          format: float
-          description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
+          $ref: '#/components/schemas/UnixSecondsNullable'
         labels:
           type: array
           items:
@@ -2066,12 +2061,7 @@ components:
         updatedAt:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
-          nullable: true
-          # TODO: This should be a UnixSeconds object, but the OpenAPI generator doesn't correctly create Python SDK
-          # schemas to reflect nullability. Leads to a runtime exception when archivedAt is null.
-          type: number
-          format: float
-          description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
+          $ref: '#/components/schemas/UnixSecondsNullable'
         pipelineId:
           type: string
           format: uuid
@@ -2106,12 +2096,7 @@ components:
         updatedAt:
           $ref: '#/components/schemas/UnixSeconds'
         archivedAt:
-          nullable: true
-          # TODO: This should be a UnixSeconds object, but the OpenAPI generator doesn't correctly create Python SDK
-          # schemas to reflect nullability. Leads to a runtime exception when archivedAt is null.
-          type: number
-          format: float
-          description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
+          $ref: '#/components/schemas/UnixSecondsNullable'
         expectedOutputs:
           type: object
           nullable: true
@@ -2173,7 +2158,7 @@ components:
         id:
           type: string
           format: uuid
-          description: The ID of the evaluator        
+          description: The ID of the evaluator
         createdAt:
           $ref: '#/components/schemas/UnixSeconds'
         updatedAt:
