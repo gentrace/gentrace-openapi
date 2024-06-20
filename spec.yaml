@@ -30,7 +30,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RunRequest'
+              $ref: "#/components/schemas/RunRequest"
       responses:
         "200":
           description: Stored run
@@ -355,6 +355,80 @@ paths:
         500:
           description: Internal server error.
 
+    post:
+      tags:
+        - v1
+      summary: Add more test runs to a result
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the test result
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                testRuns:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: The ID of the test run
+                        nullable: true
+                      caseId:
+                        type: string
+                        format: uuid
+                        description: The ID of the test case
+                      metadata:
+                        type: object
+                        additionalProperties:
+                          $ref: "#/components/schemas/MetadataValueObject"
+                        nullable: true
+                      stepRuns:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/StepRun"
+                    required:
+                      - caseId
+                      - stepRuns
+      responses:
+        "200":
+          description: Test runs added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultId:
+                    type: string
+                    format: uuid
+                required:
+                  - resultId
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  resultId:
+                    type: string
+                    format: uuid
+                required:
+                  - resultId
+        400:
+          description: Bad request.
+        404:
+          description: Test result not found.
+        500:
+          description: Internal server error
+
   /v1/test-result/status:
     get:
       tags:
@@ -490,6 +564,80 @@ paths:
                     format: uuid
                 required:
                   - resultId
+
+  /v1/test-result-simple/{id}:
+    post:
+      tags:
+        - v1
+      summary: Add more test runs to a result (simple version)
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the test result
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                testRuns:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: The ID of the test run
+                        nullable: true
+                      caseId:
+                        type: string
+                        format: uuid
+                        description: The ID of the test case
+                      inputs:
+                        type: object
+                        additionalProperties: true
+                        description: The input data for the test case
+                      outputs:
+                        type: object
+                        additionalProperties: true
+                        description: The returned outputs for the test case
+                    required:
+                      - caseId
+                      - inputs
+      responses:
+        "200":
+          description: Test runs added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultId:
+                    type: string
+                    format: uuid
+                required:
+                  - resultId
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  resultId:
+                    type: string
+                    format: uuid
+                required:
+                  - resultId
+        "400":
+          description: Bad request
+        "404":
+          description: Test result not found
+        "500":
+          description: Internal server error
 
   /v1/pipelines:
     get:
