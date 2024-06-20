@@ -48,14 +48,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
 
       - name: Run Prettier
-        id: prettier
         run: |
           cd $GITHUB_WORKSPACE/gentrace-openapi
-          npx prettier --check spec.yaml || (
-            echo "::set-output name=prettier_failed::true"
-          )
+          npx prettier --check spec.yaml
         if: ${{ steps.release.outputs.release_created }}
-
-      - name: Fail if Prettier found issues
-        if: ${{ steps.release.outputs.release_created }} && ${{ steps.prettier.outputs.prettier_failed == 'true' }}
-        run: exit 1
