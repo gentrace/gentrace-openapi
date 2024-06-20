@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.25.0](https://github.com/gentrace/gentrace-openapi/compare/v0.24.3...v0.25.0) (2024-06-20)
+
+
+### Features
+
+* schema update for /v2/evaluators ([#167](https://github.com/gentrace/gentrace-openapi/issues/167)) ([9ffa5ba](https://github.com/gentrace/gentrace-openapi/commit/9ffa5ba79b2d493f18611d02ed26e739b071af6f))
+
+
+### Bug Fixes
+
+* add heuristicFnLanguage to api spec ([#171](https://github.com/gentrace/gentrace-openapi/issues/171)) ([6ed6d73](https://github.com/gentrace/gentrace-openapi/commit/6ed6d735063c3eb60890d2d6f0368d8b6d8d1a94))
+* Check fix prettier ([#174](https://github.com/gentrace/gentrace-openapi/issues/174)) ([b739678](https://github.com/gentrace/gentrace-openapi/commit/b739678d2b85746e9c6fdeb96ab2ddffe165936a))
+* Check release process ([#173](https://github.com/gentrace/gentrace-openapi/issues/173)) ([780624f](https://github.com/gentrace/gentrace-openapi/commit/780624f6e05e53cba788b6087eac5087621e30f8))
+* Fix prettier again ([#175](https://github.com/gentrace/gentrace-openapi/issues/175)) ([ceb1c39](https://github.com/gentrace/gentrace-openapi/commit/ceb1c398b2dc01ad5f4d911ed36dd3aa5ca0a4b6))
+* update archivedAt to use UnixSecondsNullable ([#170](https://github.com/gentrace/gentrace-openapi/issues/170)) ([c93f24b](https://github.com/gentrace/gentrace-openapi/commit/c93f24b2b9e1e3f49cd4a2b7bf6c6037b384bba8))
+
 ## [0.24.3](https://github.com/gentrace/gentrace-openapi/compare/v0.24.2...v0.24.3) (2024-04-06)
 
 
