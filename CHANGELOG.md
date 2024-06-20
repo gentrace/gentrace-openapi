@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.0](https://github.com/gentrace/gentrace-openapi/compare/v0.25.0...v0.26.0) (2024-06-20)
+
+
+### Features
+
+* Add progressive test result update endpoints ([#176](https://github.com/gentrace/gentrace-openapi/issues/176)) ([f285a5d](https://github.com/gentrace/gentrace-openapi/commit/f285a5dd95b5ffe9b1988c0c18bad2ad7cfa6a4a))
+
 ## [0.25.0](https://github.com/gentrace/gentrace-openapi/compare/v0.24.3...v0.25.0) (2024-06-20)
 
 
