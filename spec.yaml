@@ -30,7 +30,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RunRequest"
+              $ref: '#/components/schemas/RunRequest'
       responses:
         "200":
           description: Stored run
@@ -208,7 +208,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
@@ -218,7 +218,7 @@ paths:
                   testResults:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TestResult'
+                      $ref: "#/components/schemas/TestResult"
             application/json; charset=utf-8:
               schema:
                 type: object
@@ -226,11 +226,11 @@ paths:
                   testResults:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TestResult'
+                      $ref: "#/components/schemas/TestResult"
 
-        '400':
+        "400":
           description: Invalid request parameters
-        '404':
+        "404":
           description: Results not found
 
     post:
@@ -271,7 +271,7 @@ paths:
                 metadata:
                   type: object
                   additionalProperties:
-                    $ref: '#/components/schemas/MetadataValueObject'
+                    $ref: "#/components/schemas/MetadataValueObject"
                   nullable: true
                 testRuns:
                   type: array
@@ -290,13 +290,13 @@ paths:
                       metadata:
                         type: object
                         additionalProperties:
-                          $ref: '#/components/schemas/MetadataValueObject'
+                          $ref: "#/components/schemas/MetadataValueObject"
                         nullable: true
                       stepRuns:
                         type: array
                         description: Use outputs.steps insteads.
                         items:
-                          $ref: '#/components/schemas/StepRun'
+                          $ref: "#/components/schemas/StepRun"
                     required:
                       - caseId
                       - stepRuns
@@ -314,7 +314,7 @@ paths:
                     type: string
                     format: uuid
                 required:
-                - resultId
+                  - resultId
             application/json; charset=utf-8:
               schema:
                 type: object
@@ -323,7 +323,7 @@ paths:
                     type: string
                     format: uuid
                 required:
-                - resultId
+                  - resultId
 
   /v1/test-result/{id}:
     get:
@@ -344,17 +344,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExpandedTestResult'
+                $ref: "#/components/schemas/ExpandedTestResult"
             application/json; charset=utf-8:
               schema:
-                $ref: '#/components/schemas/ExpandedTestResult'
+                $ref: "#/components/schemas/ExpandedTestResult"
         400:
           description: Bad request.
         404:
           description: Test result not found.
         500:
           description: Internal server error.
-
 
   /v1/test-result/status:
     get:
@@ -390,7 +389,7 @@ paths:
                   - pending
                   - failure
                   - done
-                        
+
             application/json; charset=utf-8:
               schema:
                 type: object
@@ -439,7 +438,7 @@ paths:
                 metadata:
                   type: object
                   additionalProperties:
-                    $ref: '#/components/schemas/MetadataValueObject'
+                    $ref: "#/components/schemas/MetadataValueObject"
                   nullable: true
                 testRuns:
                   type: array
@@ -481,7 +480,7 @@ paths:
                     type: string
                     format: uuid
                 required:
-                - resultId
+                  - resultId
             application/json; charset=utf-8:
               schema:
                 type: object
@@ -490,7 +489,7 @@ paths:
                     type: string
                     format: uuid
                 required:
-                - resultId
+                  - resultId
 
   /v1/pipelines:
     get:
@@ -520,13 +519,13 @@ paths:
                     type: array
                     items:
                       allOf:
-                      - $ref: "#/components/schemas/Pipeline"
-                      - type: object
-                        properties:
-                          cases:
-                            type: array
-                            items:
-                              $ref: "#/components/schemas/TestCase"
+                        - $ref: "#/components/schemas/Pipeline"
+                        - type: object
+                          properties:
+                            cases:
+                              type: array
+                              items:
+                                $ref: "#/components/schemas/TestCase"
                 required:
                   - pipelines
             application/json; charset=utf-8:
@@ -537,13 +536,13 @@ paths:
                     type: array
                     items:
                       allOf:
-                      - $ref: "#/components/schemas/Pipeline"
-                      - type: object
-                        properties:
-                          cases:
-                            type: array
-                            items:
-                              $ref: "#/components/schemas/TestCase"
+                        - $ref: "#/components/schemas/Pipeline"
+                        - type: object
+                          properties:
+                            cases:
+                              type: array
+                              items:
+                                $ref: "#/components/schemas/TestCase"
                 required:
                   - pipelines
         "400":
@@ -552,7 +551,7 @@ paths:
           description: Server error
 
   /v1/files/upload:
-   post:
+    post:
       tags:
         - v1
       summary: Upload an image file
@@ -574,7 +573,7 @@ paths:
                   format: binary
                   description: "The file to upload."
       responses:
-        '201':
+        "201":
           description: Image uploaded successfully
           content:
             application/json:
@@ -591,7 +590,7 @@ paths:
                   url:
                     type: string
                     description: URL of the uploaded image
-        '400':
+        "400":
           description: Bad request. Reasons can be missing org ID, missing file name or file too large.
           content:
             application/json:
@@ -606,7 +605,7 @@ paths:
                 properties:
                   message:
                     type: string
-        '401':
+        "401":
           description: Unauthorized. Invalid API key or token.
           content:
             application/json:
@@ -621,7 +620,7 @@ paths:
                 properties:
                   message:
                     type: string
-        '500':
+        "500":
           description: Unexpected server error
           content:
             application/json:
@@ -769,18 +768,18 @@ paths:
           style: deepObject
           explode: true
           schema:
-            $ref: '#/components/schemas/SearchableUnixSecondsInput'
+            $ref: "#/components/schemas/SearchableUnixSecondsInput"
           description: Criteria to search by creation date
         - name: metadata
           in: query
           style: deepObject
           explode: true
           schema:
-            $ref: '#/components/schemas/FilterableMetadataInput'
+            $ref: "#/components/schemas/FilterableMetadataInput"
           description: Criteria to search by metadata
 
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
@@ -790,7 +789,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TestResultV2'
+                      $ref: "#/components/schemas/TestResultV2"
                 required:
                   - data
             application/json; charset=utf-8:
@@ -800,10 +799,10 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TestResultV2'
+                      $ref: "#/components/schemas/TestResultV2"
                 required:
                   - data
-    
+
   /v2/test-cases:
     get:
       tags:
@@ -1073,7 +1072,7 @@ paths:
           description: Bad request
         "500":
           description: Server error
-    
+
 components:
   securitySchemes:
     bearerAuth:
@@ -1091,23 +1090,23 @@ components:
       format: float
       nullable: true
       description: Timestamp in seconds since the UNIX epoch. Can be transformed into a Date object.
-  
+
     SearchableUnixSecondsInput:
       oneOf:
-        - $ref: '#/components/schemas/UnixSeconds'
+        - $ref: "#/components/schemas/UnixSeconds"
         - type: object
           properties:
             gt:
-              $ref: '#/components/schemas/UnixSeconds'
+              $ref: "#/components/schemas/UnixSeconds"
               description: Date should be greater than this value.
             gte:
-              $ref: '#/components/schemas/UnixSeconds'
+              $ref: "#/components/schemas/UnixSeconds"
               description: Date should be greater than or equal to this value.
             lt:
-              $ref: '#/components/schemas/UnixSeconds'
+              $ref: "#/components/schemas/UnixSeconds"
               description: Date should be less than this value.
             lte:
-              $ref: '#/components/schemas/UnixSeconds'
+              $ref: "#/components/schemas/UnixSeconds"
               description: Date should be less than or equal to this value.
 
     SearchableStringInput:
@@ -1115,7 +1114,7 @@ components:
         - type: string
         - type: object
           properties:
-            contains: 
+            contains:
               type: string
             search:
               type: string
@@ -1184,15 +1183,15 @@ components:
         type:
           type: string
       oneOf:
-        - $ref: '#/components/schemas/UrlType'
-        - $ref: '#/components/schemas/StringType'
-        - $ref: '#/components/schemas/BooleanType'
+        - $ref: "#/components/schemas/UrlType"
+        - $ref: "#/components/schemas/StringType"
+        - $ref: "#/components/schemas/BooleanType"
       discriminator:
         propertyName: type
         mapping:
-          url: '#/components/schemas/UrlType'
-          string: '#/components/schemas/StringType'
-          boolean: '#/components/schemas/BooleanType'
+          url: "#/components/schemas/UrlType"
+          string: "#/components/schemas/StringType"
+          boolean: "#/components/schemas/BooleanType"
 
     UrlType:
       type: object
@@ -1240,7 +1239,7 @@ components:
     CreateEvaluationV2:
       type: object
       properties:
-        note: 
+        note:
           type: string
           description: Optionally add a note to the evaluation
         evaluatorId:
@@ -1269,7 +1268,7 @@ components:
           format: uuid
           description: The unique identifier for the pipeline run
         recordedTime:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         score:
           type: number
           format: double
@@ -1321,7 +1320,7 @@ components:
           nullable: true
           description: Optional details about the feedback
         recordedTime:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
       required:
         - id
         - pipelineRunId
@@ -1330,33 +1329,33 @@ components:
 
     ExpandedTestResult:
       allOf:
-        - $ref: '#/components/schemas/TestResult'
+        - $ref: "#/components/schemas/TestResult"
         - type: object
           properties:
             pipeline:
-              $ref: '#/components/schemas/ExpandedPipeline'
+              $ref: "#/components/schemas/ExpandedPipeline"
             runs:
               type: array
               items:
-                $ref: '#/components/schemas/ExpandedTestRun'
+                $ref: "#/components/schemas/ExpandedTestRun"
 
     ExpandedTestRun:
       allOf:
-        - $ref: '#/components/schemas/TestRun'
+        - $ref: "#/components/schemas/TestRun"
         - type: object
           properties:
             full:
-              $ref: '#/components/schemas/FullRun'
+              $ref: "#/components/schemas/FullRun"
             steps:
               type: array
               items:
-                $ref: '#/components/schemas/ResolvedStepRun'
+                $ref: "#/components/schemas/ResolvedStepRun"
             case:
-              $ref: '#/components/schemas/TestCase'
+              $ref: "#/components/schemas/TestCase"
             evaluations:
               type: array
               items:
-                $ref: '#/components/schemas/TestEvaluation'
+                $ref: "#/components/schemas/TestEvaluation"
 
     FullRun:
       type: object
@@ -1404,7 +1403,7 @@ components:
           nullable: true
         outputs:
           type: object
-          additionalProperties: true          
+          additionalProperties: true
           nullable: true
         renderHTMLKey:
           type: string
@@ -1412,7 +1411,7 @@ components:
         metadata:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/MetadataValueObject'
+            $ref: "#/components/schemas/MetadataValueObject"
           nullable: true
 
     TestRun:
@@ -1442,13 +1441,13 @@ components:
 
     ExpandedPipeline:
       allOf:
-        - $ref: '#/components/schemas/Pipeline'
+        - $ref: "#/components/schemas/Pipeline"
         - type: object
           properties:
             evaluators:
               type: array
               items:
-                $ref: '#/components/schemas/TestEvaluator'
+                $ref: "#/components/schemas/TestEvaluator"
 
     TestEvaluator:
       type: object
@@ -1482,7 +1481,7 @@ components:
           type: string
         options:
           type: array
-          items: {} 
+          items: {}
           nullable: true
         # TODO: Enum values were causing runtime check issues with the Python
         # SDK. Figure out what is causing the issue at a later point.
@@ -1529,12 +1528,12 @@ components:
         metadata:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/MetadataValueObject'
+            $ref: "#/components/schemas/MetadataValueObject"
           nullable: true
         stepRuns:
           type: array
           items:
-            $ref: '#/components/schemas/StepRun'
+            $ref: "#/components/schemas/StepRun"
       required:
         - stepRuns
         - id
@@ -1555,7 +1554,7 @@ components:
         outputs:
           type: object
           additionalProperties: true
-        context: 
+        context:
           type: object
           properties:
             userId:
@@ -1572,7 +1571,7 @@ components:
             metadata:
               type: object
               additionalProperties:
-                $ref: '#/components/schemas/MetadataValueObject'
+                $ref: "#/components/schemas/MetadataValueObject"
               nullable: true
         elapsedTime:
           type: integer
@@ -1694,7 +1693,7 @@ components:
                 description: The name of the method being invoked
               order:
                 type: integer
-                description: The order of the step run. The last step has the highest "order" number. 
+                description: The order of the step run. The last step has the highest "order" number.
               modelParams:
                 type: object
                 description: The parameters used by the model
@@ -1708,16 +1707,16 @@ components:
                 type: integer
                 description: The milliseconds to complete the run
               startTime:
-                $ref: '#/components/schemas/UnixSeconds'
+                $ref: "#/components/schemas/UnixSeconds"
               endTime:
-                $ref: '#/components/schemas/UnixSeconds'
+                $ref: "#/components/schemas/UnixSeconds"
               cost:
                 type: number
                 description: The cost of the run in USD
               metadata:
                 type: object
                 additionalProperties:
-                  $ref: '#/components/schemas/MetadataValueObject'
+                  $ref: "#/components/schemas/MetadataValueObject"
                 nullable: true
             required:
               - stepRunId
@@ -1820,9 +1819,9 @@ components:
                 type: object
                 description: Expected outputs for the test case
             required:
-            - name
-            - inputs
-            - expectedOutputs
+              - name
+              - inputs
+              - expectedOutputs
 
     UpdateTestCase:
       type: object
@@ -1932,7 +1931,7 @@ components:
         metadata:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/MetadataValueObject'
+            $ref: "#/components/schemas/MetadataValueObject"
           nullable: true
         name:
           type: string
@@ -1999,11 +1998,11 @@ components:
           format: uuid
           description: The ID of the pipeline
         createdAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         updatedAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         archivedAt:
-          $ref: '#/components/schemas/UnixSecondsNullable'
+          $ref: "#/components/schemas/UnixSecondsNullable"
         labels:
           type: array
           items:
@@ -2057,11 +2056,11 @@ components:
           format: uuid
           description: The unique identifier for the test result.
         createdAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         updatedAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         archivedAt:
-          $ref: '#/components/schemas/UnixSecondsNullable'
+          $ref: "#/components/schemas/UnixSecondsNullable"
         pipelineId:
           type: string
           format: uuid
@@ -2077,7 +2076,7 @@ components:
         metadata:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/MetadataValueObject'
+            $ref: "#/components/schemas/MetadataValueObject"
           nullable: true
         name:
           type: string
@@ -2092,11 +2091,11 @@ components:
           format: uuid
           description: The ID of the test case
         createdAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         updatedAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         archivedAt:
-          $ref: '#/components/schemas/UnixSecondsNullable'
+          $ref: "#/components/schemas/UnixSecondsNullable"
         expectedOutputs:
           type: object
           nullable: true
@@ -2120,7 +2119,7 @@ components:
         - inputs
         - name
         - pipelineId
-    
+
     FolderV2:
       type: object
       properties:
@@ -2129,9 +2128,9 @@ components:
           format: uuid
           description: The ID of the folder
         createdAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         updatedAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         name:
           type: string
           description: The name of the folder
@@ -2160,12 +2159,12 @@ components:
           format: uuid
           description: The ID of the evaluator
         createdAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         updatedAt:
-          $ref: '#/components/schemas/UnixSeconds'
+          $ref: "#/components/schemas/UnixSeconds"
         archivedAt:
-          $ref: '#/components/schemas/UnixSecondsNullable'
-        icon: 
+          $ref: "#/components/schemas/UnixSecondsNullable"
+        icon:
           type: string
           nullable: true
         name:

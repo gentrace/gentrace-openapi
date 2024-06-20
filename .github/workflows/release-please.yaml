@@ -24,11 +24,11 @@ jobs:
         with:
           path: gentrace-openapi
         if: ${{ steps.release.outputs.release_created }}
-          
+
       - uses: actions/setup-node@v3
         with:
-          node-version: '18.15.0'
-          cache: 'yarn'
+          node-version: "18.15.0"
+          cache: "yarn"
           cache-dependency-path: gentrace-openapi/yarn.lock
         if: ${{ steps.release.outputs.release_created }}
 
@@ -37,18 +37,23 @@ jobs:
         with:
           version: 8.7.0
         if: ${{ steps.release.outputs.release_created }}
-    
+
       - name: Install and generate (OpenAPI)
         run: |
           cd $GITHUB_WORKSPACE/gentrace-openapi
           yarn install
-        
+
           # Assumes that all generated repositories are at relative path "../<original-repo-name>" 
           yarn build
         if: ${{ steps.release.outputs.release_created }}
 
-      - name: Run `openapi` command 🚀
-        uses: readmeio/rdme@v8
-        with:
-          rdme: openapi gentrace-openapi/dist/spec-resolved.yaml --key=${{ secrets.README_API_KEY }} --id=64f88f2f5a9aba001951f637
-        if: ${{ steps.release.outputs.release_created }}
+      - name: Run Prettier
+        id: prettier
+        run: |
+          npx prettier --check spec.yaml || (
+            echo "::set-output name=prettier_failed::true"
+          )
+
+      - name: Fail if Prettier found issues
+        if: steps.prettier.outputs.prettier_failed == 'true'
+        run: exit 1
