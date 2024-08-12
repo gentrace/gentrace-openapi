@@ -2203,9 +2203,6 @@ components:
           type: object
           nullable: true
           description: The expected outputs for the test case as a JSON object
-      oneOf:
-        - required: [pipelineSlug]
-        - required: [datasetId]
       required:
         - name
         - inputs
@@ -2240,9 +2237,6 @@ components:
             required:
               - name
               - inputs
-      oneOf:
-        - required: [pipelineSlug]
-        - required: [datasetId]
       required:
         - testCases
 
