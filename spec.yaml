@@ -71,13 +71,18 @@ paths:
           description: Invalid feedback payload
         "500":
           description: Server error
-
   /v1/test-case:
     get:
       tags:
         - v1
-      summary: Get test cases for a pipeline
+      summary: Get test cases for a pipeline or dataset
       parameters:
+        - in: query
+          name: datasetId
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the Dataset to retrieve test cases for
         - in: query
           name: pipelineId
           schema:
@@ -89,6 +94,7 @@ paths:
           schema:
             type: string
           description: The slug of the Pipeline to retrieve test cases for
+      description: At least one of datasetId, pipelineId, or pipelineSlug must be provided
       responses:
         "200":
           description: Test cases retrieved successfully
@@ -1093,6 +1099,11 @@ paths:
       summary: Get test cases
       parameters:
         - in: query
+          name: datasetId
+          schema:
+            type: string
+          description: The ID of the Dataset to retrieve test cases for
+        - in: query
           name: pipelineId
           schema:
             type: string
@@ -1103,6 +1114,7 @@ paths:
           schema:
             type: string
           description: The slug of the Pipeline to retrieve test cases for
+      description: At least one of datasetId, pipelineId, or pipelineSlug must be provided
       responses:
         "200":
           description: Test cases retrieved successfully
@@ -1151,6 +1163,40 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: "#/components/schemas/TestCaseV2"
+        "404":
+          description: Test case not found
+    delete:
+      tags:
+        - v2
+      summary: Delete a test case
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the test case to delete
+      responses:
+        "200":
+          description: Test case deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                  - success
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                  - success
         "404":
           description: Test case not found
 
