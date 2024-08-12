@@ -2141,6 +2141,12 @@ components:
           nullable: true
           format: date-time
           description: The date and time when the test case was archived, can be null if the test case has not been archived
+          deprecated: true
+        deletedAt:
+          type: string
+          nullable: true
+          format: date-time
+          description: The date and time when the test case was deleted, can be null if the test case has not been deleted
         updatedAt:
           type: string
           format: date-time
@@ -2160,20 +2166,32 @@ components:
           type: string
           format: uuid
           description: The ID of the pipeline that the test case belongs to
+        datasetId:
+          type: string
+          format: uuid
+          description: The ID of the dataset that the test case belongs to
       required:
         - id
         - createdAt
         - updatedAt
+        - archivedAt
+        - deletedAt
         - inputs
         - name
         - pipelineId
+        - datasetId
 
     CreateSingleTestCase:
       type: object
       properties:
         pipelineSlug:
           type: string
+          minLength: 1
           description: Slug for the pipeline
+        datasetId:
+          type: string
+          minLength: 1
+          description: ID of the dataset
         name:
           type: string
           description: The name of the test case
@@ -2185,6 +2203,12 @@ components:
           type: object
           nullable: true
           description: The expected outputs for the test case as a JSON object
+      oneOf:
+        - required: [pipelineSlug]
+        - required: [datasetId]
+      required:
+        - name
+        - inputs
 
     CreateMultipleTestCases:
       type: object
@@ -2192,6 +2216,11 @@ components:
         pipelineSlug:
           type: string
           description: Slug for the pipeline
+          minLength: 1
+        datasetId:
+          type: string
+          description: ID of the dataset
+          minLength: 1
         testCases:
           type: array
           items:
@@ -2211,7 +2240,11 @@ components:
             required:
               - name
               - inputs
-              - expectedOutputs
+      oneOf:
+        - required: [pipelineSlug]
+        - required: [datasetId]
+      required:
+        - testCases
 
     UpdateTestCase:
       type: object
@@ -2278,6 +2311,10 @@ components:
           type: string
           nullable: true
           description: The branch that the pipeline is associated with
+        goldenDatasetId:
+          type: string
+          nullable: true
+          description: The ID of the golden dataset associated with the pipeline
       required:
         - id
         - createdAt
@@ -2285,6 +2322,7 @@ components:
         - labels
         - slug
         - organizationId
+        - goldenDatasetId
 
     TestResult:
       type: object
@@ -2420,6 +2458,10 @@ components:
           type: string
           nullable: true
           description: If null, this is a team pipeline. If not null, this is a private pipeline for the specified email.
+        goldenDatasetId:
+          type: string
+          nullable: true
+          description: The ID of the golden dataset associated with the pipeline
       required:
         - id
         - createdAt
@@ -2431,6 +2473,7 @@ components:
         - organizationId
         - privateMemberId
         - privateUserEmail
+        - goldenDatasetId
 
     TestResultV2:
       type: object
@@ -2486,6 +2529,9 @@ components:
           $ref: "#/components/schemas/UnixSeconds"
         archivedAt:
           $ref: "#/components/schemas/UnixSecondsNullable"
+          deprecated: true
+        deletedAt:
+          $ref: "#/components/schemas/UnixSecondsNullable"
         expectedOutputs:
           type: object
           nullable: true
@@ -2501,14 +2547,20 @@ components:
           type: string
           format: uuid
           description: The ID of the pipeline that the test case belongs to
+        datasetId:
+          type: string
+          format: uuid
+          description: The ID of the dataset that the test case belongs to
       required:
         - id
         - createdAt
         - updatedAt
         - archivedAt
+        - deletedAt
         - inputs
         - name
         - pipelineId
+        - datasetId
 
     FolderV2:
       type: object
