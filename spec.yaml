@@ -1585,8 +1585,6 @@ components:
         pipelineId:
           type: string
           format: uuid
-        isGolden:
-          type: boolean
       required:
         - id
         - createdAt
