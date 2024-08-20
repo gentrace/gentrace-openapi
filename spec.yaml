@@ -71,13 +71,18 @@ paths:
           description: Invalid feedback payload
         "500":
           description: Server error
-
   /v1/test-case:
     get:
       tags:
         - v1
-      summary: Get test cases for a pipeline
+      summary: Get test cases for a pipeline or dataset
       parameters:
+        - in: query
+          name: datasetId
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the Dataset to retrieve test cases for
         - in: query
           name: pipelineId
           schema:
@@ -89,6 +94,7 @@ paths:
           schema:
             type: string
           description: The slug of the Pipeline to retrieve test cases for
+      description: At least one of datasetId, pipelineId, or pipelineSlug must be provided
       responses:
         "200":
           description: Test cases retrieved successfully
@@ -784,6 +790,141 @@ paths:
                   message:
                     type: string
 
+  /v2/datasets:
+    get:
+      tags:
+        - v2
+      summary: List datasets
+      parameters:
+        - in: query
+          name: pipelineSlug
+          schema:
+            type: string
+          description: The slug of the pipeline to filter datasets by
+        - in: query
+          name: pipelineId
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the pipeline to filter datasets by
+        - in: query
+          name: archived
+          schema:
+            type: boolean
+          description: Filter datasets by archived status
+      responses:
+        "200":
+          description: Datasets retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DatasetV2"
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DatasetV2"
+        "400":
+          description: Bad request
+        "500":
+          description: Server error
+
+    post:
+      tags:
+        - v2
+      summary: Create a new dataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDatasetV2"
+      responses:
+        "200":
+          description: Dataset created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DatasetV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/DatasetV2"
+        "400":
+          description: Bad request
+        "500":
+          description: Server error
+
+  /v2/datasets/{id}:
+    get:
+      tags:
+        - v2
+      summary: Get a single dataset
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the dataset to retrieve
+      responses:
+        "200":
+          description: Dataset retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DatasetV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/DatasetV2"
+        "404":
+          description: Dataset not found
+        "500":
+          description: Server error
+
+    post:
+      tags:
+        - v2
+      summary: Update a dataset
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the dataset to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateDatasetV2"
+      responses:
+        "200":
+          description: Dataset updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DatasetV2"
+            application/json; charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/DatasetV2"
+        "400":
+          description: Bad request
+        "404":
+          description: Dataset not found
+        "500":
+          description: Server error
+
   /v2/feedback:
     post:
       tags:
@@ -958,6 +1099,11 @@ paths:
       summary: Get test cases
       parameters:
         - in: query
+          name: datasetId
+          schema:
+            type: string
+          description: The ID of the Dataset to retrieve test cases for
+        - in: query
           name: pipelineId
           schema:
             type: string
@@ -968,6 +1114,7 @@ paths:
           schema:
             type: string
           description: The slug of the Pipeline to retrieve test cases for
+      description: At least one of datasetId, pipelineId, or pipelineSlug must be provided
       responses:
         "200":
           description: Test cases retrieved successfully
@@ -1016,6 +1163,40 @@ paths:
             application/json; charset=utf-8:
               schema:
                 $ref: "#/components/schemas/TestCaseV2"
+        "404":
+          description: Test case not found
+    delete:
+      tags:
+        - v2
+      summary: Delete a test case
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the test case to delete
+      responses:
+        "200":
+          description: Test case deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                  - success
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required:
+                  - success
         "404":
           description: Test case not found
 
@@ -1382,6 +1563,65 @@ components:
           enum:
             - boolean
         value:
+          type: boolean
+
+    DatasetV2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          $ref: "#/components/schemas/UnixSeconds"
+        updatedAt:
+          $ref: "#/components/schemas/UnixSeconds"
+        archivedAt:
+          $ref: "#/components/schemas/UnixSecondsNullable"
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        pipelineId:
+          type: string
+          format: uuid
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - name
+        - pipelineId
+
+    CreateDatasetV2:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        pipelineId:
+          type: string
+          format: uuid
+        pipelineSlug:
+          type: string
+        isGolden:
+          type: boolean
+      required:
+        - name
+
+    UpdateDatasetV2:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          nullable: true
+        isGolden:
+          type: boolean
+        isArchived:
           type: boolean
 
     CreateEvaluationV2:
@@ -1899,6 +2139,12 @@ components:
           nullable: true
           format: date-time
           description: The date and time when the test case was archived, can be null if the test case has not been archived
+          deprecated: true
+        deletedAt:
+          type: string
+          nullable: true
+          format: date-time
+          description: The date and time when the test case was deleted, can be null if the test case has not been deleted
         updatedAt:
           type: string
           format: date-time
@@ -1918,20 +2164,32 @@ components:
           type: string
           format: uuid
           description: The ID of the pipeline that the test case belongs to
+        datasetId:
+          type: string
+          format: uuid
+          description: The ID of the dataset that the test case belongs to
       required:
         - id
         - createdAt
         - updatedAt
+        - archivedAt
+        - deletedAt
         - inputs
         - name
         - pipelineId
+        - datasetId
 
     CreateSingleTestCase:
       type: object
       properties:
         pipelineSlug:
           type: string
+          minLength: 1
           description: Slug for the pipeline
+        datasetId:
+          type: string
+          minLength: 1
+          description: ID of the dataset
         name:
           type: string
           description: The name of the test case
@@ -1943,6 +2201,9 @@ components:
           type: object
           nullable: true
           description: The expected outputs for the test case as a JSON object
+      required:
+        - name
+        - inputs
 
     CreateMultipleTestCases:
       type: object
@@ -1950,6 +2211,11 @@ components:
         pipelineSlug:
           type: string
           description: Slug for the pipeline
+          minLength: 1
+        datasetId:
+          type: string
+          description: ID of the dataset
+          minLength: 1
         testCases:
           type: array
           items:
@@ -1969,7 +2235,8 @@ components:
             required:
               - name
               - inputs
-              - expectedOutputs
+      required:
+        - testCases
 
     UpdateTestCase:
       type: object
@@ -2036,6 +2303,10 @@ components:
           type: string
           nullable: true
           description: The branch that the pipeline is associated with
+        goldenDatasetId:
+          type: string
+          nullable: true
+          description: The ID of the golden dataset associated with the pipeline
       required:
         - id
         - createdAt
@@ -2043,6 +2314,7 @@ components:
         - labels
         - slug
         - organizationId
+        - goldenDatasetId
 
     TestResult:
       type: object
@@ -2178,6 +2450,10 @@ components:
           type: string
           nullable: true
           description: If null, this is a team pipeline. If not null, this is a private pipeline for the specified email.
+        goldenDatasetId:
+          type: string
+          nullable: true
+          description: The ID of the golden dataset associated with the pipeline
       required:
         - id
         - createdAt
@@ -2189,6 +2465,7 @@ components:
         - organizationId
         - privateMemberId
         - privateUserEmail
+        - goldenDatasetId
 
     TestResultV2:
       type: object
@@ -2244,6 +2521,9 @@ components:
           $ref: "#/components/schemas/UnixSeconds"
         archivedAt:
           $ref: "#/components/schemas/UnixSecondsNullable"
+          deprecated: true
+        deletedAt:
+          $ref: "#/components/schemas/UnixSecondsNullable"
         expectedOutputs:
           type: object
           nullable: true
@@ -2259,14 +2539,20 @@ components:
           type: string
           format: uuid
           description: The ID of the pipeline that the test case belongs to
+        datasetId:
+          type: string
+          format: uuid
+          description: The ID of the dataset that the test case belongs to
       required:
         - id
         - createdAt
         - updatedAt
         - archivedAt
+        - deletedAt
         - inputs
         - name
         - pipelineId
+        - datasetId
 
     FolderV2:
       type: object
