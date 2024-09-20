@@ -283,11 +283,6 @@ paths:
                   type: boolean
                   description: Optional flag to trigger remote evaluations
                   default: true
-                evaluations:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/LocalEvaluation"
-                  description: Optional array of local evaluations
                 testRuns:
                   type: array
                   items:
@@ -312,6 +307,11 @@ paths:
                         description: Use outputs.steps insteads.
                         items:
                           $ref: "#/components/schemas/StepRun"
+                      evaluations:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/LocalEvaluation"
+                        description: Optional array of local evaluations
                     required:
                       - caseId
                       - stepRuns
@@ -533,11 +533,6 @@ paths:
                   type: boolean
                   description: Optional flag to trigger remote evaluations
                   default: true
-                localEvaluations:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/LocalEvaluation"
-                  description: Optional array of local evaluations
                 testRuns:
                   type: array
                   items:
@@ -560,6 +555,11 @@ paths:
                         type: object
                         additionalProperties: true
                         description: The returned outputs for the test case
+                      evaluations:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/LocalEvaluation"
+                        description: Optional array of local evaluations
                     required:
                       - caseId
                       - inputs
