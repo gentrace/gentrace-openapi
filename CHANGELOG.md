@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.0](https://github.com/gentrace/gentrace-openapi/compare/v0.26.0...v0.27.0) (2024-08-20)
+
+
+### Features
+
+* Add datasets ([#178](https://github.com/gentrace/gentrace-openapi/issues/178)) ([dc77966](https://github.com/gentrace/gentrace-openapi/commit/dc77966e1e1ab243fbc28217fb143c40c95cad8b))
+
 ## [0.26.0](https://github.com/gentrace/gentrace-openapi/compare/v0.25.0...v0.26.0) (2024-06-20)
 
 
