@@ -279,6 +279,10 @@ paths:
                   additionalProperties:
                     $ref: "#/components/schemas/MetadataValueObject"
                   nullable: true
+                triggerRemoteEvals:
+                  type: boolean
+                  description: Optional flag to trigger remote evaluations
+                  default: true
                 testRuns:
                   type: array
                   items:
@@ -520,6 +524,10 @@ paths:
                   additionalProperties:
                     $ref: "#/components/schemas/MetadataValueObject"
                   nullable: true
+                triggerRemoteEvals:
+                  type: boolean
+                  description: Optional flag to trigger remote evaluations
+                  default: true
                 testRuns:
                   type: array
                   items:
