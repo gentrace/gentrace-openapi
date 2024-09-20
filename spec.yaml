@@ -283,6 +283,11 @@ paths:
                   type: boolean
                   description: Optional flag to trigger remote evaluations
                   default: true
+                evaluations:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/LocalEvaluation"
+                  description: Optional array of local evaluations
                 testRuns:
                   type: array
                   items:
@@ -528,6 +533,11 @@ paths:
                   type: boolean
                   description: Optional flag to trigger remote evaluations
                   default: true
+                localEvaluations:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/LocalEvaluation"
+                  description: Optional array of local evaluations
                 testRuns:
                   type: array
                   items:
@@ -2226,6 +2236,61 @@ components:
         - name
         - pipelineId
         - datasetId
+
+    LocalEvaluation:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the local evaluation
+        value:
+          type: number
+          description: The numeric value of the evaluation
+        label:
+          type: string
+          nullable: true
+          description: Optional label for the evaluation
+        debug:
+          $ref: "#/components/schemas/LocalEvaluationDebug"
+          nullable: true
+      required:
+        - name
+        - value
+
+    LocalEvaluationDebug:
+      type: object
+      properties:
+        resolvedPrompt:
+          type: string
+          description: The resolved prompt used for the evaluation
+        response:
+          type: string
+          description: The response received from the evaluation
+        finalClassification:
+          type: string
+          description: The final classification of the evaluation
+        processorLogs:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: Processor logs
+        logs:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: Evaluator logs
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            date:
+              type: string
+              format: date-time
+              description: Date and time of the error
 
     CreateSingleTestCase:
       type: object
