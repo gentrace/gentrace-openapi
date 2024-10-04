@@ -10,6 +10,8 @@ tags:
     description: Endpoints for core API functionality (version 1)
   - name: v2
     description: Endpoints for core API functionality (version 2)
+  - name: v3
+    description: Endpoints for core API functionality (version 3)
   - name: Feedback
     description: Endpoints for capturing user feedback for runs
 
@@ -1463,7 +1465,7 @@ paths:
   /v3/evaluations:
     get:
       tags:
-        - v2
+        - v3
       summary: Get evaluations
       parameters:
         - in: query

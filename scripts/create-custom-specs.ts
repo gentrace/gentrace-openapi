@@ -19,12 +19,15 @@ const coreSpec = yaml.load(
 
 const v1Tag = "v1";
 const v2Tag = "v2";
+const v3Tag = "v3";
 
-const coreTags = [v1Tag, v2Tag];
+const coreTags = [v1Tag, v2Tag, v3Tag];
 
 const corePaths = Object.fromEntries(
   Object.entries(coreSpec.paths).filter(([, data]) =>
-    Object.values(data).some((op) => op.tags && coreTags.some(tag => op.tags.includes(tag)))
+    Object.values(data).some(
+      (op) => op.tags && coreTags.some((tag) => op.tags.includes(tag))
+    )
   )
 );
 
