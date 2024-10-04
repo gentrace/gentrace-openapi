@@ -1460,6 +1460,46 @@ paths:
         "500":
           description: Server error
 
+  /v3/evaluations:
+    get:
+      tags:
+        - v2
+      summary: Get evaluations
+      parameters:
+        - in: query
+          name: resultId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the result to get evaluations for
+      responses:
+        "200":
+          description: Evaluations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EvaluationV3"
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EvaluationV3"
+        "400":
+          description: Bad request
+        "404":
+          description: Result not found
+        "500":
+          description: Server error
+
 components:
   securitySchemes:
     bearerAuth:
@@ -2827,6 +2867,74 @@ components:
           type: string
           format: uuid
           description: The ID of the evaluator
+        runId:
+          type: string
+          format: uuid
+          description: The ID of the run
+        comparisonRunId:
+          type: string
+          format: uuid
+          nullable: true
+          description: The ID of the comparison run, if applicable
+        name:
+          type: string
+          nullable: true
+          description: The name of the evaluation
+        evalLabel:
+          type: string
+          nullable: true
+          description: The label of the evaluation
+        evalValue:
+          type: number
+          nullable: true
+          description: The value of the evaluation
+        manualCreatedByEmail:
+          type: string
+          nullable: true
+          description: The email of the user who manually created the evaluation, if applicable
+        note:
+          type: string
+          description: Additional notes for the evaluation
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - isPending
+        - isFiltered
+        - evaluatorId
+        - runId
+        - evalLabel
+        - evalValue
+        - note
+        - name
+
+    EvaluationV3:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the evaluation
+        createdAt:
+          $ref: "#/components/schemas/UnixSeconds"
+        updatedAt:
+          $ref: "#/components/schemas/UnixSeconds"
+        isPending:
+          type: boolean
+          description: Indicates if the evaluation is pending
+        isFiltered:
+          type: boolean
+          description: Indicates if the evaluation is filtered
+        debug:
+          type: object
+          additionalProperties: true
+          nullable: true
+          description: Debug information for the evaluation
+        evaluatorId:
+          type: string
+          format: uuid
+          description: The ID of the evaluator
+          nullable: true
         runId:
           type: string
           format: uuid
