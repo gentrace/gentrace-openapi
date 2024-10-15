@@ -10,6 +10,8 @@ tags:
     description: Endpoints for core API functionality (version 1)
   - name: v2
     description: Endpoints for core API functionality (version 2)
+  - name: v3
+    description: Endpoints for core API functionality (version 3)
   - name: Feedback
     description: Endpoints for capturing user feedback for runs
 
@@ -279,6 +281,10 @@ paths:
                   additionalProperties:
                     $ref: "#/components/schemas/MetadataValueObject"
                   nullable: true
+                triggerRemoteEvals:
+                  type: boolean
+                  description: Optional flag to trigger remote evaluations
+                  default: true
                 testRuns:
                   type: array
                   items:
@@ -303,6 +309,11 @@ paths:
                         description: Use outputs.steps insteads.
                         items:
                           $ref: "#/components/schemas/StepRun"
+                      evaluations:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/LocalEvaluation"
+                        description: Optional array of local evaluations
                     required:
                       - caseId
                       - stepRuns
@@ -520,6 +531,10 @@ paths:
                   additionalProperties:
                     $ref: "#/components/schemas/MetadataValueObject"
                   nullable: true
+                triggerRemoteEvals:
+                  type: boolean
+                  description: Optional flag to trigger remote evaluations
+                  default: true
                 testRuns:
                   type: array
                   items:
@@ -542,6 +557,11 @@ paths:
                         type: object
                         additionalProperties: true
                         description: The returned outputs for the test case
+                      evaluations:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/LocalEvaluation"
+                        description: Optional array of local evaluations
                     required:
                       - caseId
                       - inputs
@@ -1442,6 +1462,46 @@ paths:
         "500":
           description: Server error
 
+  /v3/evaluations:
+    get:
+      tags:
+        - v3
+      summary: Get evaluations
+      parameters:
+        - in: query
+          name: resultId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The ID of the result to get evaluations for
+      responses:
+        "200":
+          description: Evaluations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EvaluationV3"
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EvaluationV3"
+        "400":
+          description: Bad request
+        "404":
+          description: Result not found
+        "500":
+          description: Server error
+
 components:
   securitySchemes:
     bearerAuth:
@@ -2219,6 +2279,61 @@ components:
         - pipelineId
         - datasetId
 
+    LocalEvaluation:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the local evaluation
+        value:
+          type: number
+          description: The numeric value of the evaluation
+        label:
+          type: string
+          nullable: true
+          description: Optional label for the evaluation
+        debug:
+          $ref: "#/components/schemas/LocalEvaluationDebug"
+          nullable: true
+      required:
+        - name
+        - value
+
+    LocalEvaluationDebug:
+      type: object
+      properties:
+        resolvedPrompt:
+          type: string
+          description: The resolved prompt used for the evaluation
+        response:
+          type: string
+          description: The response received from the evaluation
+        finalClassification:
+          type: string
+          description: The final classification of the evaluation
+        processorLogs:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: Processor logs
+        logs:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: Evaluator logs
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            date:
+              type: string
+              format: date-time
+              description: Date and time of the error
+
     CreateSingleTestCase:
       type: object
       properties:
@@ -2754,6 +2869,74 @@ components:
           type: string
           format: uuid
           description: The ID of the evaluator
+        runId:
+          type: string
+          format: uuid
+          description: The ID of the run
+        comparisonRunId:
+          type: string
+          format: uuid
+          nullable: true
+          description: The ID of the comparison run, if applicable
+        name:
+          type: string
+          nullable: true
+          description: The name of the evaluation
+        evalLabel:
+          type: string
+          nullable: true
+          description: The label of the evaluation
+        evalValue:
+          type: number
+          nullable: true
+          description: The value of the evaluation
+        manualCreatedByEmail:
+          type: string
+          nullable: true
+          description: The email of the user who manually created the evaluation, if applicable
+        note:
+          type: string
+          description: Additional notes for the evaluation
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - isPending
+        - isFiltered
+        - evaluatorId
+        - runId
+        - evalLabel
+        - evalValue
+        - note
+        - name
+
+    EvaluationV3:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The ID of the evaluation
+        createdAt:
+          $ref: "#/components/schemas/UnixSeconds"
+        updatedAt:
+          $ref: "#/components/schemas/UnixSeconds"
+        isPending:
+          type: boolean
+          description: Indicates if the evaluation is pending
+        isFiltered:
+          type: boolean
+          description: Indicates if the evaluation is filtered
+        debug:
+          type: object
+          additionalProperties: true
+          nullable: true
+          description: Debug information for the evaluation
+        evaluatorId:
+          type: string
+          format: uuid
+          description: The ID of the evaluator
+          nullable: true
         runId:
           type: string
           format: uuid
