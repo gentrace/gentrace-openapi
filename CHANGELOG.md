@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.28.0](https://github.com/gentrace/gentrace-openapi/compare/v0.27.0...v0.28.0) (2024-10-15)
+
+
+### Features
+
+* Add in local evaluations alpha ([#180](https://github.com/gentrace/gentrace-openapi/issues/180)) ([1682022](https://github.com/gentrace/gentrace-openapi/commit/16820223a047d58aa561054841b7069b1433aef7))
+* Add v2 evaluation list, filtered by resultId ([#181](https://github.com/gentrace/gentrace-openapi/issues/181)) ([e1084e8](https://github.com/gentrace/gentrace-openapi/commit/e1084e86a696ffceedada22f90565bd2ed0a0aaa))
+
 ## [0.27.0](https://github.com/gentrace/gentrace-openapi/compare/v0.26.0...v0.27.0) (2024-08-20)
 
 
