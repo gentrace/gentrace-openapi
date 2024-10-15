@@ -299,6 +299,13 @@ paths:
                         type: string
                         format: uuid
                         description: The ID of the test case
+                      name:
+                        type: string
+                        description: The name of the test run
+                      inputs:
+                        type: object
+                        additionalProperties: true
+                        description: The input data for the test run
                       metadata:
                         type: object
                         additionalProperties:
@@ -315,7 +322,6 @@ paths:
                           $ref: "#/components/schemas/LocalEvaluation"
                         description: Optional array of local evaluations
                     required:
-                      - caseId
                       - stepRuns
               required:
                 - testRuns
