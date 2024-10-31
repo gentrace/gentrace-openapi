@@ -301,11 +301,15 @@ paths:
                         description: The ID of the test case. Mutually exclusive with 'name' and 'inputs'.
                       name:
                         type: string
-                        description: The name of the test run. Used with 'inputs' and mutually exclusive with 'caseId'.
+                        description: Used for supplying local data. The name of the test run. Used with 'inputs' and mutually exclusive with 'caseId'.
                       inputs:
                         type: object
                         additionalProperties: true
-                        description: The input data for the test run. Used with 'name' and mutually exclusive with 'caseId'.
+                        description: Used for supplying local data. The input data for the test run. Used with 'name' and mutually exclusive with 'caseId'.
+                      expectedOutputs:
+                        type: object
+                        additionalProperties: true
+                        description: Used for supplying local data. The expected outputs for the test run. Used with 'name' and mutually exclusive with 'caseId'. Optional, since not all evaluators require expected outputs.
                       metadata:
                         type: object
                         additionalProperties:
