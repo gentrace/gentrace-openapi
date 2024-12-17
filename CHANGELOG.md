@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.28.0](https://github.com/gentrace/gentrace-openapi/compare/v0.27.0...v0.28.0) (2024-12-17)
+
+
+### Features
+
+* Add expected outputs to test run ([6c8a4b5](https://github.com/gentrace/gentrace-openapi/commit/6c8a4b5b0b6604ca1f127c5edc59e222f4bd6a5b))
+* Add in local evaluations alpha ([#180](https://github.com/gentrace/gentrace-openapi/issues/180)) ([1682022](https://github.com/gentrace/gentrace-openapi/commit/16820223a047d58aa561054841b7069b1433aef7))
+* Add local test data ([#182](https://github.com/gentrace/gentrace-openapi/issues/182)) ([7a7a6b6](https://github.com/gentrace/gentrace-openapi/commit/7a7a6b671d6a757d968e64432c0ad38245c3ef5d))
+* Add v2 evaluation list, filtered by resultId ([#181](https://github.com/gentrace/gentrace-openapi/issues/181)) ([e1084e8](https://github.com/gentrace/gentrace-openapi/commit/e1084e86a696ffceedada22f90565bd2ed0a0aaa))
+* Describe mutually exclusive ([#183](https://github.com/gentrace/gentrace-openapi/issues/183)) ([543c6df](https://github.com/gentrace/gentrace-openapi/commit/543c6df2ef8092da49809854e0992847ffbe4cf9))
+* run/step errors ([#185](https://github.com/gentrace/gentrace-openapi/issues/185)) ([33a3e1c](https://github.com/gentrace/gentrace-openapi/commit/33a3e1c9ca77594065485b768406442c518477ca))
+* update spec to include path in Run ([#186](https://github.com/gentrace/gentrace-openapi/issues/186)) ([0d5224a](https://github.com/gentrace/gentrace-openapi/commit/0d5224a5bf6b870c524cfc7fadd669eb9c266be3))
+
 ## [0.27.0](https://github.com/gentrace/gentrace-openapi/compare/v0.26.0...v0.27.0) (2024-08-20)
 
 
