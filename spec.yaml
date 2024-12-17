@@ -325,6 +325,12 @@ paths:
                         items:
                           $ref: "#/components/schemas/LocalEvaluation"
                         description: Optional array of local evaluations
+                      path:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/RunPathSection"
+                        description: Optional path which describes the organizational hierarchy of this test run in relation to all the pipeline tests.
+                        nullable: true
                       error:
                         type: string
                         nullable: true
@@ -434,6 +440,12 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/StepRun"
+                      path:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/RunPathSection"
+                        description: Optional path which describes the organizational hierarchy of this test run in relation to all the pipeline tests.
+                        nullable: true
                       error:
                         type: string
                         nullable: true
@@ -584,6 +596,12 @@ paths:
                         items:
                           $ref: "#/components/schemas/LocalEvaluation"
                         description: Optional array of local evaluations
+                      path:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/RunPathSection"
+                        description: Optional path which describes the organizational hierarchy of this test run in relation to all the pipeline tests.
+                        nullable: true
                       error:
                         type: string
                         nullable: true
@@ -658,6 +676,12 @@ paths:
                         type: object
                         additionalProperties: true
                         description: The returned outputs for the test case
+                      path:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/RunPathSection"
+                        description: Optional path which describes the organizational hierarchy of this test run in relation to all the pipeline tests.
+                        nullable: true
                       error:
                         type: string
                         nullable: true
@@ -1877,6 +1901,18 @@ components:
               nullable: true
               description: Error message if the test run failed
 
+    RunPathSection:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: ["suite"]
+        name:
+          type: string
+      required:
+        - type
+        - name
+
     FullRun:
       type: object
       required:
@@ -1933,6 +1969,11 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/MetadataValueObject"
           nullable: true
+        path:
+          type: array
+          items:
+            $ref: "#/components/schemas/RunPathSection"
+          nullable: true
         error:
           type: string
           nullable: true
@@ -1961,6 +2002,11 @@ components:
         resultId:
           type: string
           format: uuid
+        path:
+          type: array
+          items:
+            $ref: "#/components/schemas/RunPathSection"
+          nullable: true
 
     ExpandedPipeline:
       allOf:
