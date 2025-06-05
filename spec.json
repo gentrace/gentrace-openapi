@@ -1,0 +1,1822 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Gentrace API",
+    "version": "0.1.0",
+    "description": "API documentation for Gentrace services.",
+    "contact": {
+      "name": "Gentrace",
+      "url": "https://gentrace.ai",
+      "email": "support@gentrace.ai"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "externalDocs": {
+    "url": "https://github.com/gentrace/gentrace-openapi",
+    "description": "Gentrace OpenAPI Github"
+  },
+  "servers": [
+    {
+      "url": "https://gentrace.ai/api",
+      "description": "API Endpoint"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v4/pipelines": {
+      "get": {
+        "summary": "List pipelines",
+        "description": "List pipelines",
+        "operationId": "listPipelines",
+        "tags": ["Pipelines"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SlugQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/FolderIdQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Pipeline"
+                      }
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the pipeline. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The pipeline resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a pipeline",
+        "description": "Create a new pipeline",
+        "operationId": "createPipeline",
+        "tags": ["Pipelines"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePipeline"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pipeline"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the pipeline. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The pipeline resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/pipelines/{id}": {
+      "get": {
+        "summary": "Get a single pipeline",
+        "description": "Retrieve the details of a pipeline by ID",
+        "operationId": "getPipeline",
+        "tags": ["Pipelines"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PipelineIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pipeline"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the pipeline. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The pipeline resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Update a pipeline",
+        "description": "Update the details of a pipeline by ID",
+        "operationId": "updatePipeline",
+        "tags": ["Pipelines"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PipelineIdPathParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePipeline"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pipeline"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the pipeline. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The pipeline resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/datasets": {
+      "get": {
+        "summary": "List datasets",
+        "description": "List datasets",
+        "operationId": "listDatasets",
+        "tags": ["Datasets"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PipelineIdQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/PipelineSlugQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchivedQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Dataset"
+                      }
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the dataset. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The dataset resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a dataset",
+        "description": "Create a new dataset",
+        "operationId": "createDataset",
+        "tags": ["Datasets"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDataset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dataset"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the dataset. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The dataset resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/datasets/{id}": {
+      "get": {
+        "summary": "Get a single dataset",
+        "description": "Retrieve the details of a dataset by ID",
+        "operationId": "getDataset",
+        "tags": ["Datasets"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DatasetIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dataset"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the dataset. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The dataset resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Update a dataset",
+        "description": "Update the details of a dataset by ID",
+        "operationId": "updateDataset",
+        "tags": ["Datasets"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DatasetIdPathParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDataset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dataset"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the dataset. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The dataset resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/experiments": {
+      "get": {
+        "summary": "List experiments",
+        "description": "List experiments",
+        "operationId": "listExperiments",
+        "tags": ["Experiments"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PipelineIdQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Experiment"
+                      }
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the experiment. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The experiment resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a experiment",
+        "description": "Create a new experiment",
+        "operationId": "createExperiment",
+        "tags": ["Experiments"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateExperiment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Experiment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the experiment. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The experiment resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/experiments/{id}": {
+      "get": {
+        "summary": "Get a single experiment",
+        "description": "Retrieve the details of a experiment by ID",
+        "operationId": "getExperiment",
+        "tags": ["Experiments"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExperimentIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Experiment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the experiment. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The experiment resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Update a experiment",
+        "description": "Update the details of a experiment by ID",
+        "operationId": "updateExperiment",
+        "tags": ["Experiments"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExperimentIdPathParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateExperiment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Experiment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the experiment. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The experiment resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/test-cases": {
+      "get": {
+        "summary": "List test cases",
+        "description": "List test cases",
+        "operationId": "listTestCases",
+        "tags": ["TestCases"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/DatasetIdQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/PipelineIdQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/PipelineSlugQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TestCase"
+                      }
+                    }
+                  },
+                  "required": ["data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the test case. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The test case resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a test case",
+        "description": "Create a new test case",
+        "operationId": "createTestCase",
+        "tags": ["TestCases"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTestCase"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestCase"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the test case. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The test case resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/test-cases/{id}": {
+      "get": {
+        "summary": "Get a single test case",
+        "description": "Retrieve the details of a test case by ID",
+        "operationId": "getTestCase",
+        "tags": ["TestCases"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TestCaseIdPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestCase"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client provided an invalid request for the test case. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The test case resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a test case",
+        "description": "Delete a test case by ID",
+        "operationId": "deleteTestCase",
+        "tags": ["TestCases"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TestCaseIdPathParam"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful response"
+          },
+          "400": {
+            "description": "Client provided an invalid request for the test case. Please check the request format and parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid API key provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The test case resource does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong on Gentrace's end.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Enter Gentrace API key (Format: Authorization: Bearer <token>)"
+      }
+    },
+    "schemas": {
+      "SlugQuery": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "contains": {
+                "type": "string"
+              },
+              "search": {
+                "type": "string"
+              },
+              "startsWith": {
+                "type": "string"
+              },
+              "endsWith": {
+                "type": "string"
+              },
+              "in": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notIn": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "mode": {
+                "type": "string",
+                "enum": ["insensitive", "default"]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "description": "Filter pipelines by slug",
+        "example": "my-pipeline"
+      },
+      "FolderIdQuery": {
+        "type": ["string", "null"],
+        "format": "uuid",
+        "description": "The ID of the folder to filter pipelines by",
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "PipelineIdParam": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Pipeline UUID",
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "PipelineIdQuery": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Filter to the datasets for a specific pipeline by UUID",
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "PipelineSlugQuery": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Pipeline slug",
+        "example": "email-summarizer"
+      },
+      "ArchivedQuery": {
+        "type": "boolean",
+        "description": "Flag to include archived datasets",
+        "example": false
+      },
+      "DatasetIdParam": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Dataset UUID",
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "ExperimentIdParam": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Experiment UUID",
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "DatasetIdQuery": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Dataset ID",
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "TestCaseIdParam": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Test Case UUID",
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      },
+      "Pipeline": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Pipeline UUID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "minLength": 1,
+            "description": "Pipeline slug",
+            "example": "my-awesome-pipeline"
+          },
+          "displayName": {
+            "type": ["string", "null"],
+            "description": "Pipeline display name",
+            "example": "My Awesome Pipeline"
+          },
+          "folderId": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "Folder UUID",
+            "example": "6527747a-ba86-441a-aebd-1ad94460bc89"
+          },
+          "archivedAt": {
+            "type": ["string", "null"],
+            "description": "Archive timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "goldenDatasetId": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "Golden dataset UUID",
+            "example": "6527747a-ba86-441a-aebd-1ad94460bc89"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt",
+          "slug",
+          "displayName",
+          "folderId",
+          "archivedAt",
+          "goldenDatasetId"
+        ]
+      },
+      "BadRequestError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "A description of the validation error",
+            "example": "Invalid parameters: 'name' field is required"
+          }
+        },
+        "required": ["message"]
+      },
+      "UnauthorizedError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Authentication error details",
+            "example": "Invalid or expired API key"
+          }
+        },
+        "required": ["message"]
+      },
+      "NotFoundError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Resource not found details",
+            "example": "Resource with ID '123e4567-e89b-12d3-a456-426614174000' not found"
+          }
+        },
+        "required": ["message"]
+      },
+      "InternalServerError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Internal server error details",
+            "example": "Internal server error occurred while processing the request"
+          }
+        },
+        "required": ["message"]
+      },
+      "CreatePipeline": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "minLength": 1,
+            "description": "Pipeline slug",
+            "example": "my-awesome-pipeline"
+          },
+          "displayName": {
+            "type": ["string", "null"],
+            "description": "Pipeline display name",
+            "example": "My Awesome Pipeline"
+          },
+          "folderId": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "Folder UUID",
+            "example": "6527747a-ba86-441a-aebd-1ad94460bc89",
+            "default": null
+          }
+        },
+        "required": ["slug"]
+      },
+      "UpdatePipeline": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": ["string", "null"],
+            "description": "Pipeline display name",
+            "example": "My Awesome Pipeline"
+          },
+          "folderId": {
+            "type": ["string", "null"],
+            "format": "uuid",
+            "description": "Folder UUID",
+            "example": "6527747a-ba86-441a-aebd-1ad94460bc89"
+          },
+          "isArchived": {
+            "type": "boolean",
+            "description": "Whether the pipeline is archived",
+            "example": false
+          }
+        }
+      },
+      "Dataset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Dataset UUID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "name": {
+            "type": "string",
+            "description": "Dataset name",
+            "example": "Dataset - negative user feedback - 2025-04-01"
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "Dataset description",
+            "example": "Negative user feedback collected from our production environment"
+          },
+          "archivedAt": {
+            "type": ["string", "null"],
+            "description": "Archive timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "pipelineId": {
+            "type": "string",
+            "description": "Pipeline UUID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          }
+        },
+        "required": ["id", "createdAt", "updatedAt", "name", "description", "archivedAt", "pipelineId"]
+      },
+      "CreateDataset": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Dataset name",
+            "example": "Dataset - negative user feedback - 2025-04-01"
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "Dataset description",
+            "example": "Negative user feedback collected from our production environment"
+          },
+          "isGolden": {
+            "type": "boolean",
+            "description": "Whether the dataset is golden",
+            "example": false
+          },
+          "pipelineSlug": {
+            "type": "string",
+            "description": "Pipeline slug (mutually exclusive with pipelineId)",
+            "example": "email-summarizer"
+          },
+          "pipelineId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Pipeline ID (mutually exclusive with pipelineSlug)",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          }
+        },
+        "required": ["name", "description"]
+      },
+      "UpdateDataset": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Dataset name",
+            "example": "Dataset - negative user feedback - 2025-04-01"
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "Dataset description",
+            "example": "Negative user feedback collected from our production environment"
+          },
+          "isGolden": {
+            "type": "boolean",
+            "description": "Set the dataset as the golden dataset",
+            "example": true
+          },
+          "isArchived": {
+            "type": "boolean",
+            "description": "Archive the dataset",
+            "example": true
+          }
+        }
+      },
+      "Experiment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Experiment UUID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "name": {
+            "type": ["string", "null"],
+            "description": "Friendly experiment name",
+            "example": "OpenAI o3-mini prompt"
+          },
+          "pipelineId": {
+            "type": "string",
+            "description": "Pipeline UUID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "metadata": {
+            "type": ["object", "null"],
+            "additionalProperties": true,
+            "description": "Metadata",
+            "example": {
+              "key": "value"
+            }
+          }
+        },
+        "required": ["id", "createdAt", "updatedAt", "name", "pipelineId", "metadata"]
+      },
+      "CreateExperiment": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Friendly experiment name",
+            "example": "OpenAI o3-mini prompt"
+          },
+          "pipelineId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The ID of the pipeline to create the experiment for",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Optional metadata for the experiment",
+            "example": {
+              "promptTemplate": {
+                "type": "string",
+                "value": "Hello, {{ name }}!"
+              }
+            }
+          }
+        },
+        "required": ["pipelineId"],
+        "additionalProperties": false,
+        "description": "Creates a new experiment with the given pipeline ID",
+        "examples": [
+          {
+            "pipelineId": "123e4567-e89b-12d3-a456-426614174000",
+            "name": "OpenAI o3-mini prompt",
+            "metadata": {
+              "promptTemplate": {
+                "type": "string",
+                "value": "Hello, {{ name }}!"
+              }
+            }
+          }
+        ]
+      },
+      "UpdateExperiment": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": ["string", "null"],
+            "description": "Friendly experiment name",
+            "example": "OpenAI o3-mini prompt"
+          },
+          "metadata": {
+            "type": ["object", "null"],
+            "additionalProperties": true,
+            "description": "Metadata",
+            "example": {
+              "key": "value"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["GENERATING", "EVALUATING"],
+            "description": "Status",
+            "example": "GENERATING"
+          }
+        }
+      },
+      "TestCase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Test Case UUID",
+            "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Creation timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Last update timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "inputs": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Input data for the test case",
+            "example": {
+              "query": "What is the capital of France?"
+            }
+          },
+          "expectedOutputs": {
+            "type": ["object", "null"],
+            "additionalProperties": true,
+            "description": "Expected output data for the test case",
+            "example": {
+              "answer": "Paris"
+            }
+          },
+          "datasetId": {
+            "type": "string",
+            "description": "Associated Dataset UUID",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "name": {
+            "type": "string",
+            "description": "Test Case name",
+            "example": "Capital of France query"
+          },
+          "pipelineId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Associated Pipeline UUID",
+            "example": "abcdef12-3456-7890-abcd-ef1234567890"
+          },
+          "archivedAt": {
+            "type": ["string", "null"],
+            "description": "Archive timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          },
+          "deletedAt": {
+            "type": ["string", "null"],
+            "description": "Deletion timestamp (ISO 8601)",
+            "example": "2025-04-01T00:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt",
+          "inputs",
+          "expectedOutputs",
+          "datasetId",
+          "name",
+          "pipelineId",
+          "archivedAt",
+          "deletedAt"
+        ]
+      },
+      "CreateTestCase": {
+        "type": "object",
+        "properties": {
+          "datasetId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Dataset UUID",
+            "example": "b2c3d4e5-f6a7-8901-2345-67890abcdef1"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Test case name",
+            "example": "Prompting with a SQL query that does not return any results"
+          },
+          "inputs": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Test case inputs as a JSON object",
+            "example": {
+              "query": "What is the capital of France?"
+            }
+          },
+          "expectedOutputs": {
+            "type": "object",
+            "additionalProperties": true,
+            "default": {},
+            "description": "Optional expected outputs as a JSON object",
+            "example": {
+              "result": "No results found"
+            }
+          }
+        },
+        "required": ["datasetId", "name", "inputs"],
+        "additionalProperties": false,
+        "description": "Test case creation parameters",
+        "example": {
+          "datasetId": "b2c3d4e5-f6a7-8901-2345-67890abcdef1",
+          "name": "Prompting with a SQL query that does not return any results",
+          "inputs": {
+            "query": "What is the capital of France?"
+          },
+          "expectedOutputs": {
+            "result": "No results found"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "SlugQueryParam": {
+        "in": "query",
+        "name": "slug",
+        "description": "Filter pipelines by slug",
+        "schema": {
+          "$ref": "#/components/schemas/SlugQuery"
+        }
+      },
+      "FolderIdQueryParam": {
+        "in": "query",
+        "name": "folderId",
+        "description": "The ID of the folder to filter pipelines by",
+        "schema": {
+          "$ref": "#/components/schemas/FolderIdQuery"
+        }
+      },
+      "PipelineIdPathParam": {
+        "in": "path",
+        "name": "id",
+        "description": "Pipeline UUID",
+        "schema": {
+          "$ref": "#/components/schemas/PipelineIdParam"
+        },
+        "required": true
+      },
+      "PipelineIdQueryParam": {
+        "in": "query",
+        "name": "pipelineId",
+        "description": "Filter to the datasets for a specific pipeline by UUID",
+        "schema": {
+          "$ref": "#/components/schemas/PipelineIdQuery"
+        }
+      },
+      "PipelineSlugQueryParam": {
+        "in": "query",
+        "name": "pipelineSlug",
+        "description": "Pipeline slug",
+        "schema": {
+          "$ref": "#/components/schemas/PipelineSlugQuery"
+        }
+      },
+      "ArchivedQueryParam": {
+        "in": "query",
+        "name": "archived",
+        "description": "Flag to include archived datasets",
+        "schema": {
+          "$ref": "#/components/schemas/ArchivedQuery"
+        }
+      },
+      "DatasetIdPathParam": {
+        "in": "path",
+        "name": "id",
+        "description": "Dataset UUID",
+        "schema": {
+          "$ref": "#/components/schemas/DatasetIdParam"
+        },
+        "required": true
+      },
+      "ExperimentIdPathParam": {
+        "in": "path",
+        "name": "id",
+        "description": "Experiment UUID",
+        "schema": {
+          "$ref": "#/components/schemas/ExperimentIdParam"
+        },
+        "required": true
+      },
+      "DatasetIdQueryParam": {
+        "in": "query",
+        "name": "datasetId",
+        "description": "Dataset ID",
+        "schema": {
+          "$ref": "#/components/schemas/DatasetIdQuery"
+        }
+      },
+      "TestCaseIdPathParam": {
+        "in": "path",
+        "name": "id",
+        "description": "Test Case UUID",
+        "schema": {
+          "$ref": "#/components/schemas/TestCaseIdParam"
+        },
+        "required": true
+      }
+    }
+  }
+}
